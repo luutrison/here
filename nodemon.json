@@ -1,0 +1,4 @@
+{
+    "exec": "node --inspect dev.js",
+    "watch": "./src"
+  }

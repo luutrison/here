@@ -1,0 +1,15 @@
+{
+    "DEFAULT": {
+        "login_pages": {
+            "src": "/pages/login/login.js"
+        }
+    },
+    "ROUTE": {
+        "login_pages": {
+            "src": "/pages/login/login.js"
+        },
+        "dash_pages": {
+            "src": "/pages/dash/dash.js"
+        }
+    }
+}

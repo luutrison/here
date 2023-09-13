@@ -1,0 +1,17 @@
+{
+  "name": "banhbanh-dash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "serve": "serve ./src -p 8833"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1",
+    "serve": "^14.2.1"
+  }
+}
