@@ -4,7 +4,7 @@ const mice = express()
 
 
 mice.use((request, response, next) => {
-    response.appendHeader("Cache-Control", "max-age=5000")
+    // response.appendHeader("Cache-Control", "max-age=86400")
     next()
 }, express.static("./src"))
 

@@ -9,7 +9,10 @@ const SETTING = {
         NUMBER_FIVE: 5,
         SEMICOLON_SYMBOL: ";",
         DOT_SYMBOL: ".",
+        DOUBLE_DOT_SYMBOL: "..",
+        NGA_SYMBOL: "~",
         RIGHT_SLASH_SYMBOL: "/",
+        DOUBLE_RIGHT_SLASH_SYMBOL: "//",
         LEFT_SLASH_SYMBOL: "\\",
         EQUAL_SYMBOL: "=",
         LEFT_BRACKET_SYMBOL: "(",
@@ -17,7 +20,7 @@ const SETTING = {
         COMMA_SYMBOL: ",",
         COOKIE_EXPIRES: "expires=",
         COOKIE_PATH: "path=",
-        STRING_EMPRY: "",
+        STRING_EMPTY: "",
         NHAY_SYMBOL: "\"",
         NHAY_CHAR_SYMBOL: "`",
         NHAY_SYMBOL_SPECIAL: "\\\"",
@@ -34,13 +37,15 @@ const SETTING = {
         CONTAINER: $("#container")
     },
     PATH: {
-        TO_PAGE: "/pages/"
+        TO_PAGE: "/pages/",
+        ARRAY_ABSOLUTE_PATH_CONTAIN: ["./", "../"],
+        ARRAY_ORIGIN_METHOD: ["http://", "https://"]
     },
     TAG: {
-        SCOPE_I_NAME: "scopei",
-        SCOPE_II_NAME: "scopeii",
-        LIB_I_NAME: "libi",
-        LIB_II_NAME: "libii",
+        CSS_I_NAME: "ci",
+        CSS_II_NAME: "cii",
+        SCRIPT_I_NAME: "si",
+        SCRIPT_II_NAME: "sii",
 
         HEAD_NAME: "head",
         SCRIPT_NAME: "script",
@@ -65,28 +70,30 @@ const SETTING = {
         ONLOAD: "onload"
     },
     ROUTE: {
-        DEFAULT_ROUTE_PATH: "./pages/route.json"
+        DEFAULT_ROUTE_PATH: "/pages/route.json"
     },
     MESSAGE: {
-        PATH_INVALID: "PATH of file is invalid (Path must start with ./ or /)",
-        INVALID_DATA: "DATA is invalid !",
+        PATH_INVALID: "PATH is invalid (Path containt an invalid character)\n",
+        PATH_INVALID_OUT: "PATH was out or invalid\n",
+        PATH_LOCATION: "PATH location is not exist\n",
+        INVALID_DATA: "DATA is invalid !\n",
     },
     PAGE: {
-        DEFAULT_PAGE_LIB_CSS: () => [
+        DEFAULT_PAGE_CSS_LIB: () => [
             {
                 load: true,
-                src: "./here/css",
-                name: ""
+                src: "./here/here.css",
+                name: "here.here.css"
             },
 
             {
                 load: true,
                 src: "./designs/fonts/cuprum/cuprum.css",
-                name: ""
+                name: "designs.fonts.cuprum.cuprum.css"
             }
         ],
 
-        DEFAULT_PAGE_LIB_SCRIPT: () => [
+        DEFAULT_PAGE_SCRIPT_LIB: () => [
             {
                 load: true,
                 src: "./libs/jquery/jquery.min.js"
@@ -111,136 +118,317 @@ const SETTING = {
 
 
 
-var HERE = (props) => {
+const HERE_METHOD = (props) => {
 
     var THIS = {}
 
+
+
     THIS.EX = {
 
-        ERROR: (err) => {
+        ERROR: ({ err }) => {
             console.error(err);
         },
-        PATH: (path) => {
-            try {
-                var origin = document.location.origin;
-                var pathArr = [...path];
-
-                var snum = THIS.SETTING.NORMAL
-                if (String.toString(path).search(origin) < 0) {
-
-                    if (pathArr[snum.NUMBER_ZERO] == snum.DOT_SYMBOL) {
-                        pathArr = pathArr.slice(snum.NUMBER_ONE, pathArr.length)
-                    }
-                    if (pathArr[snum.NUMBER_ZERO] != snum.RIGHT_SLASH_SYMBOL) {
-                        pathArr = snum.RIGHT_SLASH_SYMBOL + pathArr.join(SETTING.NORMAL.STRING_EMPRY)
-                    }
-
-                    path = origin + pathArr.join(THIS.SETTING.NORMAL.STRING_EMPRY)
-                }
-                return path;
-            } catch (error) {
-                THIS.EX.ERROR(err);
-            }
-        },
-
         ARRAY_TO_STRING: (arr) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY(arr)) {
-                    var str = THIS.SETTING.NORMAL.STRING_EMPRY;
+                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
+                    var str = THIS.SETTING.NORMAL.STRING_EMPTY;
                     arr.forEach(element => {
                         str += element;
                     });
                     return str
                 }
                 else {
-                    THIS.EX.ERROR(error)
-                    return SETTING.NORMAL.STRING_EMPRY
+                    THIS.EX.ERROR({ err: error })
+                    return SETTING.NORMAL.STRING_EMPTY
                 }
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
         },
 
-        ARRAY_LENGTH: (arr) => {
+        ARRAY_REMOVE_EMPTY: ({ arr }) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY(arr)) {
+                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
+                    var arro = []
+                    arr.forEach(element => {
+                        if (element != THIS.SETTING.NORMAL.STRING_EMPTY) {
+                            arro.push(element)
+                        }
+                    });
+
+                    return arro
+                }
+                else {
+                    return []
+                }
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        },
+
+        ARRAY_LENGTH: ({ arr }) => {
+            try {
+                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
                     return arr.length - SETTING.NORMAL.NUMBER_ONE
                 }
                 else {
-                    THIS.EX.ERROR(SETTING.MESSAGE.INVALID_DATA)
+                    THIS.EX.ERROR({err: SETTING.MESSAGE.INVALID_DATA + arr})
                     return SETTING.NORMAL.NUMBER_ZERO
                 }
             } catch (error) {
-                THIS.EX.ERROR(error)
-            }
-        }
-
-    }
-
-
-    THIS.THIS = {
-        GET: ({ path }) => {
-            try {
-                return new Promise((resolve, reject) => {
-                    console.log(THIS.EX.PATH(path));
-                    fetch(THIS.EX.PATH(path)).then((response) => {
-                        const res = THIS.PROPS.RESPONSE({ url: response.url, response: response })
-                        resolve(res)
-                    }).catch(err => reject(err))
-
-                });
-
-
-            } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
         },
-        GET_JSON: ({ path }) => {
+        MAP_PATH: ({ path, subPath }) => {
             try {
-                return new Promise((resolve, reject) => {
-                    THIS.THIS.GET({ path: path }).then(res => {
-                        const iResponse = THIS.PROPS.RESPONSE(res)
-                        iResponse.response.json().then(data => {
-                            const iData = THIS.PROPS.RESPONSE({ url: iResponse.url, response: data })
-                            resolve(iData)
-                            console.log(iData);
-                        })
+                var NORMAL = THIS.SETTING.NORMAL
+                var pathStart = THIS.CONVERT.TRIM_STRING(path)
+                var arrPathStart = Array.from(pathStart);
 
-                    }).catch(err => reject(err))
+                var PATH_RETURN = NORMAL.STRING_EMPTY
 
+
+
+
+
+                if (arrPathStart[THIS.EX.ARRAY_LENGTH({ arr: arrPathStart })] != NORMAL.RIGHT_SLASH_SYMBOL) {
+                    arrPathStart.push(NORMAL.RIGHT_SLASH_SYMBOL)
+                }
+
+                var arrSubPath = Array.from(subPath)
+
+                var isAbsolute = false;
+
+                THIS.SETTING.PATH.ARRAY_ABSOLUTE_PATH_CONTAIN.forEach(element => {
+                    if (String(path).search(element) >= NORMAL.NUMBER_ZERO) {
+                        isAbsolute = true
+                    }
                 });
-            } catch (error) {
-                THIS.EX.ERROR(error)
-            }
-        },
-        GET_TEXT: ({ path }) => {
-            try {
-                return new Promise((resolve, reject) => {
-                    THIS.THIS.GET({ path: path }).then(res => {
-                        const iResponse = THIS.PROPS.RESPONSE(res)
-                        iResponse.response.text().then(data => {
-                            const iData = THIS.PROPS.RESPONSE({ url: iResponse.url, response: data })
-                            resolve(iData)
-                            console.log(iData);
-                        })
-                    }).catch(err => reject(err))
 
+                THIS.SETTING.PATH.ARRAY_ABSOLUTE_PATH_CONTAIN.forEach(element => {
+                    if (String(subPath).search(element) >= NORMAL.NUMBER_ZERO) {
+                        isAbsolute = true
+                    }
                 });
+
+                if (arrSubPath[NORMAL.NUMBER_ZERO] != NORMAL.NGA_SYMBOL && !isAbsolute) {
+                    PATH_RETURN = arrPathStart.join(NORMAL.STRING_EMPTY) + THIS.CONVERT.PATH_HEAD_EMPTY({ pathArr: arrSubPath }).join(NORMAL.STRING_EMPTY) 
+                }
+                else {
+                    const arrSubPathe = arrSubPath.join(NORMAL.STRING_EMPTY)
+                    PATH_RETURN = THIS.CONVERT.PATH_HEAD_EMPTY({
+                        pathArr: THIS.CONVERT.LOGIC_PATH({
+                            path: arrPathStart.join(NORMAL.STRING_EMPTY),
+                            subPath: arrSubPathe
+                        }).split(NORMAL.RIGHT_SLASH_SYMBOL)
+                    }).join(NORMAL.RIGHT_SLASH_SYMBOL)
+                }
+
+                return PATH_RETURN
+
+
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR(THIS.SETTING.MESSAGE.PATH_INVALID);
             }
 
         }
 
+
+
     }
+
 
     THIS.CONVERT = {
+
+        PATH_HEAD_EMPTY: ({ pathArr }) => {
+            try {
+                const NORMAL = THIS.SETTING.NORMAL
+                const invalidCharacter = [NORMAL.DOT_SYMBOL, NORMAL.DOUBLE_DOT_SYMBOL, NORMAL.RIGHT_SLASH_SYMBOL]
+                var isValidPath = false
+
+                    while (!isValidPath && !THIS.CHECK.IS_EMPRY({ob: pathArr})) {
+                        if (invalidCharacter.find(x => x == pathArr[THIS.SETTING.NORMAL.NUMBER_ZERO]) || THIS.CHECK.IS_EMPRY({ ob: pathArr[THIS.SETTING.NORMAL.NUMBER_ZERO] })) {
+                            pathArr.shift()
+                        }
+                        else {
+                            isValidPath = true
+                        }
+                    }
+
+                return pathArr
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        },
+
+        PATH_ASS_EMPTY: ({ pathArr }) => {
+            try {
+                const NORMAL = THIS.SETTING.NORMAL
+                const invalidCharacter = [NORMAL.RIGHT_SLASH_SYMBOL]
+                var isValidPath = false
+
+                    while (!isValidPath && !THIS.CHECK.IS_EMPRY({ob: pathArr})) {
+                        if (invalidCharacter.find(x => x == pathArr[THIS.EX.ARRAY_LENGTH({arr: pathArr})]) || THIS.CHECK.IS_EMPRY({ ob: pathArr[THIS.EX.ARRAY_LENGTH({arr: pathArr})] })) {
+                            pathArr.pop()
+                        }
+                        else {
+                            isValidPath = true
+                        }
+                    }
+
+                return pathArr
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        },
+
+        PATH_ORIGIN: ({ path }) => {
+            try {
+                const origin = document.location.origin;
+                var logicPath = THIS.EX.MAP_PATH({ path: origin, subPath: path })
+                return logicPath;
+            } catch (error) {
+                THIS.EX.ERROR({err: err});
+            }
+        },
+
+
+        LOGIC_PATH: ({ path, subPath }) => {
+
+            try {
+                var pathArr = []
+                var subPathArr = []
+                var haveOriginUrl = []
+                var pathSplit = THIS.CONVERT.TRIM_STRING(path).split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                var subPathSplit = THIS.CONVERT.TRIM_STRING(subPath).split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                var status = {
+                    pathEnd: false,
+                    subPathEnd: false
+                }
+
+
+                if (THIS.SETTING.PATH.ARRAY_ORIGIN_METHOD.find(x => {
+                    if (String(path).search(x) >= THIS.SETTING.NORMAL.NUMBER_ZERO) {
+                        return true
+                    }
+                })) {
+                    haveOriginUrl = path.split(THIS.SETTING.NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL)
+                    pathSplit = haveOriginUrl[THIS.SETTING.NORMAL.NUMBER_ONE].split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                    haveOriginUrl[THIS.SETTING.NORMAL.NUMBER_ONE] = pathSplit.shift()
+                }
+
+                pathSplit = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: pathSplit })
+                subPathSplit = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: subPathSplit })
+
+                if (!THIS.CHECK.IS_EMPRY({ ob: pathSplit })) {
+
+                    pathSplit.forEach(element => {
+                        if (!status.pathEnd) {
+                            if (element == THIS.SETTING.NORMAL.DOUBLE_DOT_SYMBOL) {
+                                if (!THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
+                                    pathArr.pop()
+                                }
+                                else {
+                                    status.pathEnd = true
+                                    THIS.EX.ERROR({err: THIS.SETTING.MESSAGE.PATH_INVALID_OUT})
+                                }
+                            }
+                            else if (element != THIS.SETTING.NORMAL.DOT_SYMBOL) {
+                                pathArr.push(element)
+                            }
+                        }
+                        else {
+                            return
+                        }
+
+                    });
+
+                }
+
+                if (!status.pathEnd) {
+                    if (!THIS.CHECK.IS_EMPRY({ ob: subPathSplit })) {
+                        subPathSplit.forEach(element => {
+                            if (!status.subPathEnd) {
+                                if (element == THIS.SETTING.NORMAL.DOUBLE_DOT_SYMBOL) {
+                                    if (!THIS.CHECK.IS_EMPRY({ ob: subPathArr })) {
+                                        subPathArr.pop()
+                                    }
+                                    else {
+                                        if (!THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
+                                            pathArr.pop()
+                                        }
+                                        else {
+                                            status.pathEnd = true
+                                            status.subPathEnd = true
+                                            THIS.EX.ERROR({
+                                                err: THIS.SETTING.MESSAGE.PATH_INVALID_OUT + THIS.SETTING.NORMAL.SPACE + path
+                                                + THIS.SETTING.NORMAL.SPACE + subPath})
+                                        }
+                                    }
+                                }
+                                else if (element != THIS.SETTING.NORMAL.DOT_SYMBOL) {
+                                    subPathArr.push(element)
+                                }
+                            }
+                            else {
+                                return
+                            }
+                        });
+
+                    }
+
+                }
+
+
+                if (!status.pathEnd && !status.subPathEnd) {
+                    var origin = THIS.SETTING.NORMAL.STRING_EMPTY
+                    if (!THIS.CHECK.IS_EMPRY({ ob: haveOriginUrl })) {
+                        origin = haveOriginUrl.join(THIS.SETTING.NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL) + THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL
+                    }
+                    return origin + THIS.CONVERT.PATH_ASS_EMPTY({pathArr: pathArr}).join(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL) +
+                    THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL +
+                    THIS.CONVERT.PATH_HEAD_EMPTY({pathArr: subPathArr}).join(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL) 
+                }
+                else {
+                    return THIS.SETTING.NORMAL.STRING_EMPTY
+                }
+
+
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        },
+
+        PATH_TO_FILE_GET_FOLDER_PATH: ({ path }) => {
+
+            try {
+                var arrPath = String(path).split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                arrPath.pop()
+                return arrPath.join(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+            } catch (error) {
+                THIS.EX.ERROR({err: error})
+            }
+        },
+
+        TRIM_STRING: (str) => {
+            try {
+                return String(str).toString().trim()
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        },
 
         EMPTY_ARRAY: (arr) => {
             try {
                 return arr = []
             } catch (error) {
-                THIS.EX.ERROR(error);
+                THIS.EX.ERROR({ err: error });
             }
         },
         TO_STRING: (props) => {
@@ -255,15 +443,15 @@ var HERE = (props) => {
 
                 }
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
 
         },
         TO_STRING_NO_BREAK: (props) => {
             try {
-                return props.replaceAll(THIS.SETTING.NORMAL.BREAK_LINE_SYMBOL, THIS.SETTING.NORMAL.STRING_EMPRY);
+                return props.replaceAll(THIS.SETTING.NORMAL.BREAK_LINE_SYMBOL, THIS.SETTING.NORMAL.STRING_EMPTY);
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
 
         },
@@ -272,7 +460,7 @@ var HERE = (props) => {
             try {
                 return props.replaceAll(THIS.SETTING.NORMAL.NHAY_SYMBOL, THIS.SETTING.NORMAL.NHAY_SYMBOL_SPECIAL);
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
 
         }
@@ -287,7 +475,7 @@ var HERE = (props) => {
                 for (let index = 0; index < arr.length; index++) {
                     const element = arr[index];
                     if (element == THIS.SETTING.NORMAL.SPACE) {
-                        if (index != THIS.EX.ARRAY_LENGTH(arr) && arr[index + THIS.SETTING.NORMAL.NUMBER_ONE]) {
+                        if (index != THIS.EX.ARRAY_LENGTH({ arr: arr }) && arr[index + THIS.SETTING.NORMAL.NUMBER_ONE]) {
                             maxNow += 1;
                             if (maxNow > maxSpace) {
                                 maxSpace = maxNow
@@ -300,17 +488,17 @@ var HERE = (props) => {
                 }
 
                 for (let index = maxSpace; index > THIS.SETTING.NORMAL.NUMBER_ONE; index--) {
-                    var spaces = THIS.SETTING.NORMAL.STRING_EMPRY;
+                    var spaces = THIS.SETTING.NORMAL.STRING_EMPTY;
                     for (let i = 0; i < index; i++) {
                         spaces += THIS.SETTING.NORMAL.SPACE
                     }
-                    content = content.replaceAll(spaces, THIS.SETTING.NORMAL.STRING_EMPRY)
+                    content = content.replaceAll(spaces, THIS.SETTING.NORMAL.STRING_EMPTY)
                 }
                 return content
 
 
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
         },
 
@@ -321,31 +509,29 @@ var HERE = (props) => {
                 const num_zero = THIS.SETTING.NORMAL.NUMBER_ZERO
                 const num_one = THIS.SETTING.NORMAL.NUMBER_ONE
                 const stringContent = THIS.CONVERT.TO_STRING({ specialSymbol: THIS.SETTING.SPLIT.RUNABLE, content: props })
-                var split_one = split_one = stringContent.split(THIS.SETTING.SPLIT.RENDER)
-                var split_three = ""
-                var split_four = ""
-                var split_five = ""
-                if (split_one.length) {
+                var split_one = stringContent.split(THIS.SETTING.SPLIT.RENDER)
+                var split_three = split_four = split_five = THIS.SETTING.NORMAL.STRING_EMPTY
+                if (!THIS.CHECK.IS_EMPRY({ ob: split_one })) {
                     split_three = split_one[num_one].split(THIS.SETTING.SPLIT.FROM)
 
                 }
-                if (split_three.length) {
+                if (!THIS.CHECK.IS_EMPRY({ ob: split_three })) {
                     split_four = split_three[num_one].split(THIS.SETTING.NORMAL.LEFT_BRACKET_SYMBOL)
 
                 }
-                if (split_four.length) {
+                if (!THIS.CHECK.IS_EMPRY({ ob: split_four })) {
                     split_five = split_four[num_one].split(THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL)
                 }
 
-                if (split_five.length) {
+                if (!THIS.CHECK.IS_EMPRY({ ob: split_five })) {
                     const content = split_five[num_zero]
 
                     const other = stringContent.split(THIS.SETTING.SPLIT.RENDER)[num_one].split(THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL)
 
-                    var path = "";
+                    var path = THIS.SETTING.NORMAL.STRING_EMPTY;
 
                     for (let index = 1; index < other.length; index++) {
-                        if (index != THIS.EX.ARRAY_LENGTH(other)) {
+                        if (index != THIS.EX.ARRAY_LENGTH({ arr: other })) {
                             path += other[index] + THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL
                         }
                         else {
@@ -354,7 +540,7 @@ var HERE = (props) => {
 
                     }
 
-                    const contentln = THIS.CONVERT.TO_STRING({content: content})
+                    const contentln = THIS.CONVERT.TO_STRING({ content: content })
 
                     const runable = split_one[num_zero] + THIS.SETTING.SPLIT.RENDER +
                         split_three[num_zero] + THIS.SETTING.SPLIT.FROM +
@@ -369,7 +555,7 @@ var HERE = (props) => {
 
 
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
 
         },
@@ -378,8 +564,8 @@ var HERE = (props) => {
             try {
                 const changeOne = THIS.SETTING.NORMAL.NHAY_CHAR_SYMBOL + THIS.SETTING.SPLIT.RUNABLE
                 const changeTwo = THIS.SETTING.SPLIT.RUNABLE + THIS.SETTING.NORMAL.NHAY_CHAR_SYMBOL
-                props = props.replaceAll(changeOne, THIS.SETTING.NORMAL.STRING_EMPRY)
-                props = props.replaceAll(changeTwo, THIS.SETTING.NORMAL.STRING_EMPRY)
+                props = props.replaceAll(changeOne, THIS.SETTING.NORMAL.STRING_EMPTY)
+                props = props.replaceAll(changeTwo, THIS.SETTING.NORMAL.STRING_EMPTY)
                 return props
             } catch (error) {
 
@@ -389,8 +575,64 @@ var HERE = (props) => {
     }
 
 
+    THIS.THIS = {
+        GET: ({ path }) => {
+            try {
+                return new Promise((resolve, reject) => {
+                    fetch(THIS.CONVERT.PATH_ORIGIN({ path: path })).then((response) => {
+                        const res = THIS.PROPS.RESPONSE({ url: response.url, response: response })
+                        resolve(res)
+                    }).catch(err => reject(err))
+
+                });
+
+
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        },
+        GET_JSON: ({ path }) => {
+            try {
+                return new Promise((resolve, reject) => {
+                    THIS.THIS.GET({ path: path }).then(res => {
+                        const iResponse = THIS.PROPS.RESPONSE(res)
+                        iResponse.response.json().then(data => {
+                            const iData = THIS.PROPS.RESPONSE({ url: iResponse.url, response: data })
+                            resolve(iData)
+                        })
+
+                    }).catch(err => reject(err))
+
+                });
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        },
+        GET_TEXT: ({ path }) => {
+            try {
+                return new Promise((resolve, reject) => {
+                    THIS.THIS.GET({ path: path }).then(res => {
+                        const iResponse = THIS.PROPS.RESPONSE(res)
+                        iResponse.response.text().then(data => {
+                            const iData = THIS.PROPS.RESPONSE({ url: iResponse.url, response: data })
+                            resolve(iData)
+                        })
+                    }).catch(err => reject(err))
+
+                });
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        }
+
+    }
+
+
+
+
     THIS.CHECK = {
-        IS_EMPRY: (ob) => {
+        IS_EMPRY: ({ ob }) => {
             if (!ob || ob.length == 0) {
                 return true
             }
@@ -422,25 +664,6 @@ var HERE = (props) => {
 
         },
 
-        MAP_PATH: ({ path, subpath }) => {
-            try {
-                var arrPath = [...path]
-                var zeroChar = arrPath[THIS.SETTING.NORMAL.NUMBER_ZERO]
-
-                if (zeroChar != THIS.SETTING.NORMAL.DOT_SYMBOL &&
-                    zeroChar != THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL) {
-                    THIS.EX.ERROR(THIS.SETTING.MESSAGE.PATH_INVALID);
-                    return THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL
-                }
-                else {
-                    return path + subpath;
-                }
-            } catch (error) {
-                THIS.EX.ERROR(THIS.SETTING.MESSAGE.PATH_INVALID);
-            }
-
-        }
-
     }
 
 
@@ -452,7 +675,7 @@ var HERE = (props) => {
 
         HERE: (props) => {
 
-            if (!THIS.CHECK.IS_EMPRY(props)) {
+            if (!THIS.CHECK.IS_EMPRY({ ob: props })) {
                 return {
                     REQUIRE: props.REQUIRE,
                     RENDER: props.RENDER
@@ -486,8 +709,8 @@ var HERE = (props) => {
 
         REQUIRE: (props) => {
             return {
-                LIB_CSS: THIS.PROPS.HAVE_PROPS_LIST(props.LIB_CSS),
-                LIB_SCRIPT: THIS.PROPS.HAVE_PROPS_LIST(props.LIB_SCRIPT),
+                CSS_LIB: THIS.PROPS.HAVE_PROPS_LIST(props.CSS_LIB),
+                SCRIPT_LIB: THIS.PROPS.HAVE_PROPS_LIST(props.SCRIPT_LIB),
                 CSS: THIS.PROPS.HAVE_PROPS_LIST(props.CSS),
                 SCRIPT: THIS.PROPS.HAVE_PROPS_LIST(props.SCRIPT)
             }
@@ -516,16 +739,19 @@ var HERE = (props) => {
                 var LIST = [THIS.PROPS.HAVE_PROPS()];
                 LIST = THIS.CONVERT.EMPTY_ARRAY(LIST)
                 props.forEach(element => {
-                    if (!THIS.CHECK.IS_EMPRY(element)) {
+                    if (!THIS.CHECK.IS_EMPRY({ ob: element })) {
                         LIST.push(THIS.PROPS.HAVE_PROPS(element))
                     }
                 });
                 return LIST
             }
 
+
+
+
             return {
-                LIB_CSS: MAP_LIST_ITEM(props.LIB_CSS),
-                LIB_SCRIPT: MAP_LIST_ITEM(props.LIB_SCRIPT),
+                CSS_LIB: MAP_LIST_ITEM(props.CSS_LIB),
+                SCRIPT_LIB: MAP_LIST_ITEM(props.SCRIPT_LIB),
                 CSS: MAP_LIST_ITEM(props.CSS),
                 SCRIPT: MAP_LIST_ITEM(props.SCRIPT)
             }
@@ -535,7 +761,7 @@ var HERE = (props) => {
 
         HAVE_PROPS: (props) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY(props) && !THIS.CHECK.IS_EMPRY(props.src)) {
+                if (!THIS.CHECK.IS_EMPRY({ ob: props }) && !THIS.CHECK.IS_EMPRY({ ob: props.src })) {
                     return {
                         src: props.src,
                         load: props.load,
@@ -544,14 +770,14 @@ var HERE = (props) => {
                 }
 
             } catch (error) {
-                THIS.EX.ERROR(error);
+                THIS.EX.ERROR({ err: error });
             }
 
         },
 
         HAVE_PROPS_LIST: (props) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY(props)) {
+                if (!THIS.CHECK.IS_EMPRY({ ob: props })) {
                     var LIST = [THIS.PROPS.HAVE_PROPS()];
                     var LIST = THIS.CONVERT.EMPTY_ARRAY();
                     props.forEach(element => {
@@ -567,7 +793,7 @@ var HERE = (props) => {
                 }
 
             } catch (error) {
-                THIS.EX.ERROR(error);
+                THIS.EX.ERROR({ err: error });
             }
 
         },
@@ -586,7 +812,7 @@ var HERE = (props) => {
             try {
                 event()
             } catch (error) {
-                THIS.EX.ERROR(error);
+                THIS.EX.ERROR({ err: error });
             }
         },
         ON_LOAD_METHOD: ({ element, event }) => {
@@ -606,59 +832,133 @@ var HERE = (props) => {
     //#endregion HERE_DOM
 
     THIS.HAVE = THIS.PROPS.HAVE({
-        LIB_CSS: THIS.SETTING.PAGE.DEFAULT_PAGE_LIB_CSS(),
-        LIB_SCRIPT: THIS.SETTING.PAGE.DEFAULT_PAGE_LIB_SCRIPT(),
+        CSS_LIB: THIS.SETTING.PAGE.DEFAULT_PAGE_CSS_LIB(),
+        SCRIPT_LIB: THIS.SETTING.PAGE.DEFAULT_PAGE_SCRIPT_LIB(),
         CSS: [],
         SCRIPT: []
     })
 
+    THIS.REQUIRE_METHOD = () => {
 
-    THIS.CSS = {
+        return {
+            REQUIRE_THINGS: ({ tagName, tagAppend, propsThings, isSucces, haveObject, methodCreateTag }) => {
+                try {
+                    var require = $(tagName)
+                    if (THIS.CHECK.IS_EMPRY({ ob: require })) {
+                        var tag = document.createElement(tagName)
+                        $(tagAppend).append(tag)
+                    }
+
+                    if (!THIS.CHECK.IS_EMPRY({ ob: propsThings })) {
+                        propsThings.forEach(element => {
+                            var item = haveObject.find(x => x.name == element.name)
+                            if (THIS.CHECK.IS_EMPRY({ ob: item })) {
+                                isSucces = false
+                                var tag = methodCreateTag({ name: element.name, src: element.src, path: props.PATH })
+
+                                haveObject.push({
+                                    src: element.src,
+                                    name: element.name,
+                                    load: false,
+                                })
+
+                                $(tagName).append(tag);
+
+
+                                THIS.DOM.SET_EVENT_BY_NAME({
+                                    name: THIS.SETTING.EVENT.ONLOAD,
+                                    element: tag,
+                                    callback: (e) => {
+                                        var item = haveObject.find(x => x.name == element.name)
+                                        item.load = true
+                                        // iprops.REQUIRE(iprops)
+                                    }
+                                })
+
+
+                            }
+                            else {
+                                if (!item.load) {
+                                    isSucces = false;
+                                }
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+
+
+            }
+
+        }
+
+
 
     }
 
-    THIS.SCRIPT = {
-        SET: ({ url, callback }) => {
 
-            try {
-                var collorii = $(SETTING.TAG.COLORII_NAME)
+    THIS.CSS = () => {
 
-                if (THIS.CHECK.IS_EMPRY(collorii)) {
-                    var tag = document.createElement(SETTING.TAG.COLORII_NAME)
-                    $(SETTING.TAG.BODY_NAME).append(tag)
-                }
+        const CSS_TAG = ({ path, src, name }) => {
+            var tag = document.createElement(THIS.SETTING.TAG.LINK_NAME)
+            $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_REL, THIS.SETTING.ATTRIBUTE_VALUE.REL_STYLESHEET)
+            $(tag).attr(THIS.SETTING.ATTRIBUTE.HREF_NAME, THIS.EX.MAP_PATH({ path: path, subpath: src }))
+            $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_NAME, name)
+            return tag;
+        }
 
-                var newii = document.createElement(SETTING.TAG.SCRIPT_NAME);
-                $(newii).attr(SETTING.ATTRIBUTE.SRC_NAME, url);
+        return {
+            CSS_LIB: () => {
+                THIS.REQUIRE_METHOD().REQUIRE_THINGS({
+                    tagName: THIS.SETTING.TAG.CSS_I_NAME,
+                    tagAppend: THIS.SETTING.TAG.HEAD_NAME,
 
-                $(collorii).append(newii);
-
-                var CURRENT = THIS
-
-                THIS.DOM.SET_EVENT(() => {
-                    $(newii).on(SETTING.EVENT.ONLOAD, function () {
-                        var item = CURRENT.HAVE.find(x => x.url == url);
-
-                        var loadedProps = CURRENT.PROPS.REQUIRE({
-                            load: true,
-                            url: url
-                        })
-
-                        if (!CURRENT.CHECK.IS_EMPRY(item)) {
-                            item = loadedProps
-                        }
-                        else {
-                            CURRENT.HAVE.push(loadedProps)
-                        }
-                        callback()
-                    });
                 })
-            } catch (error) {
-                THIS.EX.ERROR(error);
+
+            },
+
+            CSS: () => {
+
+
+            }
+        }
+
+    }
+
+    THIS.SCRIPT = () => {
+
+        const SCRIPT_TAG = ({ path, src, name }) => {
+            var tag = document.createElement(THIS.SETTING.TAG.SCRIPT_NAME)
+            $(tag).attr(THIS.SETTING.ATTRIBUTE.SRC_NAME, src)
+            $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_NAME, name)
+            return tag;
+        }
+
+        return {
+            SCRIPT_LIB: () => {
+
+
+            },
+
+            SCRIPT: () => {
+
+
             }
 
+        }
+
+
+
+    }
+
+    THIS.RENDER = (props) => {
+        try {
+            THIS.REQUIRE(props)
+        } catch (error) {
 
         }
+
 
     }
 
@@ -673,33 +973,20 @@ var HERE = (props) => {
 
             //#region REQUIRE FUNC
 
-            const CREATE_CSS_TAG = ({ path, src, name }) => {
-                var tag = document.createElement(THIS.SETTING.TAG.LINK_NAME)
-                $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_REL, THIS.SETTING.ATTRIBUTE_VALUE.REL_STYLESHEET)
-                $(tag).attr(THIS.SETTING.ATTRIBUTE.HREF_NAME, THIS.CHECK.MAP_PATH({ path: path, subpath: src }))
-                $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_NAME, name)
-                return tag;
-            }
 
-            const CREATE_SCRIPT_TAG = ({ path, src, name }) => {
-                var tag = document.createElement(THIS.SETTING.TAG.SCRIPT_NAME)
-                $(tag).attr(THIS.SETTING.ATTRIBUTE.SRC_NAME, src)
-                $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_NAME, name)
-                return tag;
-            }
 
             const REQUIRE_THINGS = ({ tagName, tagAppend, propsThings, isSucces, haveObject, methodCreateTag }) => {
                 try {
                     var require = $(tagName)
-                    if (THIS.CHECK.IS_EMPRY(require)) {
+                    if (THIS.CHECK.IS_EMPRY({ ob: require })) {
                         var tag = document.createElement(tagName)
                         $(tagAppend).append(tag)
                     }
 
-                    if (!THIS.CHECK.IS_EMPRY(propsThings)) {
+                    if (!THIS.CHECK.IS_EMPRY({ ob: propsThings })) {
                         propsThings.forEach(element => {
                             var item = haveObject.find(x => x.name == element.name)
-                            if (THIS.CHECK.IS_EMPRY(item)) {
+                            if (THIS.CHECK.IS_EMPRY({ ob: item })) {
                                 isSucces = false
                                 var tag = methodCreateTag({ name: element.name, src: element.src, path: props.PATH })
 
@@ -809,9 +1096,13 @@ var HERE = (props) => {
             }
 
         } catch (error) {
-            THIS.EX.ERROR(error)
+            THIS.EX.ERROR({ err: error })
         }
     }
+
+
+
+
 
 
     THIS.VIEW = {
@@ -834,10 +1125,9 @@ var HERE = (props) => {
                     const iData = THIS.PROPS.RESPONSE(data)
                     var code = THIS.CONVERT.TO_RUNABLE_JAVASCRIPT(iData.response)
                     var runeb = THIS.CONVERT.TO_NORMAL_RUNABLE(code)
-                    var a = eval(runeb)
-
-                    console.log(a("HELLO").METHOD());
-
+                    var a = eval(runeb)().RENDER.FROM
+                    $("body").append(a)
+                    console.log(a);
 
                     resolve(iData)
 
@@ -866,7 +1156,7 @@ var HERE = (props) => {
 
                 return PATH;
             } catch (error) {
-                THIS.EX.ERROR(error)
+                THIS.EX.ERROR({ err: error })
             }
         },
 
@@ -880,8 +1170,8 @@ var HERE = (props) => {
 
                 const DEFAULT = () => {
                     const name = Object.entries(PATH.MAP.DEFAULT)[THIS.SETTING.NORMAL.NUMBER_ZERO][THIS.SETTING.NORMAL.NUMBER_ZERO]
-                    const url = PATH.MAP.DEFAULT[name][THIS.SETTING.ATTRIBUTE.SRC_NAME]
-                    THIS.ROUTE.GET_VIEW({ path: url })
+                    const src = PATH.MAP.DEFAULT[name][THIS.SETTING.ATTRIBUTE.SRC_NAME]
+                    THIS.ROUTE.GET_VIEW({ path: THIS.EX.MAP_PATH({path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({path: THIS.SETTING.ROUTE.DEFAULT_ROUTE_PATH}), subPath: src}) })
                 }
 
 
@@ -889,6 +1179,7 @@ var HERE = (props) => {
                 if (!PATH.MAP.PROPERTIES.MAP) {
                     THIS.THIS.GET_JSON({ path: THIS.SETTING.ROUTE.DEFAULT_ROUTE_PATH }).then(data => {
                         const iData = THIS.PROPS.RESPONSE(data)
+                        console.log(iData.response);
                         PATH.MAP = { ...iData.response, ...PATH.MAP }
                         PATH.MAP.PROPERTIES.MAP = true
                         DEFAULT()
@@ -915,8 +1206,8 @@ var HERE = (props) => {
 
     }
 
-    THIS.INNIT = () => {
-        THIS.IS = (HERE);
+    THIS.INNIT = (PROPS) => {
+        THIS.IS = (PROPS);
         THIS.ROUTE.CHECK();
     }
 
@@ -929,4 +1220,9 @@ var HERE = (props) => {
 }
 
 
-HERE().INNIT()
+
+var HERE = HERE_METHOD
+const HERE_INNIT = HERE()
+HERE_INNIT.INNIT(HERE)
+
+
