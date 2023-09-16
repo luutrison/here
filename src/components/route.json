@@ -1,0 +1,10 @@
+{
+    "INCLUDE": [
+        "./ui/route.json"
+    ],
+    "COMPONENTS": {
+        "menu.components": {
+            "src": "./menu/menu.js"
+        }
+    }
+}

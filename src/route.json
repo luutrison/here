@@ -1,0 +1,6 @@
+{
+    "INCLUDE": [
+        "./pages/route.json",
+        "./components/route.json"
+    ]
+}

@@ -1,11 +1,34 @@
-import { MENU_COMPONENTS } from "../../components/menu/menu.js"
 
-class DASH_PAGES {
+(PROPS) => {
 
-    static GET() {
-        MENU_COMPONENTS.CREATE()
+    return {
+        REQUIRE: {
+            CSS: [
+                {
+                    src: "./dash.css",
+                }
+            ],
+            COMPONENTS: [
+
+                {
+                    src: "../../components/menu/menu.js",
+                    name: "MENU_COMPONENT"
+                }
+            ]
+        },
+        RENDER: {
+            FROM: (
+                <div id="dash">
+                   dash page
+                </div>
+            ),
+            TO: "CONTAINER",
+            TRANSITION: "SLIDE_VERTICAL"
+        },
+        METHOD: () => {
+            const menu = PROPS.COMPONENTS.MENU
+            console.log(PROPS);
+        },
     }
-
 }
 
-export { DASH_PAGES }

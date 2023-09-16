@@ -1,6 +1,6 @@
 
 (PROPS) => {
-    console.log(PROPS);
+    
     return {
         REQUIRE: {
             CSS: [
@@ -8,10 +8,18 @@
                     src: "./login.css",
                 }
             ],
+            COMPONENTS: [
+
+                {
+                    src: "../../components/menu/menu.js",
+                    name: "MENU_COMPONENT"
+                }
+            ]
         },
         RENDER: {
             FROM: (
-                <div id="login"><img class="background-login" src="/designs/images/b-login.jpg" />
+                <div id="login">
+                    <img class="background-login" alt="" src="/designs/images/b-login.jpg" />
                     <div class="card-login">
                         <div class="title-card-login"><span>Đăng nhập</span></div>
                         <div class="input-login"><span>Tên tài khoản</span><input type="text" /></div>
@@ -22,12 +30,12 @@
                     </div>
                 </div>
             ),
-            TO: "PROPS.SETTING.THIS.CONTAINER",
-            TRANSITION: "PROPS.EFFECT.TRANSITION.SLIDE_VERTICAL"
+            TO: "CONTAINER",
+            TRANSITION: "SLIDE_VERTICAL"
         },
         METHOD: () => {
-
-            console.log("method");
+            const components = PROPS.COMPONENTS.INNIT
+            console.log(PROPS, components);
         },
     }
 }

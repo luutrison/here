@@ -1,20 +1,18 @@
 {
-    "DEFAULT": {
-        "login_pages": {
-            "src": "./login/login.js"
-        }
-    },
-    "ROUTE": {
-        "login_pages": {
+    "COMPONENTS": {
+        "default": {
             "src": "./login/login.js"
         },
-        "dash_pages": {
-            "src": "./pages/dash/dash.js"
+        "login.pages": {
+            "src": "./login/login.js"
         },
-        "other_pages": {
-            "src": "../pages/../pages/other/dash.js"
+        "dash.pages": {
+            "src": "./dash/dash.js"
         },
-        "another_pages": {
+        "other.pages": {
+            "src": "./dash/dash.js"
+        },
+        "another.pages": {
             "src": "/pages/another/dash.js"
         }
     }

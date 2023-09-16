@@ -1,0 +1,8 @@
+{
+
+    "COMPONENTS": {
+        "load.ui.components": {
+            "src": "./load/load.js"
+        }
+    }
+}
