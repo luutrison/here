@@ -1706,6 +1706,73 @@ const HERE_METHOD = (props) => {
 
             }
 
+        },
+
+        HISTORY: () => {
+            try {
+
+
+
+
+                const history = () => {
+                    var data = window.localStorage.getItem(THIS.SETTING.KEY.LOCAL_STORAGE_HISTORY)
+                    var iprops = {
+                        current: THIS.SETTING.NORMAL.STRING_EMPTY,
+                        stepsBack: [],
+                        stepNext: []
+                    }
+
+                    if (data) {
+                        const b64 = window.atob(data)
+                        var dataParse = JSON.parse(b64)
+                        if (THIS.CHECK.IS_OBJECT({ ob: dataParse }) && THIS.CHECK.IS_OBJECT({ ob: dataParse.current })) {
+                            iprops = {
+                                current: dataParse.current,
+                                stepsBack: dataParse.stepsBack,
+                                stepsNext: dataParse.stepsNext
+                            }
+                        }
+                    }
+
+
+                    else {
+                        window.localStorage.setItem(THIS.SETTING.KEY.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
+                    }
+
+                    return iprops
+                }
+
+                return {
+                    GET: () => {
+                        return history()
+                    },
+                    SET: ({ name }) => {
+                        try {
+                            var hito = history()
+
+                            hito.current = name
+                            const item = hito.stepsBack.find(x => x == name)
+                            if (!THIS.CHECK.IS_OBJECT({ ob: item })) {
+                                hito.stepsBack.push(name)
+                            }
+                            window.localStorage.setItem(THIS.SETTING.KEY.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+                        } catch (err) {
+                            THIS.EX.ERROR({ err: err })
+                        }
+
+                    }
+                    ,
+                    NEXT: () => { },
+                    BACK: () => { }
+                }
+
+
+
+
+            } catch (err) {
+                THIS.EX.ERROR({ err: err })
+            }
+
         }
 
 
