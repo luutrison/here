@@ -1,6 +1,14 @@
 
+const SETTING = {
+    NAME: {
+
+    }
+
+};
+
+
 (PROPS) => {
-    
+
     return {
         REQUIRE: {
             CSS: [
@@ -18,16 +26,20 @@
         },
         RENDER: {
             FROM: (
-                <div id="login">
+                <div id="pages-login">
                     <img class="background-login" alt="" src="/designs/images/b-login.jpg" />
-                    <div class="card-login">
+                    <form class="card-login">
                         <div class="title-card-login"><span>Đăng nhập</span></div>
-                        <div class="input-login"><span>Tên tài khoản</span><input type="text" /></div>
-                        <div class="input-login"><span>Mật khẩu</span><input type="text" /></div>
+                        <div class="input-login">
+                            <span>Tên tài khoản</span>
+                            <input type="text" minlength="5" name="account" required /></div>
+                        <div class="input-login">
+                            <span>Mật khẩu</span>
+                            <input type="password"  minlength="6" name="password" required/></div>
                         <div class="human-dt-login"></div>
                         <div class="fg-pw-login"><a href="#">Quên mât khẩu</a></div>
-                        <div class="input-login"><button class="btn btn-login" type="button">Button</button></div>
-                    </div>
+                        <div class="input-login"><button class="btn btn-login" type="submit">Button</button></div>
+                    </form>
                 </div>
             ),
             TO: "CONTAINER",
@@ -35,9 +47,15 @@
         },
         METHOD: () => {
             const components = PROPS.COMPONENTS.INNIT
-            $("#login button").click(function (e) { 
-                e.preventDefault();
-                PROPS.ROUTE.LOAD({props: {name: "pages.dash"}})
+
+            // $("#pages-login button").click(function (e) {
+            //    e.preventDefault();
+            //    PROPS.ROUTE.LOAD({ props: { name: "pages.dash" } })
+            // });
+
+            $("#pages-login form").submit(function (event) {
+                event.preventDefault()
+                console.log(event)
             });
         },
     }

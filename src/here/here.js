@@ -35,6 +35,9 @@ const SETTING = {
         HAVE_ENTRIE: []
 
     },
+    NAME: {
+        LOCAL_STORAGE_HISTORY: "_LSH_"
+    },
     SPLIT: {
         RENDER: "RENDER",
         VIEW: "VIEW",
@@ -53,10 +56,7 @@ const SETTING = {
         ARRAY_ORIGIN_METHOD: ["http://", "https://"]
     },
     TAG: {
-        CSS_I_NAME: "ci",
-        CSS_II_NAME: "cii",
-        SCRIPT_I_NAME: "si",
-        SCRIPT_II_NAME: "sii",
+        CSS_NAME: "css",
 
         HEAD_NAME: "head",
         SCRIPT_NAME: "script",
@@ -79,6 +79,9 @@ const SETTING = {
     },
     EVENT: {
         LOAD: "load"
+    },
+    MODULES: {
+        MODULE_PATH: "/here/modules/ui/ui.js"
     },
     ROUTE: {
         DEFAULT_PATH: "/route.json"
@@ -1075,7 +1078,7 @@ const HERE_METHOD = (props) => {
                                 })
                                 THIS.DOM.ON_LOAD_METHOD({
                                     element: tag,
-                                    event: (e) => {
+                                    event: (event) => {
                                         const item = haveObject.find(x => x.name = element.name)
                                         item.load = NORMAL.TRUE
                                         iProps.callBack()
@@ -1086,10 +1089,13 @@ const HERE_METHOD = (props) => {
 
 
                         }
+                        else {
+                            iProps.callBack()
+                        }
 
                     });
                 }
-                else{
+                else {
                     iProps.callBack()
                 }
             } catch (error) {
@@ -1110,21 +1116,6 @@ const HERE_METHOD = (props) => {
             return tag;
         },
 
-        CSS_LIB: ({ props }) => {
-
-            const iProps = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
-            const HAVE = THIS.IS.HAVE
-
-            THIS.METHOD.REQUIRE_THINGS({
-                tagName: THIS.SETTING.TAG.CSS_I_NAME,
-                tagAppend: THIS.SETTING.TAG.HEAD_NAME,
-                haveObject: HAVE.CSS_LIB,
-                props: iProps,
-                methodCreateTag: THIS.CSS.TAG
-            })
-
-        },
-
         CSS: ({ props }) => {
 
             const iProps = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
@@ -1132,7 +1123,7 @@ const HERE_METHOD = (props) => {
 
 
             THIS.METHOD.REQUIRE_THINGS({
-                tagName: THIS.SETTING.TAG.CSS_II_NAME,
+                tagName: THIS.SETTING.TAG.CSS_NAME,
                 tagAppend: THIS.SETTING.TAG.HEAD_NAME,
                 haveObject: HAVE.CSS,
                 props: iProps,
@@ -1144,44 +1135,6 @@ const HERE_METHOD = (props) => {
 
     }
 
-    THIS.SCRIPT = {
-
-        SCRIPT_TAG: ({ path, subPath, name }) => {
-            var tag = document.createElement(THIS.SETTING.TAG.SCRIPT_NAME)
-            $(tag).attr(THIS.SETTING.ATTRIBUTE.SRC_NAME, THIS.CONVERT.PATH_ORIGIN({ path: THIS.EX.MAP_PATH({ path: path, subPath: subPath }) }))
-            $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_NAME, name)
-            return tag;
-        },
-
-        SCRIPT_LIB: ({ props }) => {
-            const iProps = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
-            const HAVE = THIS.IS.HAVE
-
-            THIS.METHOD.REQUIRE_THINGS({
-                tagName: THIS.SETTING.TAG.SCRIPT_I_NAME,
-                tagAppend: THIS.SETTING.TAG.BODY_NAME,
-                haveObject: HAVE.SCRIPT_LIB,
-                props: iProps,
-                methodCreateTag: THIS.SCRIPT.TAG
-            })
-
-        },
-
-        SCRIPT: ({ props }) => {
-
-            const iProps = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
-            const HAVE = THIS.IS.HAVE
-
-            THIS.METHOD.REQUIRE_THINGS({
-                tagName: THIS.SETTING.TAG.SCRIPT_II_NAME,
-                tagAppend: THIS.SETTING.TAG.BODY_NAME,
-                haveObject: HAVE.SCRIPT,
-                props: iProps,
-                methodCreateTag: THIS.SCRIPT.TAG
-            })
-        }
-
-    }
 
     THIS.COMPONENTS = {
 
@@ -1316,6 +1269,7 @@ const HERE_METHOD = (props) => {
                     return {
                         PATH: PROPS.PATH,
                         DATA: THIS.PROPS.PAGE_PROPS({ props: PROPS.DATA }),
+                        LOAD: PROPS.LOAD
                     }
                 }
 
@@ -1331,8 +1285,8 @@ const HERE_METHOD = (props) => {
             THIS: ({ props, callBack }) => {
 
                 return {
-                    START : () => {
-                        THIS.REQUIRE.THIS.THIS({props: props, callBack: callBack}).COMPONENTS()
+                    START: () => {
+                        THIS.REQUIRE.THIS.THIS({ props: props, callBack: callBack }).COMPONENTS()
                     },
 
                     COMPONENTS: () => {
@@ -1359,46 +1313,6 @@ const HERE_METHOD = (props) => {
                             })
                         })
                     },
-
-                    CSS_LIB: () => {
-                        THIS.CSS.CSS_LIB({
-                            props: THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({
-                                props: {
-                                    path: props.PATH,
-                                    arr: props.DATA.REQUIRE.CSS_LIB,
-                                    callBack: callBack.CSS_LIB,
-                                }
-                            })
-                        })
-
-
-                    },
-
-                    SCRIPT: () => {
-                        THIS.SCRIPT.SCRIPT({
-                            props: THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({
-                                props: {
-                                    path: props.PATH,
-                                    arr: props.DATA.REQUIRE.SCRIPT,
-                                    callBack: callBack.SCRIPT,
-                                }
-                            })
-                        })
-
-                    },
-
-                    SCRIPT_LIB: () => {
-                        THIS.SCRIPT.SCRIPT_LIB({
-                            props: THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({
-                                props: {
-                                    path: props.PATH,
-                                    arr: props.DATA.REQUIRE.SCRIPT_LIB,
-                                    callBack: callBack.SCRIPT_LIB,
-                                }
-                            })
-                        })
-
-                    }
                 }
             },
 
@@ -1409,10 +1323,7 @@ const HERE_METHOD = (props) => {
                             props: props,
                             callBack: {
                                 COMPONENTS: () => DOUBLE.CSS(),
-                                CSS: () => DOUBLE.CSS_LIB(),
-                                CSS_LIB: () => DOUBLE.SCRIPT(),
-                                SCRIPT: () => DOUBLE.SCRIPT_LIB(),
-                                SCRIPT_LIB: () => THIS.REQUIRE.THIS.RUN({ props: props }),
+                                CSS: () => THIS.REQUIRE.THIS.RUN({ props: props }),
                             }
                         }
                     )
@@ -1426,10 +1337,21 @@ const HERE_METHOD = (props) => {
 
             RUN: ({ props }) => {
                 try {
-                    $(THIS.SETTING.THIS[props.DATA.RENDER.TO]).append(props.DATA.RENDER.FROM)
-                    if (props.DATA.METHOD) {
-                        props.DATA.METHOD()
+                    if (!props.LOAD) {
+                        if (props.DATA.RENDER) {
+                            if (props.DATA.RENDER.FROM && props.DATA.RENDER.TO) {
+                                $(THIS.SETTING.THIS[props.DATA.RENDER.TO]).html(THIS.SETTING.NORMAL.STRING_EMPTY)
+                                $(THIS.SETTING.THIS[props.DATA.RENDER.TO]).append(props.DATA.RENDER.FROM)
+                            }
+
+                        }
+                        if (props.DATA.METHOD) {
+                            props.DATA.METHOD()
+                        }
+
+                        props.LOAD = THIS.SETTING.NORMAL.TRUE
                     }
+
 
                 } catch (error) {
                     THIS.EX.ERROR({ err: error })
@@ -1440,11 +1362,11 @@ const HERE_METHOD = (props) => {
 
             LOAD: ({ PROPS }) => {
                 try {
-                    const iProps = THIS.REQUIRE.PROPS.LOAD_REQUIRE({ PROPS: PROPS })
+                    const iprops = THIS.REQUIRE.PROPS.LOAD_REQUIRE({ PROPS: PROPS })
 
                     THIS.READY.READY_HAVE()
 
-                    THIS.REQUIRE.THIS.REQUIRE({ props: iProps})
+                    THIS.REQUIRE.THIS.REQUIRE({ props: iprops })
 
 
                 } catch (error) {
@@ -1715,7 +1637,7 @@ const HERE_METHOD = (props) => {
 
 
                 const history = () => {
-                    var data = window.localStorage.getItem(THIS.SETTING.KEY.LOCAL_STORAGE_HISTORY)
+                    var data = window.localStorage.getItem(THIS.SETTING.NAME.LOCAL_STORAGE_HISTORY)
                     var iprops = {
                         current: THIS.SETTING.NORMAL.STRING_EMPTY,
                         stepsBack: [],
@@ -1736,7 +1658,7 @@ const HERE_METHOD = (props) => {
 
 
                     else {
-                        window.localStorage.setItem(THIS.SETTING.KEY.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
+                        window.localStorage.setItem(THIS.SETTING.NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
                     }
 
                     return iprops
@@ -1755,7 +1677,7 @@ const HERE_METHOD = (props) => {
                             if (!THIS.CHECK.IS_OBJECT({ ob: item })) {
                                 hito.stepsBack.push(name)
                             }
-                            window.localStorage.setItem(THIS.SETTING.KEY.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+                            window.localStorage.setItem(THIS.SETTING.NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
                         } catch (err) {
                             THIS.EX.ERROR({ err: err })
                         }

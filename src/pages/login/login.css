@@ -1,4 +1,4 @@
-#login {
+#pages-login {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -14,7 +14,7 @@
     filter: brightness(0.5);
   }
   
-  #login .card-login {
+  #pages-login .card-login {
     padding: 20px;
     position: absolute;
     border-radius: 10px;
@@ -25,13 +25,13 @@
     min-width: 330px;
   }
   
-  #login .title-card-login {
+  #pages-login .title-card-login {
     text-align: center;
     font-size: 30px;
     font-weight: 600;
   }
   
-  #login input {
+  #pages-login input {
     height: 42px;
     border-radius: 0;
     background: #ffffff;
@@ -40,21 +40,21 @@
     padding: 0px 12px;
   }
   
-  #login .input-login {
+  #pages-login .input-login {
     width: 100%;
   }
   
-  #login .human-dt-login {
+  #pages-login .human-dt-login {
     min-height: 80px;
     background: white;
   }
   
-  #login .fg-pw-login {
+  #pages-login .fg-pw-login {
     text-align: right;
     color: var(--link-color);
   }
   
-  #login .btn-login {
+  #pages-login .btn-login {
     width: 100%;
     background: orange;
     height: 44px;

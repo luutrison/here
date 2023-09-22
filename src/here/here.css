@@ -15,7 +15,14 @@ a {
 
 [theme="one"] {
 
+    --white-color: white;
+    --shadow-color: rgba(0,0,0,0.2);
+    --content-color: rgb(241,241,241);
     --background: white;
-    --link-color: rgb(23, 131, 220);
+    --color-blur: rgb(205,205,205);
+    --item-menu-background: rgba(91,157,255,0.1);
+    --menu-linear-one: rgba(74,146,255,0.6);
+    --menu-linear-two: rgba(159,135,255,0.56);
+    --color: white;
 
 }
