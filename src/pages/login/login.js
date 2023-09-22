@@ -35,7 +35,10 @@
         },
         METHOD: () => {
             const components = PROPS.COMPONENTS.INNIT
-            console.log(PROPS, components);
+            $("#login button").click(function (e) { 
+                e.preventDefault();
+                PROPS.ROUTE.LOAD({props: {name: "pages.dash"}})
+            });
         },
     }
 }

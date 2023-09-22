@@ -3,17 +3,11 @@
         "default": {
             "src": "./login/login.js"
         },
-        "login.pages": {
+        "pages.login": {
             "src": "./login/login.js"
         },
-        "dash.pages": {
+        "pages.dash": {
             "src": "./dash/dash.js"
-        },
-        "other.pages": {
-            "src": "./dash/dash.js"
-        },
-        "another.pages": {
-            "src": "/pages/another/dash.js"
         }
     }
 }
