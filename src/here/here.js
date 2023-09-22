@@ -1541,7 +1541,22 @@ const HERE_METHOD = (props) => {
         },
 
         LOAD: ({ props }) => {
-            
+            var iprops = {
+                name: props.name
+            }
+
+            const src = THIS.IS.MAP.ROUTE[iprops.name].src
+
+            THIS.ROUTE.HISTORY().SET({ name: iprops.name })
+
+            THIS.RENDER.FROM({
+                props: THIS.RENDER.PROPS.FROM_RENDER_PROPS({
+                    props: {
+                        path: THIS.SETTING.NORMAL.STRING_EMPTY,
+                        subPath: src
+                    }
+                })
+            })
 
         },
 
