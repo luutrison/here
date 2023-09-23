@@ -1,11 +1,4 @@
 
-const SETTING = {
-    NAME: {
-
-    }
-
-};
-
 
 (PROPS) => {
 
@@ -35,7 +28,7 @@ const SETTING = {
                             <input type="text" minlength="5" name="account" required /></div>
                         <div class="input-login">
                             <span>Mật khẩu</span>
-                            <input type="password"  minlength="6" name="password" required/></div>
+                            <input type="password" minlength="6" name="password" required /></div>
                         <div class="human-dt-login"></div>
                         <div class="fg-pw-login"><a href="#">Quên mât khẩu</a></div>
                         <div class="input-login"><button class="btn btn-login" type="submit">Button</button></div>
@@ -48,13 +41,9 @@ const SETTING = {
         METHOD: () => {
             const components = PROPS.COMPONENTS.INNIT
 
-            // $("#pages-login button").click(function (e) {
-            //    e.preventDefault();
-            //    PROPS.ROUTE.LOAD({ props: { name: "pages.dash" } })
-            // });
-
             $("#pages-login form").submit(function (event) {
                 event.preventDefault()
+                PROPS.ROUTE.LOAD({ props: { name: "pages.dash", route: { to: "CONTAINER" } } })
                 console.log(event)
             });
         },

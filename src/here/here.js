@@ -1,35 +1,41 @@
 
-const SETTING = {
-    NORMAL: {
-        NUMBER_ZERO: 0,
-        NUMBER_ONE: 1,
-        NUMBER_TWO: 2,
-        NUMBER_THREE: 3,
-        NUMBER_FOUR: 4,
-        NUMBER_FIVE: 5,
-        SEMICOLON_SYMBOL: ";",
-        DOT_SYMBOL: ".",
-        DOUBLE_DOT_SYMBOL: "..",
-        NGA_SYMBOL: "~",
-        RIGHT_SLASH_SYMBOL: "/",
-        DOUBLE_RIGHT_SLASH_SYMBOL: "//",
-        LEFT_SLASH_SYMBOL: "\\",
-        EQUAL_SYMBOL: "=",
-        LEFT_BRACKET_SYMBOL: "(",
-        RIGHT_BRACKET_SYMBOL: ")",
-        COMMA_SYMBOL: ",",
-        COOKIE_EXPIRES: "expires=",
-        COOKIE_PATH: "path=",
-        STRING_EMPTY: "",
-        NHAY_SYMBOL: "\"",
-        NHAY_CHAR_SYMBOL: "`",
-        NHAY_SYMBOL_SPECIAL: "\\\"",
-        BREAK_LINE_SYMBOL: "\n",
-        SPACE: " ",
-        FALSE: false,
-        TRUE: true,
-        ARRAY_EMPTY: [],
-        OBJECT_EMPTY: {}
+
+
+const A1695437439765 = {
+    NORMAL: () => {
+        const LS = {
+            NUMBER_ZERO: 0,
+            NUMBER_ONE: 1,
+            NUMBER_TWO: 2,
+            NUMBER_THREE: 3,
+            NUMBER_FOUR: 4,
+            NUMBER_FIVE: 5,
+            SEMICOLON_SYMBOL: ";",
+            DOT_SYMBOL: ".",
+            DOUBLE_DOT_SYMBOL: "..",
+            NGA_SYMBOL: "~",
+            RIGHT_SLASH_SYMBOL: "/",
+            DOUBLE_RIGHT_SLASH_SYMBOL: "//",
+            LEFT_SLASH_SYMBOL: "\\",
+            EQUAL_SYMBOL: "=",
+            LEFT_BRACKET_SYMBOL: "(",
+            RIGHT_BRACKET_SYMBOL: ")",
+            COMMA_SYMBOL: ",",
+            COOKIE_EXPIRES: "expires=",
+            COOKIE_PATH: "path=",
+            STRING_EMPTY: "",
+            NHAY_SYMBOL: "\"",
+            NHAY_CHAR_SYMBOL: "`",
+            NHAY_SYMBOL_SPECIAL: "\\\"",
+            BREAK_LINE_SYMBOL: "\n",
+            SPACE: " ",
+            FALSE: false,
+            TRUE: true,
+            ARRAY_EMPTY: [],
+            OBJECT_EMPTY: {}
+        }
+    
+        return LS
     },
     DEFAULT: {
         HAVE_ENTRIE: []
@@ -42,7 +48,6 @@ const SETTING = {
         RENDER: "RENDER",
         VIEW: "VIEW",
         FROM: "FROM",
-        RUNABLE: "_____IS_____RUNABLE_____OK_____"
     },
     THIS: {
         CONTAINER: $("#container")
@@ -63,6 +68,20 @@ const SETTING = {
         BODY_NAME: "body",
         STYLE_NAME: "style",
         LINK_NAME: "link",
+
+        METHOD: {
+            CREATE_LINK_CSS: ({props}) => {
+                var iprops = {
+                    name: props.name,
+                    src: props.src
+                }
+                var tag = document.createElement(THIS.OPTIONS.TAG.LINK_NAME)
+                tag.setAttribute(THIS.OPTIONS.ATTRIBUTE.NAME_REL, THIS.OPTIONS.ATTRIBUTE_VALUE.REL_STYLESHEET)
+                tag.setAttribute(THIS.OPTIONS.ATTRIBUTE.HREF_NAME, iprops.src)
+                tag.setAttribute(THIS.OPTIONS.ATTRIBUTE.NAME_NAME, iprops.name)
+                return tag
+            }
+        }
     },
     COOKIE: {
         COOKIE_APP_NAME: "_CA_",
@@ -79,6 +98,8 @@ const SETTING = {
     },
     EVENT: {
         LOAD: "load"
+    },
+    OPTIONS: {
     },
     MODULES: {
         MODULE_PATH: "/here/modules/ui/ui.js"
@@ -132,11 +153,13 @@ const SETTING = {
 
 
 
-const HERE_METHOD = (props) => {
+var HERE = (props) => {
 
-    var THIS = {}
+    const THIS = {}
 
+    THIS.OPTIONS = A1695437439765
 
+    const OPTIONS = A1695437439765
 
     THIS.EX = {
 
@@ -146,7 +169,7 @@ const HERE_METHOD = (props) => {
         ARRAY_TO_STRING: (arr) => {
             try {
                 if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
-                    var str = THIS.SETTING.NORMAL.STRING_EMPTY;
+                    var str = String();
                     arr.forEach(element => {
                         str += element;
                     });
@@ -154,7 +177,7 @@ const HERE_METHOD = (props) => {
                 }
                 else {
                     THIS.EX.ERROR({ err: error })
-                    return SETTING.NORMAL.STRING_EMPTY
+                    return String()
                 }
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
@@ -164,9 +187,9 @@ const HERE_METHOD = (props) => {
         ARRAY_REMOVE_EMPTY: ({ arr }) => {
             try {
                 if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
-                    var arro = []
+                    var arro = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
                     arr.forEach(element => {
-                        if (element != THIS.SETTING.NORMAL.STRING_EMPTY) {
+                        if (element != String()) {
                             arro.push(element)
                         }
                     });
@@ -174,7 +197,7 @@ const HERE_METHOD = (props) => {
                     return arro
                 }
                 else {
-                    return []
+                    return THIS.OPTIONS.NORMAL().ARRAY_EMPTY
                 }
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
@@ -185,10 +208,10 @@ const HERE_METHOD = (props) => {
         TRUE_ARRAY_LENGTH: ({ arr }) => {
             try {
                 if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
-                    return arr.length - SETTING.NORMAL.NUMBER_ONE
+                    return arr.length - THIS.OPTIONS.NORMAL().NUMBER_ONE
                 }
             } catch (error) {
-                THIS.EX.ERROR({ err: SETTING.MESSAGE.INVALID_DATA + arr })
+                THIS.EX.ERROR({ err: THIS.OPTIONS.MESSAGE.INVALID_DATA + arr })
             }
         },
         ARRAY_LENGTH: ({ arr }) => {
@@ -197,13 +220,13 @@ const HERE_METHOD = (props) => {
                     return arr.length
                 }
             } catch (error) {
-                THIS.EX.ERROR({ err: SETTING.MESSAGE.INVALID_DATA + arr })
+                THIS.EX.ERROR({ err: THIS.OPTIONS.MESSAGE.INVALID_DATA + arr })
             }
         },
 
         MAP_PATH: ({ path, subPath }) => {
             try {
-                var NORMAL = THIS.SETTING.NORMAL
+                var NORMAL = THIS.OPTIONS.NORMAL()
                 var pathStart = THIS.CONVERT.TRIM_STRING(path)
                 var arrPathStart = Array.from(pathStart);
 
@@ -221,13 +244,13 @@ const HERE_METHOD = (props) => {
 
                 var isAbsolute = false;
 
-                THIS.SETTING.PATH.ARRAY_ABSOLUTE_PATH_CONTAIN.forEach(element => {
+                THIS.OPTIONS.PATH.ARRAY_ABSOLUTE_PATH_CONTAIN.forEach(element => {
                     if (String(path).search(element) >= NORMAL.NUMBER_ZERO) {
                         isAbsolute = true
                     }
                 });
 
-                THIS.SETTING.PATH.ARRAY_ABSOLUTE_PATH_CONTAIN.forEach(element => {
+                THIS.OPTIONS.PATH.ARRAY_ABSOLUTE_PATH_CONTAIN.forEach(element => {
                     if (String(subPath).search(element) >= NORMAL.NUMBER_ZERO) {
                         isAbsolute = true
                     }
@@ -250,7 +273,7 @@ const HERE_METHOD = (props) => {
 
 
             } catch (error) {
-                THIS.EX.ERROR(THIS.SETTING.MESSAGE.PATH_INVALID);
+                THIS.EX.ERROR(THIS.OPTIONS.MESSAGE.PATH_INVALID);
             }
 
         }
@@ -264,12 +287,12 @@ const HERE_METHOD = (props) => {
 
         PATH_HEAD_EMPTY: ({ pathArr }) => {
             try {
-                const NORMAL = THIS.SETTING.NORMAL
+                const NORMAL = THIS.OPTIONS.NORMAL()
                 const invalidCharacter = [NORMAL.DOT_SYMBOL, NORMAL.DOUBLE_DOT_SYMBOL, NORMAL.RIGHT_SLASH_SYMBOL]
                 var isValidPath = false
 
                 while (!isValidPath && !THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
-                    if (invalidCharacter.find(x => x == pathArr[THIS.SETTING.NORMAL.NUMBER_ZERO]) || THIS.CHECK.IS_EMPRY({ ob: pathArr[THIS.SETTING.NORMAL.NUMBER_ZERO] })) {
+                    if (invalidCharacter.find(x => x == pathArr[THIS.OPTIONS.NORMAL().NUMBER_ZERO]) || THIS.CHECK.IS_EMPRY({ ob: pathArr[THIS.OPTIONS.NORMAL().NUMBER_ZERO] })) {
                         pathArr.shift()
                     }
                     else {
@@ -292,7 +315,7 @@ const HERE_METHOD = (props) => {
                 pathArr = THIS.CONVERT.PATH_HEAD_EMPTY({ pathArr: pathArr })
                 pathArr = THIS.CONVERT.PATH_ASS_EMPTY({ pathArr: pathArr })
 
-                return pathArr.join(THIS.SETTING.NORMAL.STRING_EMPTY).replaceAll(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL, THIS.SETTING.NORMAL.DOT_SYMBOL)
+                return pathArr.join(String()).replaceAll(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL, THIS.OPTIONS.NORMAL().DOT_SYMBOL)
             } catch (error) {
                 THIS.EX.ERROR(error)
             }
@@ -301,7 +324,7 @@ const HERE_METHOD = (props) => {
 
         PATH_ASS_EMPTY: ({ pathArr }) => {
             try {
-                const NORMAL = THIS.SETTING.NORMAL
+                const NORMAL = THIS.OPTIONS.NORMAL()
                 const invalidCharacter = [NORMAL.DOT_SYMBOL, NORMAL.DOUBLE_DOT_SYMBOL, NORMAL.RIGHT_SLASH_SYMBOL]
                 var isValidPath = false
 
@@ -335,25 +358,26 @@ const HERE_METHOD = (props) => {
         LOGIC_PATH: ({ path, subPath }) => {
 
             try {
-                var pathArr = []
-                var subPathArr = []
-                var haveOriginUrl = []
-                var pathSplit = THIS.CONVERT.TRIM_STRING(path).split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
-                var subPathSplit = THIS.CONVERT.TRIM_STRING(subPath).split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                const arrEmpty = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
+                var pathArr = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
+                var subPathArr = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
+                var haveOriginUrl = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
+                var pathSplit = THIS.CONVERT.TRIM_STRING(path).split(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL)
+                var subPathSplit = THIS.CONVERT.TRIM_STRING(subPath).split(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL)
                 var status = {
                     pathEnd: false,
                     subPathEnd: false
                 }
 
 
-                if (THIS.SETTING.PATH.ARRAY_ORIGIN_METHOD.find(x => {
-                    if (String(path).search(x) >= THIS.SETTING.NORMAL.NUMBER_ZERO) {
+                if (THIS.OPTIONS.PATH.ARRAY_ORIGIN_METHOD.find(x => {
+                    if (String(path).search(x) >= THIS.OPTIONS.NORMAL().NUMBER_ZERO) {
                         return true
                     }
                 })) {
-                    haveOriginUrl = path.split(THIS.SETTING.NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL)
-                    pathSplit = haveOriginUrl[THIS.SETTING.NORMAL.NUMBER_ONE].split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
-                    haveOriginUrl[THIS.SETTING.NORMAL.NUMBER_ONE] = pathSplit.shift()
+                    haveOriginUrl = path.split(THIS.OPTIONS.NORMAL().DOUBLE_RIGHT_SLASH_SYMBOL)
+                    pathSplit = haveOriginUrl[THIS.OPTIONS.NORMAL().NUMBER_ONE].split(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL)
+                    haveOriginUrl[THIS.OPTIONS.NORMAL().NUMBER_ONE] = pathSplit.shift()
                 }
 
                 pathSplit = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: pathSplit })
@@ -363,16 +387,16 @@ const HERE_METHOD = (props) => {
 
                     pathSplit.forEach(element => {
                         if (!status.pathEnd) {
-                            if (element == THIS.SETTING.NORMAL.DOUBLE_DOT_SYMBOL) {
+                            if (element == THIS.OPTIONS.NORMAL().DOUBLE_DOT_SYMBOL) {
                                 if (!THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
                                     pathArr.pop()
                                 }
                                 else {
                                     status.pathEnd = true
-                                    THIS.EX.ERROR({ err: THIS.SETTING.MESSAGE.PATH_INVALID_OUT })
+                                    THIS.EX.ERROR({ err: THIS.OPTIONS.MESSAGE.PATH_INVALID_OUT })
                                 }
                             }
-                            else if (element != THIS.SETTING.NORMAL.DOT_SYMBOL) {
+                            else if (element != THIS.OPTIONS.NORMAL().DOT_SYMBOL) {
                                 pathArr.push(element)
                             }
                         }
@@ -388,7 +412,7 @@ const HERE_METHOD = (props) => {
                     if (!THIS.CHECK.IS_EMPRY({ ob: subPathSplit })) {
                         subPathSplit.forEach(element => {
                             if (!status.subPathEnd) {
-                                if (element == THIS.SETTING.NORMAL.DOUBLE_DOT_SYMBOL) {
+                                if (element == THIS.OPTIONS.NORMAL().DOUBLE_DOT_SYMBOL) {
                                     if (!THIS.CHECK.IS_EMPRY({ ob: subPathArr })) {
                                         subPathArr.pop()
                                     }
@@ -400,13 +424,13 @@ const HERE_METHOD = (props) => {
                                             status.pathEnd = true
                                             status.subPathEnd = true
                                             THIS.EX.ERROR({
-                                                err: THIS.SETTING.MESSAGE.PATH_INVALID_OUT + THIS.SETTING.NORMAL.SPACE + path
-                                                    + THIS.SETTING.NORMAL.SPACE + subPath
+                                                err: THIS.OPTIONS.MESSAGE.PATH_INVALID_OUT + THIS.OPTIONS.NORMAL().SPACE + path
+                                                    + THIS.OPTIONS.NORMAL().SPACE + subPath
                                             })
                                         }
                                     }
                                 }
-                                else if (element != THIS.SETTING.NORMAL.DOT_SYMBOL) {
+                                else if (element != THIS.OPTIONS.NORMAL().DOT_SYMBOL) {
                                     subPathArr.push(element)
                                 }
                             }
@@ -421,29 +445,29 @@ const HERE_METHOD = (props) => {
 
 
                 if (!status.pathEnd && !status.subPathEnd) {
-                    var origin = THIS.SETTING.NORMAL.STRING_EMPTY
+                    var origin = String()
                     if (!THIS.CHECK.IS_EMPRY({ ob: haveOriginUrl })) {
-                        origin = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: haveOriginUrl }).join(THIS.SETTING.NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL) + THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL
+                        origin = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: haveOriginUrl }).join(THIS.OPTIONS.NORMAL().DOUBLE_RIGHT_SLASH_SYMBOL) + THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL
                     }
 
-                    var pathReturn = origin + THIS.CONVERT.PATH_ASS_EMPTY({ pathArr: pathArr }).join(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL) +
-                        THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL +
-                        THIS.CONVERT.PATH_HEAD_EMPTY({ pathArr: subPathArr }).join(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                    var pathReturn = origin + THIS.CONVERT.PATH_ASS_EMPTY({ pathArr: pathArr }).join(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL) +
+                        THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL +
+                        THIS.CONVERT.PATH_HEAD_EMPTY({ pathArr: subPathArr }).join(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL)
 
                     return THIS.CONVERT.REMOVE_DUPLICATE.SYMBOL({
                         props: THIS.CONVERT.REMOVE_DUPLICATE.PROPS.SYMBOL({
                             props: {
-                                symbol: THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL,
+                                symbol: THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL,
                                 content: pathReturn,
-                                replace: THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL,
-                                keep: THIS.SETTING.NORMAL.NUMBER_ONE,
-                                special: THIS.SETTING.PATH.ARRAY_ORIGIN_METHOD
+                                replace: THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL,
+                                keep: THIS.OPTIONS.NORMAL().NUMBER_ONE,
+                                special: THIS.OPTIONS.PATH.ARRAY_ORIGIN_METHOD
                             }
                         })
                     })
                 }
                 else {
-                    return THIS.SETTING.NORMAL.STRING_EMPTY
+                    return String()
                 }
 
 
@@ -456,9 +480,9 @@ const HERE_METHOD = (props) => {
         PATH_TO_FILE_GET_FOLDER_PATH: ({ path }) => {
 
             try {
-                var arrPath = String(path).split(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                var arrPath = String(path).split(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL)
                 arrPath.pop()
-                return arrPath.join(THIS.SETTING.NORMAL.RIGHT_SLASH_SYMBOL)
+                return arrPath.join(THIS.OPTIONS.NORMAL().RIGHT_SLASH_SYMBOL)
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
@@ -475,7 +499,7 @@ const HERE_METHOD = (props) => {
 
         EMPTY_ARRAY: (arr) => {
             try {
-                return arr = []
+                return arr = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
             } catch (error) {
                 THIS.EX.ERROR({ err: error });
             }
@@ -484,11 +508,11 @@ const HERE_METHOD = (props) => {
             try {
                 const iProps = THIS.PROPS.TO_STRING_PROPS({ props: props })
                 if (iProps.specialSymbol) {
-                    return THIS.SETTING.NORMAL.NHAY_CHAR_SYMBOL + iProps.specialSymbol + iProps.content + iProps.specialSymbol + SETTING.NORMAL.NHAY_CHAR_SYMBOL;
+                    return THIS.OPTIONS.NORMAL().NHAY_CHAR_SYMBOL + iProps.specialSymbol + iProps.content + iProps.specialSymbol + THIS.OPTIONS.NORMAL().NHAY_CHAR_SYMBOL;
 
                 }
                 else {
-                    return THIS.SETTING.NORMAL.NHAY_CHAR_SYMBOL + iProps.content + SETTING.NORMAL.NHAY_CHAR_SYMBOL;
+                    return THIS.OPTIONS.NORMAL().NHAY_CHAR_SYMBOL + iProps.content + THIS.OPTIONS.NORMAL().NHAY_CHAR_SYMBOL;
 
                 }
             } catch (error) {
@@ -498,7 +522,7 @@ const HERE_METHOD = (props) => {
         },
         TO_STRING_NO_BREAK: (props) => {
             try {
-                return props.replaceAll(THIS.SETTING.NORMAL.BREAK_LINE_SYMBOL, THIS.SETTING.NORMAL.STRING_EMPTY);
+                return props.replaceAll(THIS.OPTIONS.NORMAL().BREAK_LINE_SYMBOL, String());
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
@@ -507,7 +531,7 @@ const HERE_METHOD = (props) => {
 
         TO_STRING_WITH_NHAY_SPECIAL: (props) => {
             try {
-                return props.replaceAll(THIS.SETTING.NORMAL.NHAY_SYMBOL, THIS.SETTING.NORMAL.NHAY_SYMBOL_SPECIAL);
+                return props.replaceAll(THIS.OPTIONS.NORMAL().NHAY_SYMBOL, THIS.OPTIONS.NORMAL().NHAY_SYMBOL_SPECIAL);
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
@@ -532,13 +556,13 @@ const HERE_METHOD = (props) => {
 
             SYMBOL: ({ props }) => {
                 try {
-                    const NORMAL = THIS.SETTING.NORMAL
+                    const NORMAL = THIS.OPTIONS.NORMAL()
                     const iprops = THIS.CONVERT.REMOVE_DUPLICATE.PROPS.SYMBOL({ props: props })
                     const arr = [...String(iprops.content)]
                     var content = String(iprops.content)
                     var maxSpace = NORMAL.NUMBER_ZERO;
                     var maxNow = NORMAL.NUMBER_ZERO;
-                    var parseSpecial = []
+                    var parseSpecial = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
 
                     iprops.special.forEach(element => {
                         const arr = String(element).split(iprops.symbol)
@@ -549,7 +573,7 @@ const HERE_METHOD = (props) => {
                     for (let index = 0; index < arr.length; index++) {
                         const element = arr[index];
                         if (element == iprops.symbol) {
-                            if (index != THIS.EX.TRUE_ARRAY_LENGTH({ arr: arr }) && arr[index + THIS.SETTING.NORMAL.NUMBER_ONE]) {
+                            if (index != THIS.EX.TRUE_ARRAY_LENGTH({ arr: arr }) && arr[index + THIS.OPTIONS.NORMAL().NUMBER_ONE]) {
                                 maxNow += 1;
                                 if (maxNow > maxSpace) {
                                     maxSpace = maxNow
@@ -565,7 +589,7 @@ const HERE_METHOD = (props) => {
 
 
                     for (let index = maxSpace; index > iprops.keep; index--) {
-                        var spaces = THIS.SETTING.NORMAL.STRING_EMPTY;
+                        var spaces = String();
                         for (let i = 0; i < index; i++) {
                             spaces += iprops.symbol
                         }
@@ -638,33 +662,33 @@ const HERE_METHOD = (props) => {
 
 
             try {
-                const num_zero = THIS.SETTING.NORMAL.NUMBER_ZERO
-                const num_one = THIS.SETTING.NORMAL.NUMBER_ONE
-                const stringContent = THIS.CONVERT.TO_STRING({ specialSymbol: THIS.SETTING.SPLIT.RUNABLE, content: props })
-                var split_one = stringContent.split(THIS.SETTING.SPLIT.RENDER)
-                var split_three = split_four = split_five = THIS.SETTING.NORMAL.STRING_EMPTY
+                const num_zero = THIS.OPTIONS.NORMAL().NUMBER_ZERO
+                const num_one = THIS.OPTIONS.NORMAL().NUMBER_ONE
+                const stringContent =  String(props) 
+                var split_one = stringContent.split(THIS.OPTIONS.SPLIT.RENDER)
+                var split_three = split_four = split_five = String()
                 if (!THIS.CHECK.IS_EMPRY({ ob: split_one })) {
-                    split_three = split_one[num_one].split(THIS.SETTING.SPLIT.FROM)
+                    split_three = split_one[num_one].split(THIS.OPTIONS.SPLIT.FROM)
 
                 }
                 if (!THIS.CHECK.IS_EMPRY({ ob: split_three })) {
-                    split_four = split_three[num_one].split(THIS.SETTING.NORMAL.LEFT_BRACKET_SYMBOL)
+                    split_four = split_three[num_one].split(THIS.OPTIONS.NORMAL().LEFT_BRACKET_SYMBOL)
 
                 }
                 if (!THIS.CHECK.IS_EMPRY({ ob: split_four })) {
-                    split_five = split_four[num_one].split(THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL)
+                    split_five = split_four[num_one].split(THIS.OPTIONS.NORMAL().RIGHT_BRACKET_SYMBOL)
                 }
 
                 if (!THIS.CHECK.IS_EMPRY({ ob: split_five })) {
                     const content = split_five[num_zero]
 
-                    const other = stringContent.split(THIS.SETTING.SPLIT.RENDER)[num_one].split(THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL)
+                    const other = stringContent.split(THIS.OPTIONS.SPLIT.RENDER)[num_one].split(THIS.OPTIONS.NORMAL().RIGHT_BRACKET_SYMBOL)
 
-                    var path = THIS.SETTING.NORMAL.STRING_EMPTY;
+                    var path = String();
 
                     for (let index = 1; index < other.length; index++) {
                         if (index != THIS.EX.TRUE_ARRAY_LENGTH({ arr: other })) {
-                            path += other[index] + THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL
+                            path += other[index] + THIS.OPTIONS.NORMAL().RIGHT_BRACKET_SYMBOL
                         }
                         else {
                             path += other[index]
@@ -674,10 +698,10 @@ const HERE_METHOD = (props) => {
 
                     const contentln = THIS.CONVERT.TO_STRING({ content: content })
 
-                    const runable = split_one[num_zero] + THIS.SETTING.SPLIT.RENDER +
-                        split_three[num_zero] + THIS.SETTING.SPLIT.FROM +
-                        split_four[num_zero] + THIS.SETTING.NORMAL.LEFT_BRACKET_SYMBOL +
-                        contentln + THIS.SETTING.NORMAL.RIGHT_BRACKET_SYMBOL + path;
+                    const runable = split_one[num_zero] + THIS.OPTIONS.SPLIT.RENDER +
+                        split_three[num_zero] + THIS.OPTIONS.SPLIT.FROM +
+                        split_four[num_zero] + THIS.OPTIONS.NORMAL().LEFT_BRACKET_SYMBOL +
+                        contentln + THIS.OPTIONS.NORMAL().RIGHT_BRACKET_SYMBOL + path;
                     return runable
 
                 }
@@ -692,18 +716,6 @@ const HERE_METHOD = (props) => {
 
         },
 
-        TO_NORMAL_RUNABLE: (props) => {
-            try {
-                const changeOne = THIS.SETTING.NORMAL.NHAY_CHAR_SYMBOL + THIS.SETTING.SPLIT.RUNABLE
-                const changeTwo = THIS.SETTING.SPLIT.RUNABLE + THIS.SETTING.NORMAL.NHAY_CHAR_SYMBOL
-                props = props.replaceAll(changeOne, THIS.SETTING.NORMAL.STRING_EMPTY)
-                props = props.replaceAll(changeTwo, THIS.SETTING.NORMAL.STRING_EMPTY)
-                return props
-            } catch (error) {
-
-            }
-        }
-
     }
 
 
@@ -711,7 +723,8 @@ const HERE_METHOD = (props) => {
         GET: ({ path }) => {
             try {
                 return new Promise((resolve, reject) => {
-                    fetch(THIS.CONVERT.PATH_ORIGIN({ path: path })).then((response) => {
+                    const ipath = THIS.CONVERT.PATH_ORIGIN({ path: path })
+                    fetch(ipath).then((response) => {
                         resolve(THIS.PROPS.RESPONSE({ props: { url: response.url, response: response } }))
                     }).catch(err => reject(err))
 
@@ -877,7 +890,7 @@ const HERE_METHOD = (props) => {
             if (!THIS.CHECK.IS_EMPRY({ ob: props })) {
                 const MAP_LIST_ITEM = ({ props }) => {
                     if (!THIS.CHECK.IS_EMPRY({ ob: props })) {
-                        const LIST = [];
+                        const LIST = THIS.OPTIONS.NORMAL().ARRAY_EMPTY;
                         props.forEach(element => {
                             if (!THIS.CHECK.IS_EMPRY({ ob: element })) {
                                 LIST.push(THIS.PROPS.HAVE_PROPS({ props: element }))
@@ -890,7 +903,7 @@ const HERE_METHOD = (props) => {
                 const DEFAULT = ({ props }) => {
 
                     if (THIS.CHECK.IS_EMPRY({ ob: props })) {
-                        return []
+                        return THIS.OPTIONS.NORMAL().ARRAY_EMPTY
                     }
                     else {
                         return props
@@ -908,7 +921,7 @@ const HERE_METHOD = (props) => {
                 }
             }
             else {
-                THIS.EX.ERROR(THIS.SETTING.MESSAGE.INVALID_DATA)
+                THIS.EX.ERROR(THIS.OPTIONS.MESSAGE.INVALID_DATA)
             }
 
 
@@ -935,7 +948,7 @@ const HERE_METHOD = (props) => {
         HAVE_PROPS_LIST: ({ props }) => {
             try {
                 if (!THIS.CHECK.IS_EMPRY({ ob: props })) {
-                    const LIST = [];
+                    const LIST = THIS.OPTIONS.NORMAL().ARRAY_EMPTY;
                     props.forEach(element => {
                         LIST.push(
                             {
@@ -959,7 +972,6 @@ const HERE_METHOD = (props) => {
 
 
 
-    THIS.SETTING = SETTING
 
 
     THIS.DOM = {
@@ -973,7 +985,7 @@ const HERE_METHOD = (props) => {
         ON_LOAD_METHOD: ({ element, event }) => {
             THIS.DOM.SET_EVENT_METHOD({
                 event: () => {
-                    $(element).on(THIS.SETTING.EVENT.LOAD, function (e) {
+                    $(element).on(THIS.OPTIONS.EVENT.LOAD, function (e) {
                         event(e);
                     });
                 }
@@ -1023,7 +1035,7 @@ const HERE_METHOD = (props) => {
         REQUIRE_THINGS: ({ tagName, tagAppend, props, haveObject, methodCreateTag, mode }) => {
             try {
                 var require = $(tagName)
-                const NORMAL = THIS.SETTING.NORMAL
+                const NORMAL = THIS.OPTIONS.NORMAL()
                 const iProps = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
                 if (THIS.CHECK.IS_EMPRY({ ob: require })) {
                     const tag = document.createElement(tagName)
@@ -1045,7 +1057,7 @@ const HERE_METHOD = (props) => {
 
 
                             if (mode) {
-                                if (mode.name == THIS.SETTING.MODE.COMPONENTS_NAME) {
+                                if (mode.name == THIS.OPTIONS.MODE.COMPONENTS_NAME) {
                                     haveObject.push({
                                         src: element.src,
                                         name: element.name,
@@ -1109,10 +1121,10 @@ const HERE_METHOD = (props) => {
     THIS.CSS = {
 
         TAG: ({ path, subPath, name }) => {
-            var tag = document.createElement(THIS.SETTING.TAG.LINK_NAME)
-            $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_REL, THIS.SETTING.ATTRIBUTE_VALUE.REL_STYLESHEET)
-            $(tag).attr(THIS.SETTING.ATTRIBUTE.HREF_NAME, THIS.CONVERT.PATH_ORIGIN({ path: THIS.EX.MAP_PATH({ path: path, subPath: subPath }) }))
-            $(tag).attr(THIS.SETTING.ATTRIBUTE.NAME_NAME, name)
+            var tag = document.createElement(THIS.OPTIONS.TAG.LINK_NAME)
+            $(tag).attr(THIS.OPTIONS.ATTRIBUTE.NAME_REL, THIS.OPTIONS.ATTRIBUTE_VALUE.REL_STYLESHEET)
+            $(tag).attr(THIS.OPTIONS.ATTRIBUTE.HREF_NAME, THIS.CONVERT.PATH_ORIGIN({ path: THIS.EX.MAP_PATH({ path: path, subPath: subPath }) }))
+            $(tag).attr(THIS.OPTIONS.ATTRIBUTE.NAME_NAME, name)
             return tag;
         },
 
@@ -1123,8 +1135,8 @@ const HERE_METHOD = (props) => {
 
 
             THIS.METHOD.REQUIRE_THINGS({
-                tagName: THIS.SETTING.TAG.CSS_NAME,
-                tagAppend: THIS.SETTING.TAG.HEAD_NAME,
+                tagName: THIS.OPTIONS.TAG.CSS_NAME,
+                tagAppend: THIS.OPTIONS.TAG.HEAD_NAME,
                 haveObject: HAVE.CSS,
                 props: iProps,
                 methodCreateTag: THIS.CSS.TAG
@@ -1141,7 +1153,7 @@ const HERE_METHOD = (props) => {
         READY: () => {
             try {
                 if (!THIS.COMPONENTS.INNIT) {
-                    THIS.COMPONENTS.INNIT = []
+                    THIS.COMPONENTS.INNIT = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
                 }
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
@@ -1161,7 +1173,7 @@ const HERE_METHOD = (props) => {
                 props: iProps,
                 mode: {
                     map: THIS.COMPONENTS.INNIT,
-                    name: THIS.SETTING.MODE.COMPONENTS_NAME
+                    name: THIS.OPTIONS.MODE.COMPONENTS_NAME
                 }
             })
         }
@@ -1174,9 +1186,22 @@ const HERE_METHOD = (props) => {
 
         PROPS: {
             FROM_RENDER_PROPS: ({ props }) => {
+
+                var iroute = {}
+
+                if (props.route) {
+                    iroute = {
+                        to: props.route.to,
+                        transition: props.route.transition,
+                        waiterMode: props.route.waiterMode
+                    }
+                }
+
                 return {
                     path: props.path,
-                    subPath: props.subPath
+                    subPath: props.subPath,
+                    route: iroute
+
                 }
 
             }
@@ -1184,30 +1209,68 @@ const HERE_METHOD = (props) => {
 
         },
 
+        THIS: {
+            DATA: ({ props }) => {
+                try {
+                    var iprops = {
+                        path: props.path,
+                        this: props.this
+                    }
+                    THIS.THIS.GET_TEXT({ path: iprops.path }).then(data => {
+
+                        const idata = THIS.PROPS.RESPONSE({ props: data })
+                        const code = THIS.CONVERT.TO_RUNABLE_JAVASCRIPT(idata.response)
+                        const fuc = eval(code)
+                        THIS.REQUIRE.LOAD({
+                            PROPS: THIS.REQUIRE.PROPS.LOAD_REQUIRE({
+                                PROPS: {
+                                    PATH: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: iprops.path }),
+                                    DATA: fuc(THIS),
+                                    ROUTE: iprops.this.route
+                                }
+                            })
+                        })
+
+                    }).catch(err => {
+                        THIS.EX.ERROR({ err: err })
+                    })
+                } catch (err) { THIS.EX.ERROR({ err: err }) }
+
+
+
+            },
+
+            TIMER: ({ props }) => {
+                try {
+                    var iprops = {
+                        this: props.this
+                    }
+
+                    if (iprops.this.route && iprops.this.route.to) {
+                        $(THIS.OPTIONS.THIS[iprops.this.route.to]).html(String())
+                        $(THIS.OPTIONS.THIS[iprops.this.route.to]).html("Shipper is comming...")
+                    }
+                } catch (err) { }
+            }
+        },
+
         FROM: ({ props }) => {
             try {
-                const iProps = THIS.RENDER.PROPS.FROM_RENDER_PROPS({ props: props })
+                const iprops = THIS.RENDER.PROPS.FROM_RENDER_PROPS({ props: props })
 
-                const path = THIS.EX.MAP_PATH({ path: iProps.path, subPath: iProps.subPath })
+                const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: iprops.subPath })
 
-                THIS.THIS.GET_TEXT({ path: path }).then(data => {
+                THIS.RENDER.THIS.TIMER({ props: { this: iprops } })
 
-                    const iData = THIS.PROPS.RESPONSE({ props: data })
-                    const code = THIS.CONVERT.TO_RUNABLE_JAVASCRIPT(iData.response)
-                    const ncode = THIS.CONVERT.TO_NORMAL_RUNABLE(code)
-                    const fuc = eval(ncode)
-                    THIS.REQUIRE.LOAD({
-                        PROPS: THIS.REQUIRE.PROPS.LOAD_REQUIRE({
-                            PROPS: {
-                                PATH: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: path }),
-                                DATA: fuc(THIS)
-                            }
-                        })
-                    })
-
-                }).catch(err => {
-
+                THIS.RENDER.THIS.DATA({
+                    props: {
+                        path: path,
+                        this: iprops
+                    }
                 })
+
+
+
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
@@ -1243,8 +1306,8 @@ const HERE_METHOD = (props) => {
                 if (!THIS.IS.HAVE) {
                     THIS.IS.HAVE = THIS.PROPS.HAVE({
                         props: {
-                            CSS_LIB: THIS.SETTING.PAGE.DEFAULT_PAGE_CSS_LIB(),
-                            SCRIPT_LIB: THIS.SETTING.PAGE.DEFAULT_PAGE_SCRIPT_LIB(),
+                            CSS_LIB: THIS.OPTIONS.PAGE.DEFAULT_PAGE_CSS_LIB(),
+                            SCRIPT_LIB: THIS.OPTIONS.PAGE.DEFAULT_PAGE_SCRIPT_LIB(),
                         }
                     })
 
@@ -1269,7 +1332,8 @@ const HERE_METHOD = (props) => {
                     return {
                         PATH: PROPS.PATH,
                         DATA: THIS.PROPS.PAGE_PROPS({ props: PROPS.DATA }),
-                        LOAD: PROPS.LOAD
+                        LOAD: PROPS.LOAD,
+                        ROUTE: PROPS.ROUTE
                     }
                 }
 
@@ -1338,18 +1402,25 @@ const HERE_METHOD = (props) => {
             RUN: ({ props }) => {
                 try {
                     if (!props.LOAD) {
-                        if (props.DATA.RENDER) {
-                            if (props.DATA.RENDER.FROM && props.DATA.RENDER.TO) {
-                                $(THIS.SETTING.THIS[props.DATA.RENDER.TO]).html(THIS.SETTING.NORMAL.STRING_EMPTY)
-                                $(THIS.SETTING.THIS[props.DATA.RENDER.TO]).append(props.DATA.RENDER.FROM)
+                        //test effect
+                        setTimeout(() => {
+                            if (props.DATA.RENDER) {
+
+
+
+                                if (props.DATA.RENDER.FROM && props.DATA.RENDER.TO) {
+                                    $(THIS.OPTIONS.THIS[props.DATA.RENDER.TO]).html(String())
+                                    $(THIS.OPTIONS.THIS[props.DATA.RENDER.TO]).append(props.DATA.RENDER.FROM)
+                                }
+
+
+
                             }
-
-                        }
-                        if (props.DATA.METHOD) {
-                            props.DATA.METHOD()
-                        }
-
-                        props.LOAD = THIS.SETTING.NORMAL.TRUE
+                            if (props.DATA.METHOD) {
+                                props.DATA.METHOD()
+                            }
+                        }, 3000)
+                        props.LOAD = THIS.OPTIONS.NORMAL().TRUE
                     }
 
 
@@ -1464,7 +1535,8 @@ const HERE_METHOD = (props) => {
 
         LOAD: ({ props }) => {
             var iprops = {
-                name: props.name
+                name: props.name,
+                route: props.route
             }
 
             const src = THIS.IS.MAP.ROUTE[iprops.name].src
@@ -1474,8 +1546,9 @@ const HERE_METHOD = (props) => {
             THIS.RENDER.FROM({
                 props: THIS.RENDER.PROPS.FROM_RENDER_PROPS({
                     props: {
-                        path: THIS.SETTING.NORMAL.STRING_EMPTY,
-                        subPath: src
+                        path: String(),
+                        subPath: src,
+                        route: iprops.route
                     }
                 })
             })
@@ -1483,9 +1556,9 @@ const HERE_METHOD = (props) => {
         },
 
         GET: ({ props }) => {
-            var register = []
+            var register = THIS.OPTIONS.NORMAL().ARRAY_EMPTY
             var map = {}
-            const NORMAL = THIS.SETTING.NORMAL
+            const NORMAL = THIS.OPTIONS.NORMAL()
             const GET = ({ props }) => {
                 var iprops = THIS.ROUTE.PROPS.INNIT_GET({ props: props })
 
@@ -1591,14 +1664,14 @@ const HERE_METHOD = (props) => {
                     THIS.ROUTE.GET({
                         props: CURRENT.PROPS.INNIT_GET({
                             props: {
-                                path: THIS.SETTING.ROUTE.DEFAULT_PATH,
+                                path: THIS.OPTIONS.ROUTE.DEFAULT_PATH,
                                 callBack: ({ props }) => {
-                                    PATH.MAP.PROPERTIES.MAP = THIS.SETTING.NORMAL.TRUE
+                                    PATH.MAP.PROPERTIES.MAP = THIS.OPTIONS.NORMAL().TRUE
                                     PATH.MAP.ROUTE = { ...PATH.MAP.ROUTE, ...props.map }
                                     THIS.RENDER.FROM({
                                         props: THIS.RENDER.PROPS.FROM_RENDER_PROPS({
                                             props: {
-                                                path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: THIS.SETTING.ROUTE.DEFAULT_PATH }),
+                                                path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: THIS.OPTIONS.ROUTE.DEFAULT_PATH }),
                                                 subPath: props.map.default.src
                                             }
                                         })
@@ -1637,11 +1710,11 @@ const HERE_METHOD = (props) => {
 
 
                 const history = () => {
-                    var data = window.localStorage.getItem(THIS.SETTING.NAME.LOCAL_STORAGE_HISTORY)
+                    var data = window.localStorage.getItem(THIS.OPTIONS.NAME.LOCAL_STORAGE_HISTORY)
                     var iprops = {
-                        current: THIS.SETTING.NORMAL.STRING_EMPTY,
-                        stepsBack: [],
-                        stepNext: []
+                        current: String(),
+                        stepsBack: THIS.OPTIONS.NORMAL().ARRAY_EMPTY,
+                        stepNext: THIS.OPTIONS.NORMAL().ARRAY_EMPTY
                     }
 
                     if (data) {
@@ -1658,7 +1731,7 @@ const HERE_METHOD = (props) => {
 
 
                     else {
-                        window.localStorage.setItem(THIS.SETTING.NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
+                        window.localStorage.setItem(THIS.OPTIONS.NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
                     }
 
                     return iprops
@@ -1677,7 +1750,7 @@ const HERE_METHOD = (props) => {
                             if (!THIS.CHECK.IS_OBJECT({ ob: item })) {
                                 hito.stepsBack.push(name)
                             }
-                            window.localStorage.setItem(THIS.SETTING.NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+                            window.localStorage.setItem(THIS.OPTIONS.NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
                         } catch (err) {
                             THIS.EX.ERROR({ err: err })
                         }
@@ -1714,10 +1787,6 @@ const HERE_METHOD = (props) => {
 
 }
 
-
-
-var HERE = HERE_METHOD
-const HERE_INNIT = HERE()
-HERE_INNIT.INNIT(HERE)
+HERE().INNIT(HERE)
 
 
