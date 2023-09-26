@@ -13,16 +13,21 @@ a {
     text-decoration: inherit;
 }
 
-[theme="one"] {
-
+[theme='one'] {
     --white-color: white;
     --shadow-color: rgba(0,0,0,0.2);
     --content-color: rgb(241,241,241);
     --background: white;
     --color-blur: rgb(205,205,205);
+    --color-blur-ii: rgb(228,228,228);
     --item-menu-background: rgba(91,157,255,0.1);
     --menu-linear-one: rgba(74,146,255,0.6);
     --menu-linear-two: rgba(159,135,255,0.56);
     --color: white;
-
-}
+    --header-height: 40px;
+    --color-text: #252525;
+    --content-padding: 5px;
+    --primary: #186ded;
+    --normal-content-width: 640px;
+    --normal-padding: 10px;
+  }

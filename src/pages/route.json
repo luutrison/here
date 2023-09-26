@@ -2,6 +2,7 @@
     "COMPONENTS": {
         "default": {
             "src": "./login/login.js"
+
         },
         "pages.login": {
             "src": "./login/login.js"

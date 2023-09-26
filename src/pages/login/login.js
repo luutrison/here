@@ -39,7 +39,7 @@
             TRANSITION: "SLIDE_VERTICAL"
         },
         METHOD: () => {
-            const components = PROPS.COMPONENTS.INNIT
+            console.log("Method load")
 
             $("#pages-login form").submit(function (event) {
                 event.preventDefault()
