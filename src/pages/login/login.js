@@ -44,7 +44,6 @@
             $("#pages-login form").submit(function (event) {
                 event.preventDefault()
                 PROPS.ROUTE.LOAD({ props: { name: "pages.dash", route: { to: "CONTAINER" } } })
-                console.log(event)
             });
         },
     }

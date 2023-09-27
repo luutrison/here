@@ -1,0 +1,6 @@
+{
+    "UI": {
+        "SCRIPT": "./ui/ui.js",
+        "CSS": "./ui/ui.css"
+    }
+}

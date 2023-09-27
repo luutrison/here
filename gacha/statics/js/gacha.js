@@ -1,3 +1,10 @@
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker && navigator.serviceWorker.register("./statics/js/sw.js");
+    });
+}
+
+
 const setting = {
     name: () => {
         const name = {

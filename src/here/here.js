@@ -21,11 +21,16 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             EQUAL_SYMBOL: "=",
             LEFT_BRACKET_SYMBOL: "(",
             RIGHT_BRACKET_SYMBOL: ")",
+            LEFT_SARO_SYMBOL: "<",
+            RIGHT_SARO_SYMBOL: ">",
+            LEFT_QUERA_SYMBOL: "[",
+            RIHGT_QUERA_SYMBOL: "]",
             COMMA_SYMBOL: ",",
             COOKIE_EXPIRES: "expires=",
             COOKIE_PATH: "path=",
             STRING_EMPTY: "",
             NHAY_SYMBOL: "\"",
+            SINGLE_NHAY_SYMBOL: "'",
             NHAY_CHAR_SYMBOL: "`",
             NHAY_SYMBOL_SPECIAL: "\\\"",
             BREAK_LINE_SYMBOL: "\n",
@@ -58,29 +63,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             ARRAY_ABSOLUTE_PATH_CONTAIN: ["./", "../"],
             ARRAY_ORIGIN_METHOD: ["http://", "https://"]
         },
-        TAG: {
-            CSS_NAME: "css",
-
-            HEAD_NAME: "head",
-            SCRIPT_NAME: "script",
-            BODY_NAME: "body",
-            STYLE_NAME: "style",
-            LINK_NAME: "link",
-
-            METHOD: {
-                CREATE_LINK_CSS: ({ props }) => {
-                    var iprops = {
-                        name: props.name,
-                        src: props.src
-                    }
-                    var tag = document.createElement(THIS.OPTIONS().TAG.LINK_NAME)
-                    tag.setAttribute(THIS.OPTIONS().ATTRIBUTE.NAME_REL, THIS.OPTIONS().ATTRIBUTE_VALUE.REL_STYLESHEET)
-                    tag.setAttribute(THIS.OPTIONS().ATTRIBUTE.HREF_NAME, iprops.src)
-                    tag.setAttribute(THIS.OPTIONS().ATTRIBUTE.NAME_NAME, iprops.name)
-                    return tag
-                }
-            }
-        },
+        
         COOKIE: {
             COOKIE_APP_NAME: "_CA_",
             COOKIE_EXPIRES_HOURS_DEFAULT: 5,
@@ -93,6 +76,8 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         },
         ATTRIBUTE_VALUE: {
             REL_STYLESHEET: "stylesheet",
+            CSS_LEVEL_ONE_NAME: "one",
+            CSS_LEVEL_TWO_NAME: "two",
         },
         EVENT: {
             LOAD: "load"
@@ -100,7 +85,8 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         OPTIONS: {
         },
         MODULES: {
-            MODULE_PATH: "/here/modules/ui/ui.js"
+            MODULE_PATH: "/here/modules/modules.json",
+            USE: ["UI"]
         },
         ROUTE: {
             DEFAULT_PATH: "/route.json",
@@ -147,7 +133,41 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         },
         LIB: {
 
-        }
+        },
+        TAG: {
+            CSS_NAME: "css",
+
+            HEAD_NAME: "head",
+            SCRIPT_NAME: "script",
+            BODY_NAME: "body",
+            STYLE_NAME: "style",
+            LINK_NAME: "link",
+
+            METHOD: {
+                CREATE_LINK_CSS: ({ name, src }) => {
+                    var tag = document.createElement(SETTING.TAG.LINK_NAME)
+                    tag.setAttribute(SETTING.ATTRIBUTE.NAME_REL, SETTING.ATTRIBUTE_VALUE.REL_STYLESHEET)
+                    tag.setAttribute(SETTING.ATTRIBUTE.HREF_NAME, src)
+                    tag.setAttribute(SETTING.ATTRIBUTE.NAME_NAME, name)
+                    return tag
+                },
+                CREATE_STYLE_CSS: ({ name, css }) => {
+                    if (name && css) {
+                        const NORMAL = SETTING.NORMAL
+                       
+                        const startTag = NORMAL.LEFT_SARO_SYMBOL + SETTING.TAG.STYLE_NAME + NORMAL.SPACE
+                            + SETTING.ATTRIBUTE.NAME_NAME + NORMAL.EQUAL_SYMBOL + NORMAL.SINGLE_NHAY_SYMBOL
+                            + name + NORMAL.SINGLE_NHAY_SYMBOL + NORMAL.RIGHT_SARO_SYMBOL
+
+                        const endTag = NORMAL.LEFT_SARO_SYMBOL + SETTING.TAG.STYLE_NAME + NORMAL.RIGHT_SARO_SYMBOL
+
+                        var tag = startTag + css + endTag
+
+                        return tag
+                    }
+                },
+            }
+        },
     }
 
     return SETTING
@@ -170,7 +190,7 @@ var HERE = (props) => {
         },
         ARRAY_TO_STRING: (arr) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: arr })) {
                     var str = String();
                     arr.forEach(element => {
                         str += element;
@@ -188,7 +208,7 @@ var HERE = (props) => {
 
         ARRAY_REMOVE_EMPTY: ({ arr }) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: arr })) {
                     var arro = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
                     arr.forEach(element => {
                         if (element != String()) {
@@ -209,7 +229,7 @@ var HERE = (props) => {
 
         TRUE_ARRAY_LENGTH: ({ arr }) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: arr })) {
                     return arr.length - THIS.OPTIONS().NORMAL.NUMBER_ONE
                 }
             } catch (error) {
@@ -218,7 +238,7 @@ var HERE = (props) => {
         },
         ARRAY_LENGTH: ({ arr }) => {
             try {
-                if (!THIS.CHECK.IS_EMPRY({ ob: arr })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: arr })) {
                     return arr.length
                 }
             } catch (error) {
@@ -293,8 +313,8 @@ var HERE = (props) => {
                 const invalidCharacter = [NORMAL.DOT_SYMBOL, NORMAL.DOUBLE_DOT_SYMBOL, NORMAL.RIGHT_SLASH_SYMBOL]
                 var isValidPath = false
 
-                while (!isValidPath && !THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
-                    if (invalidCharacter.find(x => x == pathArr[THIS.OPTIONS().NORMAL.NUMBER_ZERO]) || THIS.CHECK.IS_EMPRY({ ob: pathArr[THIS.OPTIONS().NORMAL.NUMBER_ZERO] })) {
+                while (!isValidPath && !THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathArr })) {
+                    if (invalidCharacter.find(x => x == pathArr[THIS.OPTIONS().NORMAL.NUMBER_ZERO]) || THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathArr[THIS.OPTIONS().NORMAL.NUMBER_ZERO] })) {
                         pathArr.shift()
                     }
                     else {
@@ -306,6 +326,18 @@ var HERE = (props) => {
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
+
+        },
+
+        TO_ATTRIBUTE_QUERY: ({ name, value }) => {
+            try {
+                const NORMAL = THIS.OPTIONS().NORMAL
+                const query = NORMAL.LEFT_QUERA_SYMBOL + name + NORMAL.EQUAL_SYMBOL +
+                    NORMAL.SINGLE_NHAY_SYMBOL + value
+                    + NORMAL.SINGLE_NHAY_SYMBOL + NORMAL.RIHGT_QUERA_SYMBOL
+
+                return query
+            } catch (error) { }
 
         },
 
@@ -330,8 +362,8 @@ var HERE = (props) => {
                 const invalidCharacter = [NORMAL.DOT_SYMBOL, NORMAL.DOUBLE_DOT_SYMBOL, NORMAL.RIGHT_SLASH_SYMBOL]
                 var isValidPath = false
 
-                while (!isValidPath && !THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
-                    if (invalidCharacter.find(x => x == pathArr[THIS.EX.TRUE_ARRAY_LENGTH({ arr: pathArr })]) || THIS.CHECK.IS_EMPRY({ ob: pathArr[THIS.EX.TRUE_ARRAY_LENGTH({ arr: pathArr })] })) {
+                while (!isValidPath && !THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathArr })) {
+                    if (invalidCharacter.find(x => x == pathArr[THIS.EX.TRUE_ARRAY_LENGTH({ arr: pathArr })]) || THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathArr[THIS.EX.TRUE_ARRAY_LENGTH({ arr: pathArr })] })) {
                         pathArr.pop()
                     }
                     else {
@@ -385,12 +417,12 @@ var HERE = (props) => {
                 pathSplit = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: pathSplit })
                 subPathSplit = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: subPathSplit })
 
-                if (!THIS.CHECK.IS_EMPRY({ ob: pathSplit })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathSplit })) {
 
                     pathSplit.forEach(element => {
                         if (!status.pathEnd) {
                             if (element == THIS.OPTIONS().NORMAL.DOUBLE_DOT_SYMBOL) {
-                                if (!THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
+                                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathArr })) {
                                     pathArr.pop()
                                 }
                                 else {
@@ -411,15 +443,15 @@ var HERE = (props) => {
                 }
 
                 if (!status.pathEnd) {
-                    if (!THIS.CHECK.IS_EMPRY({ ob: subPathSplit })) {
+                    if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: subPathSplit })) {
                         subPathSplit.forEach(element => {
                             if (!status.subPathEnd) {
                                 if (element == THIS.OPTIONS().NORMAL.DOUBLE_DOT_SYMBOL) {
-                                    if (!THIS.CHECK.IS_EMPRY({ ob: subPathArr })) {
+                                    if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: subPathArr })) {
                                         subPathArr.pop()
                                     }
                                     else {
-                                        if (!THIS.CHECK.IS_EMPRY({ ob: pathArr })) {
+                                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: pathArr })) {
                                             pathArr.pop()
                                         }
                                         else {
@@ -448,7 +480,7 @@ var HERE = (props) => {
 
                 if (!status.pathEnd && !status.subPathEnd) {
                     var origin = String()
-                    if (!THIS.CHECK.IS_EMPRY({ ob: haveOriginUrl })) {
+                    if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: haveOriginUrl })) {
                         origin = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: haveOriginUrl }).join(THIS.OPTIONS().NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL) + THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL
                     }
 
@@ -660,28 +692,28 @@ var HERE = (props) => {
 
         },
 
-        TO_RUNABLE_JAVASCRIPT: (props) => {
+        TO_RUNABLE_JAVASCRIPT: (codeIn) => {
 
 
             try {
                 const num_zero = THIS.OPTIONS().NORMAL.NUMBER_ZERO
                 const num_one = THIS.OPTIONS().NORMAL.NUMBER_ONE
-                const stringContent = String(props)
+                const stringContent = String(codeIn)
                 var split_one = stringContent.split(THIS.OPTIONS().SPLIT.RENDER)
                 var split_three = split_four = split_five = String()
-                if (!THIS.CHECK.IS_EMPRY({ ob: split_one })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: split_one })) {
                     split_three = split_one[num_one].split(THIS.OPTIONS().SPLIT.FROM)
 
                 }
-                if (!THIS.CHECK.IS_EMPRY({ ob: split_three })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: split_three })) {
                     split_four = split_three[num_one].split(THIS.OPTIONS().NORMAL.LEFT_BRACKET_SYMBOL)
 
                 }
-                if (!THIS.CHECK.IS_EMPRY({ ob: split_four })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: split_four })) {
                     split_five = split_four[num_one].split(THIS.OPTIONS().NORMAL.RIGHT_BRACKET_SYMBOL)
                 }
 
-                if (!THIS.CHECK.IS_EMPRY({ ob: split_five })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: split_five })) {
                     const content = split_five[num_zero]
 
                     const other = stringContent.split(THIS.OPTIONS().SPLIT.RENDER)[num_one].split(THIS.OPTIONS().NORMAL.RIGHT_BRACKET_SYMBOL)
@@ -708,7 +740,7 @@ var HERE = (props) => {
 
                 }
                 else {
-                    return props
+                    return codeIn
                 }
 
 
@@ -776,12 +808,12 @@ var HERE = (props) => {
 
 
     THIS.CHECK = {
-        IS_EMPRY: ({ ob }) => {
-            if (!ob || ob.length == 0) {
-                return true
+        IS_ARRAY_EMPTY: ({ ob }) => {
+            if (ob && ob.length > 0) {
+                return false
             }
             else {
-                return false
+                return true
             }
         },
 
@@ -880,21 +912,37 @@ var HERE = (props) => {
 
         },
 
-        REQUIRE_THINGS: ({ tagName, tagAppend, props, haveObject, methodCreateTag, mode }) => {
+        REQUIRE_THINGS: ({ tagName, levelTag, tagAppend, props, haveObject, methodCreateTag, mode }) => {
             try {
-                var require = $(tagName)
                 const NORMAL = THIS.OPTIONS().NORMAL
                 const iprops = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
-                if (THIS.CHECK.IS_EMPRY({ ob: require })) {
-                    const tag = document.createElement(tagName)
-                    $(tagAppend).append(tag)
+
+                if (tagAppend && tagName) {
+
+                    const nameAttribute = THIS.CONVERT.TO_ATTRIBUTE_QUERY(
+                        {
+                            name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME, value: levelTag
+                        }
+                    )
+
+
+                    const require = $(tagName + nameAttribute)
+
+                    if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: require })) {
+                        var tag = document.createElement(tagName)
+                        tag.setAttribute(THIS.OPTIONS().ATTRIBUTE.NAME_NAME, levelTag)
+                        $(tagAppend).append(tag)
+                    }
+
+                    tagName = tagName + nameAttribute
+
                 }
 
-                if (!THIS.CHECK.IS_EMPRY({ ob: iprops.ob })) {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: iprops.ob })) {
 
                     var arrName = NORMAL.ARRAY_EMPTY
 
-                    const CALL = () => {
+                    const OH = () => {
                         var isLoad = true
 
                         arrName.forEach((name, index) => {
@@ -915,7 +963,7 @@ var HERE = (props) => {
                     iprops.ob.forEach(element => {
                         const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: element.src })
 
-                        if (THIS.CHECK.IS_EMPRY({ ob: element.name })) {
+                        if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: element.name })) {
                             element.name = THIS.CONVERT.PATH_TO_NAME({ path: path })
                         }
 
@@ -923,56 +971,83 @@ var HERE = (props) => {
 
                         const item = haveObject.find(x => x.name == element.name)
 
-                        if (THIS.CHECK.IS_EMPRY({ ob: item })) {
+                        if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: item })) {
 
 
                             if (mode) {
                                 if (mode.name == THIS.OPTIONS().MODE.COMPONENTS_NAME) {
+
+                                    const exist = haveObject.find(i => i.name == element.name)
+
+                                    if (!THIS.CHECK.IS_OBJECT({ ob: exist })) {
+                                        haveObject.push({
+                                            src: element.src,
+                                            name: element.name,
+                                            load: NORMAL.FALSE,
+                                        })
+
+
+                                        THIS.THIS.GET_TEXT({ path: path }).then(data => {
+                                            if (mode.map) {
+                                                const code = eval(data.response)
+                                                const item = mode.map.find(x => x.name = element.name)
+                                                if (!item) {
+                                                    mode.map[element.name] = code
+                                                }
+                                                const added = haveObject.find(x => x.name = element.name)
+                                                added.load = NORMAL.TRUE
+                                                OH()
+                                            }
+                                        })
+                                    }
+                                }
+
+                            }
+                            else {
+                                const exis = haveObject.find(i => i.name == element.name)
+                                if (!THIS.CHECK.IS_OBJECT({ ob: exis })) {
+                                    const tag = methodCreateTag({ name: element.name, subPath: element.src, path: iprops.path })
+
                                     haveObject.push({
                                         src: element.src,
                                         name: element.name,
                                         load: NORMAL.FALSE,
                                     })
 
+
                                     THIS.THIS.GET_TEXT({ path: path }).then(data => {
-                                        if (mode.map) {
-                                            const code = eval(data.response)
-                                            const item = mode.map.find(x => x.name = element.name)
-                                            if (!item) {
-                                                mode.map[element.name] = code
-                                            }
-                                            const fin = haveObject.find(x => x.name = element.name)
-                                            fin.load = NORMAL.TRUE
+                                        const res = data.response
 
+                                        const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
+                                            name: element.name,
+                                            css: res
+                                        })
+                                        const item = haveObject.find(x => x.name = element.name)
+                                        item.load = NORMAL.TRUE
+                                        $(tagName).append(tag);
 
-                                            CALL()
+                                    })
 
-
+                                    THIS.DOM.ON_LOAD_METHOD({
+                                        element: tag,
+                                        event: (event) => {
+                                            
+                                            OH()
                                         }
                                     })
+
+                                    const exist = $(tagName).find(THIS.CONVERT.TO_ATTRIBUTE_QUERY({
+                                        name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
+                                        value: element.name
+                                    }))
+
+                                    if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
+                                        $(tagName).append(tag);
+                                    }
 
                                 }
 
                             }
-                            else {
-                                const tag = methodCreateTag({ name: element.name, subPath: element.src, path: iprops.path })
-
-                                haveObject.push({
-                                    src: element.src,
-                                    name: element.name,
-                                    load: NORMAL.FALSE,
-                                })
-                                THIS.DOM.ON_LOAD_METHOD({
-                                    element: tag,
-                                    event: (event) => {
-                                        const item = haveObject.find(x => x.name = element.name)
-                                        item.load = NORMAL.TRUE
-                                        CALL()
-                                    }
-                                })
-                                $(tagName).append(tag);
-                            }
-
 
                         }
                         else {
@@ -988,6 +1063,88 @@ var HERE = (props) => {
                 console.error(error);
             }
         },
+
+        LOAD_MODULES: ({ arrModule, callBack }) => {
+            try {
+                if (THIS.CHECK.IS_OBJECT({ ob: arrModule })) {
+                    const OPTIONS = THIS.OPTIONS()
+
+                    const nameAttribute = THIS.CONVERT.TO_ATTRIBUTE_QUERY(
+                        {
+                            name: OPTIONS.ATTRIBUTE.NAME_NAME,
+                            value: OPTIONS.ATTRIBUTE_VALUE.CSS_LEVEL_ONE_NAME
+                        }
+                    )
+
+
+                    const tagsName = OPTIONS.TAG.CSS_NAME + nameAttribute
+                    const tagsAppend = $(tagsName)
+
+                    if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: tagsAppend })) {
+                        var tag = document.createElement(OPTIONS.TAG.CSS_NAME)
+                        tag.setAttribute(OPTIONS.ATTRIBUTE.NAME_NAME, OPTIONS.ATTRIBUTE_VALUE.CSS_LEVEL_ONE_NAME)
+                        $(OPTIONS.TAG.HEAD_NAME).append(tag)
+                    }
+
+                    const currentPath = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: OPTIONS.MODULES.MODULE_PATH })
+                    const MODULES = THIS.READY.READY_MODULES()
+
+
+                    const OH = () => {
+                        const sc = arrModule.find(i => i.LOAD_SCRIPT == false)
+                        const scs = arrModule.find(i => i.LOAD_CSS == false)
+
+                        if (!sc && !scs) {
+                            callBack()
+                        }
+                    }
+
+
+                    arrModule.forEach(element => {
+
+                        if (!element.LOAD_SCRIPT) {
+                            const scriptPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.data.SCRIPT })
+                            THIS.THIS.GET_TEXT({ path: scriptPath }).then(data => {
+                                const content = data.response
+                                const rinegan = eval(content)
+
+                                MODULES[element.name] = rinegan
+                                element.LOAD_SCRIPT = true
+
+                                OH()
+                            })
+                        }
+
+
+                        if (!element.LOAD_CSS) {
+                            const cssPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.data.CSS })
+                            var tag = OPTIONS.TAG.METHOD.CREATE_LINK_CSS(
+                                {
+                                    src: cssPath, name: THIS.CONVERT.PATH_TO_NAME({ path: cssPath })
+                                })
+
+                            THIS.DOM.ON_LOAD_METHOD({
+                                element: tag,
+                                event: () => {
+                                    OH()
+                                }
+                            })
+
+                            const exist = $(tagsName).find(THIS.CONVERT.TO_ATTRIBUTE_QUERY({
+                                name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
+                                value: element.name
+                            }))
+
+                            if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
+                                $(tagsName).append(tag)
+                            }
+
+                        }
+                    })
+                }
+            } catch (error) { THIS.EX.ERROR({ err: error }) }
+
+        }
 
     }
 
@@ -1130,7 +1287,19 @@ var HERE = (props) => {
                 }
 
             } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        },
 
+        READY_MODULES: () => {
+
+            try {
+                if (!THIS.MODULES) {
+                    THIS.MODULES = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                }
+                return THIS.MODULES
+            } catch (err) {
+                THIS.EX.ERROR({ err: error })
             }
         }
 
@@ -1152,8 +1321,6 @@ var HERE = (props) => {
                         THIS: PROPS.THIS
                     }
                 }
-
-
             }
 
         },
@@ -1180,6 +1347,7 @@ var HERE = (props) => {
                     THIS.METHOD.REQUIRE_THINGS({
                         tagName: THIS.OPTIONS().TAG.CSS_NAME,
                         tagAppend: THIS.OPTIONS().TAG.HEAD_NAME,
+                        levelTag: THIS.OPTIONS().ATTRIBUTE_VALUE.CSS_LEVEL_TWO_NAME,
                         haveObject: HAVE.CSS,
                         props: iprops,
                         methodCreateTag: THIS.REQUIRE.IS.CSS.TAG
@@ -1192,7 +1360,7 @@ var HERE = (props) => {
                     BOUNDER: ({ props }) => {
                         try {
                             var iprops = props
-                            if (iprops.ob) {
+                            if (THIS.CHECK.IS_OBJECT({ ob: iprops.ob })) {
                                 const src = THIS.IS.MAP.BOUNDER[iprops.ob.BOUNDER].src
 
                                 THIS.RENDER.FROM({
@@ -1371,7 +1539,7 @@ var HERE = (props) => {
                     }
                 },
                 METHOD: {
-                    RUN_CALL: ({ props }) => {
+                    RUN_OH: ({ props }) => {
                         try {
                             if (props.THIS && props.THIS.callBack) {
                                 props.THIS.callBack()
@@ -1403,8 +1571,8 @@ var HERE = (props) => {
                         if (!props.LOAD) {
                             const CURRENT = THIS.REQUIRE.THIS.RUN
                             CURRENT.METHOD.RUN_NORMAL({ props: props })
-                            CURRENT.METHOD.RUN_CALL({ props: props })
                             CURRENT.METHOD.STATUS({ props: props })
+                            CURRENT.METHOD.RUN_OH({ props: props })
                         }
                     } catch (err) { THIS.EX.ERROR({ err: err }) }
 
@@ -1583,9 +1751,9 @@ var HERE = (props) => {
                         var pathToThis = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: iprops.path })
 
 
-                        if (!THIS.CHECK.IS_EMPRY({ ob: idata.response.INCLUDE })) {
+                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: idata.response.INCLUDE })) {
 
-                            if (!THIS.CHECK.IS_EMPRY({ ob: data.response.INCLUDE })) {
+                            if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: data.response.INCLUDE })) {
 
                                 for (let index = NORMAL.NUMBER_ZERO; index < data.response.INCLUDE.length; index++) {
                                     var element = data.response.INCLUDE[index];
@@ -1640,6 +1808,10 @@ var HERE = (props) => {
 
         INNIT: {
             THIS: {
+
+
+
+
                 ROUTE: () => {
                     try {
 
@@ -1697,6 +1869,55 @@ var HERE = (props) => {
                         THIS.EX.ERROR({ err: error })
                     }
 
+                },
+
+                MODULES: (arr) => {
+
+                    try {
+                        const MODULE = THIS.OPTIONS().MODULES
+
+                        const OH = () => {
+                            if (THIS.CHECK.IS_OBJECT({ ob: arr })) {
+                                arr.forEach(element => {
+                                    element()
+                                })
+                            }
+                        }
+
+                        if (MODULE.USE && THIS.CHECK.IS_OBJECT({ ob: MODULE.USE })) {
+                            THIS.THIS.GET_JSON({ path: THIS.OPTIONS().MODULES.MODULE_PATH }).then((data) => {
+                                const modules = data.response
+                                var arrLoading = []
+
+                                if (THIS.CHECK.IS_OBJECT({ ob: modules })) {
+                                    Object.keys(modules).forEach(element => {
+                                        arrLoading.push({
+                                            name: element,
+                                            data: {
+                                                SCRIPT: modules[element].SCRIPT,
+                                                CSS: modules[element].CSS,
+                                                LOAD_SCRIPT: false,
+                                                LOAD_CSS: false
+                                            }
+                                        })
+                                    })
+
+                                    THIS.METHOD.LOAD_MODULES({
+                                        arrModule: arrLoading,
+                                        callBack: OH
+                                    })
+                                }
+                            })
+                        }
+                        else {
+                            OH()
+                        }
+
+
+
+                    } catch (err) {
+                        THIS.EX.ERROR({ err: err })
+                    }
                 }
 
             },
@@ -1704,9 +1925,15 @@ var HERE = (props) => {
 
             IN: () => {
                 try {
-                    THIS.ROUTE.INNIT.THIS.BOUNDER()
-                    THIS.ROUTE.INNIT.THIS.ROUTE()
-                } catch (err) { THIS.EX.ERROR({ err: err }) }
+                    THIS.ROUTE.INNIT.THIS.MODULES(
+                        [
+                            THIS.ROUTE.INNIT.THIS.BOUNDER,
+                            THIS.ROUTE.INNIT.THIS.ROUTE
+                        ]
+                    )
+                } catch (err) {
+                    THIS.EX.ERROR({ err: err })
+                }
             }
 
         },
@@ -1796,8 +2023,10 @@ var HERE = (props) => {
     }
 
     THIS.INNIT = (PROPS) => {
-        THIS.IS = (PROPS);
+        THIS.IS = (PROPS)
         PROPS.IS = (THIS)
+
+
         THIS.ROUTE.RUN();
     }
 
