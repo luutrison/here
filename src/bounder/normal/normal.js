@@ -37,13 +37,11 @@
                     
 
                     <div id="normal-container">
-
-
+                        <shipper></shipper>
                     </div>
 
                 </section>
-            ),
-            TO: "CONTAINER",
+            )
         },
         METHOD: () => {
 

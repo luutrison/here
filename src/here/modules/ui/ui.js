@@ -1,16 +1,8 @@
 const DTE2OTU3OTKXODC4NTG = () => {
     const SETTING = {
-        NAME: {
-            NAME_CSS: "here.modules.ui.ui.css"
-        },
-        PATH: {
-            CSS: "./ui.css"
-        },
         OPTIONS: HERE,
-        ELEMENTS: {
-            LINK: ({ name }) => {
-                return HERE_OPTIONS.TAG.LINK_NAME + "[name=\\\"" + name + "\\\"]"
-            }
+        TAG: {
+            LOADER: "shipper"
         }
     }
 
@@ -20,17 +12,15 @@ const DTE2OTU3OTKXODC4NTG = () => {
 
 const HERE_MODULES_UI = () => {
     const THIS = {}
-    THIS.OPTIONS = HERE_MODULES_UI_OPTIONS
+    THIS.OPTIONS = DTE2OTU3OTKXODC4NTG
 
-    SHIPPER = THIS.SHIPPER = (props) => {
-        iprops = {
-            container: props.container
-        }
+    SHIPPER = THIS.SHIPPER = () => {
+       
         const html = (
             `
             <div id="yje2otu0nty2mzaznju">
                 <div id="cte2otu0nty2ndu1njy"><span id="ete2otu0nty4nze1otc">Rừm rừm...</span>
-                <img src="/designs/images/21695457730118.gif"/>
+                <img src="/here/modules/ui/images/21695457730118.gif"/>
                 <span id="zze2otu0ntc4otizmja">...</span>
                 </div>
             </div>
@@ -75,10 +65,25 @@ const HERE_MODULES_UI = () => {
 
             }
 
-        } catch (error) { }
+        } catch (error) { 
+            console.error(error);
+        }
     }
 
+    UPDATE = THIS.UPDATE = () => {
+        try {
+            const loader = $(THIS.OPTIONS().TAG.LOADER)
+            if(loader){
+                $(loader).each((index, element) => {
+                    $(element).html(THIS.SHIPPER())
+                })
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    return THIS
 }
 
 

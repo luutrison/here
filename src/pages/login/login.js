@@ -35,15 +35,12 @@
                     </form>
                 </div>
             ),
-            TO: "CONTAINER",
             TRANSITION: "SLIDE_VERTICAL"
         },
         METHOD: () => {
-            console.log("Method load")
-
             $("#pages-login form").submit(function (event) {
                 event.preventDefault()
-                PROPS.ROUTE.LOAD({ props: { name: "pages.dash", route: { to: "CONTAINER" } } })
+                PROPS.ROUTE.LOAD({name: "pages.dash"})
             });
         },
     }

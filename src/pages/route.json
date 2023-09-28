@@ -1,14 +1,16 @@
 {
     "COMPONENTS": {
         "default": {
-            "src": "./login/login.js"
-
+            "src": "./login/login.js",
+            "to": "#container"
         },
         "pages.login": {
-            "src": "./login/login.js"
+            "src": "./login/login.js",
+            "to": "#container"
         },
         "pages.dash": {
-            "src": "./dash/dash.js"
+            "src": "./dash/dash.js",
+            "to": "#normal-container"
         }
     }
 }

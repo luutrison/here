@@ -1,7 +1,8 @@
 {
     "COMPONENTS": {
         "NORMAL": {
-            "src": "./normal/normal.js"
+            "src": "./normal/normal.js",
+            "to": "#container"
         }
     }
 }

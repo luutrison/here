@@ -52,7 +52,6 @@
                     </div>
                 </section>
             ),
-            TO: "#normal-container",
             TRANSITION: "SLIDE_VERTICAL"
         },
         METHOD: () => {

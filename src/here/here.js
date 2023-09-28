@@ -63,7 +63,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             ARRAY_ABSOLUTE_PATH_CONTAIN: ["./", "../"],
             ARRAY_ORIGIN_METHOD: ["http://", "https://"]
         },
-        
+
         COOKIE: {
             COOKIE_APP_NAME: "_CA_",
             COOKIE_EXPIRES_HOURS_DEFAULT: 5,
@@ -154,7 +154,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
                 CREATE_STYLE_CSS: ({ name, css }) => {
                     if (name && css) {
                         const NORMAL = SETTING.NORMAL
-                       
+
                         const startTag = NORMAL.LEFT_SARO_SYMBOL + SETTING.TAG.STYLE_NAME + NORMAL.SPACE
                             + SETTING.ATTRIBUTE.NAME_NAME + NORMAL.EQUAL_SYMBOL + NORMAL.SINGLE_NHAY_SYMBOL
                             + name + NORMAL.SINGLE_NHAY_SYMBOL + NORMAL.RIGHT_SARO_SYMBOL
@@ -990,11 +990,11 @@ var HERE = (props) => {
                                         THIS.THIS.GET_TEXT({ path: path }).then(data => {
                                             if (mode.map) {
                                                 const code = eval(data.response)
-                                                const item = mode.map.find(x => x.name = element.name)
+                                                const item = mode.map.find(x => x.name == element.name)
                                                 if (!item) {
                                                     mode.map[element.name] = code
                                                 }
-                                                const added = haveObject.find(x => x.name = element.name)
+                                                const added = haveObject.find(x => x.name == element.name)
                                                 added.load = NORMAL.TRUE
                                                 OH()
                                             }
@@ -1006,8 +1006,6 @@ var HERE = (props) => {
                             else {
                                 const exis = haveObject.find(i => i.name == element.name)
                                 if (!THIS.CHECK.IS_OBJECT({ ob: exis })) {
-                                    const tag = methodCreateTag({ name: element.name, subPath: element.src, path: iprops.path })
-
                                     haveObject.push({
                                         src: element.src,
                                         name: element.name,
@@ -1015,34 +1013,32 @@ var HERE = (props) => {
                                     })
 
 
-                                    THIS.THIS.GET_TEXT({ path: path }).then(data => {
-                                        const res = data.response
 
-                                        const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
-                                            name: element.name,
-                                            css: res
-                                        })
-                                        const item = haveObject.find(x => x.name = element.name)
-                                        item.load = NORMAL.TRUE
-                                        $(tagName).append(tag);
-
-                                    })
-
-                                    THIS.DOM.ON_LOAD_METHOD({
-                                        element: tag,
-                                        event: (event) => {
-                                            
-                                            OH()
-                                        }
-                                    })
-
-                                    const exist = $(tagName).find(THIS.CONVERT.TO_ATTRIBUTE_QUERY({
+                                    const attribute = THIS.CONVERT.TO_ATTRIBUTE_QUERY({
                                         name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
                                         value: element.name
-                                    }))
+                                    })
+
+                                    const styleQuery = THIS.OPTIONS().TAG.STYLE_NAME + NORMAL.SPACE + attribute
+
+
+                                    const exist = $(tagName).find(styleQuery)
 
                                     if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
-                                        $(tagName).append(tag);
+
+                                        THIS.THIS.GET_TEXT({ path: path }).then(data => {
+                                            const res = data.response
+
+                                            const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
+                                                name: element.name,
+                                                css: res
+                                            })
+                                            const item = haveObject.find(x => x.name == element.name)
+                                            item.load = NORMAL.TRUE
+                                            $(tagName).append(tag);
+                                            OH()
+                                        })
+
                                     }
 
                                 }
@@ -1075,8 +1071,6 @@ var HERE = (props) => {
                             value: OPTIONS.ATTRIBUTE_VALUE.CSS_LEVEL_ONE_NAME
                         }
                     )
-
-
                     const tagsName = OPTIONS.TAG.CSS_NAME + nameAttribute
                     const tagsAppend = $(tagsName)
 
@@ -1085,11 +1079,7 @@ var HERE = (props) => {
                         tag.setAttribute(OPTIONS.ATTRIBUTE.NAME_NAME, OPTIONS.ATTRIBUTE_VALUE.CSS_LEVEL_ONE_NAME)
                         $(OPTIONS.TAG.HEAD_NAME).append(tag)
                     }
-
                     const currentPath = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: OPTIONS.MODULES.MODULE_PATH })
-                    const MODULES = THIS.READY.READY_MODULES()
-
-
                     const OH = () => {
                         const sc = arrModule.find(i => i.LOAD_SCRIPT == false)
                         const scs = arrModule.find(i => i.LOAD_CSS == false)
@@ -1107,8 +1097,7 @@ var HERE = (props) => {
                             THIS.THIS.GET_TEXT({ path: scriptPath }).then(data => {
                                 const content = data.response
                                 const rinegan = eval(content)
-
-                                MODULES[element.name] = rinegan
+                                THIS.MODULES[element.name] = rinegan
                                 element.LOAD_SCRIPT = true
 
                                 OH()
@@ -1118,25 +1107,43 @@ var HERE = (props) => {
 
                         if (!element.LOAD_CSS) {
                             const cssPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.data.CSS })
-                            var tag = OPTIONS.TAG.METHOD.CREATE_LINK_CSS(
-                                {
-                                    src: cssPath, name: THIS.CONVERT.PATH_TO_NAME({ path: cssPath })
+                            var haveObject = THIS.IS.HAVE.CSS_LIB
+                            const NORMAL = THIS.OPTIONS().NORMAL
+                            const exis = haveObject.find(i => i.name == element.name)
+                            if (!THIS.CHECK.IS_OBJECT({ ob: exis })) {
+                                haveObject.push({
+                                    src: element.data.CSS,
+                                    name: element.name,
+                                    load: NORMAL.FALSE,
                                 })
 
-                            THIS.DOM.ON_LOAD_METHOD({
-                                element: tag,
-                                event: () => {
-                                    OH()
+                                const attribute = THIS.CONVERT.TO_ATTRIBUTE_QUERY({
+                                    name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
+                                    value: element.name
+                                })
+
+                                const styleQuery = THIS.OPTIONS().TAG.STYLE_NAME + NORMAL.SPACE + attribute
+
+
+                                const exist = $(tagsName).find(styleQuery)
+
+                                if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
+
+                                    THIS.THIS.GET_TEXT({ path: cssPath }).then(data => {
+                                        const res = data.response
+
+                                        const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
+                                            name: element.name,
+                                            css: res
+                                        })
+                                        const item = haveObject.find(x => x.name == element.name)
+                                        item.load = NORMAL.TRUE
+                                        $(tagsName).append(tag);
+                                        OH()
+                                    })
+
                                 }
-                            })
 
-                            const exist = $(tagsName).find(THIS.CONVERT.TO_ATTRIBUTE_QUERY({
-                                name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
-                                value: element.name
-                            }))
-
-                            if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
-                                $(tagsName).append(tag)
                             }
 
                         }
@@ -1148,35 +1155,109 @@ var HERE = (props) => {
 
     }
 
+    THIS.UI = {
+        THIS: {
+
+            UI: {
+                TIMER: {
+                    OUT: ({ props }) => {
+                        try {
+                            var iprops = {
+                                route: props.route
+                            }
+
+                            if (iprops.route && iprops.route.to) {
+                                const render = iprops.route.to
+                                if (THIS.MODULES && THIS.MODULES.UI) {
+                                    const MODULES_UI = THIS.MODULES.UI()
+
+                                    if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
+                                        const element = $(render)
+                                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
+                                            $(element).html(String())
+                                            $(element).append(MODULES_UI.SHIPPER())
+                                        }
+
+                                    }
+                                    else {
+                                        $(THIS.OPTIONS().THIS[render]).html(String())
+                                        $(THIS.OPTIONS().THIS[render]).html(MODULES_UI.SHIPPER())
+                                    }
+                                }
+
+                            }
+                        } catch (error) {
+                            THIS.EX.ERROR({ err: error })
+                        }
+                    },
+                },
 
 
 
+                ON: ({ props }) => {
+                    try {
+                        const CURRENT = THIS.UI.THIS.UI
+                        CURRENT.TIMER.OUT({ props: props })
+                    } catch (error) {
+                        THIS.EX.ERROR({ err: error })
+                    }
+
+                }
+            }
+        },
+
+        INNIT: ({ props }) => {
+            try {
+                const CURRENT = THIS.UI.THIS.UI
+                CURRENT.ON({ props: props })
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        },
+
+        UPDATE: () => {
+            try {
+                const MODULES = THIS.MODULES
+                if (THIS.CHECK.IS_OBJECT({ ob: MODULES })) {
+                    Object.keys(MODULES).forEach(key => {
+                        const element = MODULES[key]
+                        if (THIS.CHECK.IS_OBJECT({ ob: element })) {
+                            if (element.UPDATE) {
+                                element.UPDATE()
+                            }
+                        }
+                        else {
+                            const func = element()
+                            if (func.UPDATE) {
+                                func.UPDATE()
+                            }
+                        }
+                    })
+                }
+
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        }
+
+    }
+
+
+    THIS.UPDATE = {
+        ON: () => {
+            try {
+                THIS.UI.UPDATE()
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        }
+    }
 
 
     THIS.RENDER = {
 
         PROPS: {
-            FROM_RENDER_PROPS: ({ props }) => {
-
-                var iroute = {}
-
-                if (props.route) {
-                    iroute = {
-                        to: props.route.to,
-                        transition: props.route.transition,
-                        waiterMode: props.route.waiterMode
-                    }
-                }
-
-                return {
-                    path: props.path,
-                    subPath: props.subPath,
-                    route: iroute
-
-                }
-
-            }
-
 
         },
 
@@ -1210,18 +1291,9 @@ var HERE = (props) => {
 
             },
 
-            TIMER: ({ props }) => {
-                try {
-                    var iprops = {
-                        this: props.this
-                    }
 
-                    if (iprops.this.route && iprops.this.route.to) {
-                        $(THIS.OPTIONS().THIS[iprops.this.route.to]).html(String())
-                        $(THIS.OPTIONS().THIS[iprops.this.route.to]).html("Shipper is comming...")
-                    }
-                } catch (err) { }
-            }
+
+
         },
 
         FROM: ({ props }) => {
@@ -1229,9 +1301,7 @@ var HERE = (props) => {
                 const iprops = props
 
                 const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: iprops.subPath })
-
-                // THIS.RENDER.THIS.TIMER({ props: { this: iprops } })
-
+                THIS.UI.INNIT({ props: iprops })
                 THIS.RENDER.THIS.DATA({
                     props: {
                         path: path,
@@ -1266,7 +1336,7 @@ var HERE = (props) => {
                     }
                 }
 
-                return PATH;
+                return PATH.MAP;
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
@@ -1275,12 +1345,16 @@ var HERE = (props) => {
         READY_HAVE: () => {
             try {
                 if (!THIS.IS.HAVE) {
+                    const ARRAY_EMPTY = () => {
+                        return THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+                    }
+
                     THIS.IS.HAVE = {
-                        CSS_LIB: THIS.OPTIONS().PAGE.DEFAULT_PAGE_CSS_LIB(),
-                        SCRIPT_LIB: THIS.OPTIONS().PAGE.DEFAULT_PAGE_SCRIPT_LIB(),
-                        CSS: THIS.OPTIONS().NORMAL.ARRAY_EMPTY,
-                        SCRIPT: THIS.OPTIONS().NORMAL.ARRAY_EMPTY,
-                        COMPONENTS: THIS.OPTIONS().NORMAL.ARRAY_EMPTY,
+                        CSS_LIB: ARRAY_EMPTY(),
+                        SCRIPT_LIB: ARRAY_EMPTY(),
+                        CSS: ARRAY_EMPTY(),
+                        SCRIPT: ARRAY_EMPTY(),
+                        COMPONENTS: ARRAY_EMPTY(),
                     }
 
                     return THIS.IS.HAVE
@@ -1301,9 +1375,19 @@ var HERE = (props) => {
             } catch (err) {
                 THIS.EX.ERROR({ err: error })
             }
-        }
+        },
 
+        READY: () => {
+            try {
+                const READY = THIS.READY
+                READY.READY_ROUTE_MAP()
+                READY.READY_HAVE()
+                READY.READY_MODULES()
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
 
+        },
     }
 
 
@@ -1361,15 +1445,23 @@ var HERE = (props) => {
                         try {
                             var iprops = props
                             if (THIS.CHECK.IS_OBJECT({ ob: iprops.ob })) {
-                                const src = THIS.IS.MAP.BOUNDER[iprops.ob.BOUNDER].src
 
-                                THIS.RENDER.FROM({
-                                    props: {
-                                        path: THIS.OPTIONS().NORMAL.STRING_EMPTY,
-                                        subPath: src,
-                                        callBack: iprops.callBack
-                                    }
-                                })
+                                const BOUNDER = THIS.IS.MAP.BOUNDER[iprops.ob.BOUNDER]
+
+                                if (BOUNDER && BOUNDER.src) {
+                                    const src = BOUNDER.src
+
+                                    THIS.RENDER.FROM({
+                                        props: {
+                                            path: THIS.OPTIONS().NORMAL.STRING_EMPTY,
+                                            subPath: src,
+                                            callBack: iprops.callBack,
+                                            route: BOUNDER
+                                        }
+                                    })
+                                }
+
+
                             } else {
                                 iprops.callBack()
                             }
@@ -1503,18 +1595,19 @@ var HERE = (props) => {
                         try {
                             if (props.DATA.RENDER) {
                                 const RENDER = props.DATA.RENDER
+                                const render = props.ROUTE
 
-                                if (RENDER.FROM && RENDER.TO) {
+                                if (RENDER.FROM && render) {
 
 
-                                    if (THIS.CHECK.IS_QUERY_ELEMENT({ name: RENDER.TO })) {
-                                        const element = $(RENDER.TO)
+                                    if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render.to })) {
+                                        const element = $(render.to)
                                         $(element).html(String())
                                         $(element).append(RENDER.FROM)
                                     }
                                     else {
-                                        $(THIS.OPTIONS().THIS[RENDER.TO]).html(String())
-                                        $(THIS.OPTIONS().THIS[RENDER.TO]).append(RENDER.FROM)
+                                        $(THIS.OPTIONS().THIS[render.to]).html(String())
+                                        $(THIS.OPTIONS().THIS[render.to]).append(RENDER.FROM)
                                     }
                                 }
                             }
@@ -1539,7 +1632,7 @@ var HERE = (props) => {
                     }
                 },
                 METHOD: {
-                    RUN_OH: ({ props }) => {
+                    RUN_OH: (props) => {
                         try {
                             if (props.THIS && props.THIS.callBack) {
                                 props.THIS.callBack()
@@ -1548,7 +1641,7 @@ var HERE = (props) => {
                             THIS.EX.ERROR({ err: error })
                         }
                     },
-                    RUN_NORMAL: ({ props }) => {
+                    RUN_NORMAL: (props) => {
                         try {
 
                             if (props.DATA) {
@@ -1561,7 +1654,16 @@ var HERE = (props) => {
                         }
 
                     },
-                    STATUS: ({ props }) => {
+                    RUN_EFFECT: (props) => {
+                        try {
+                            const UI = THIS.UI
+
+
+                        } catch (error) {
+                            THIS.EX.ERROR({ err: error })
+                        }
+                    },
+                    STATUS: (props) => {
                         props.LOAD = THIS.OPTIONS().NORMAL.TRUE
                     }
                 },
@@ -1569,10 +1671,14 @@ var HERE = (props) => {
                 RUN: ({ props }) => {
                     try {
                         if (!props.LOAD) {
-                            const CURRENT = THIS.REQUIRE.THIS.RUN
-                            CURRENT.METHOD.RUN_NORMAL({ props: props })
-                            CURRENT.METHOD.STATUS({ props: props })
-                            CURRENT.METHOD.RUN_OH({ props: props })
+                            // setTimeout(() => {
+                                const CURRENT = THIS.REQUIRE.THIS.RUN
+                                CURRENT.METHOD.RUN_NORMAL(props)
+                                CURRENT.METHOD.RUN_OH(props)
+                                CURRENT.METHOD.RUN_EFFECT(props)
+                                CURRENT.METHOD.STATUS(props)
+                                THIS.UPDATE.ON()
+                            // }, 0);
                         }
                     } catch (err) { THIS.EX.ERROR({ err: err }) }
 
@@ -1584,12 +1690,7 @@ var HERE = (props) => {
             LOAD: ({ PROPS }) => {
                 try {
                     const iprops = PROPS
-
-                    THIS.READY.READY_HAVE()
-
                     THIS.REQUIRE.THIS.REQUIRE({ props: iprops })
-
-
                 } catch (error) {
                     THIS.EX.ERROR({ err: error })
                 }
@@ -1672,25 +1773,29 @@ var HERE = (props) => {
 
         },
 
-        LOAD: ({ props }) => {
-            var iprops = {
-                name: props.name,
-                route: props.route
-            }
+        LOAD: ({ name, route }) => {
 
-            const src = THIS.IS.MAP.ROUTE[iprops.name].src
+            const current = THIS.IS.MAP.ROUTE[name]
 
-            THIS.ROUTE.HISTORY().SET({ name: iprops.name })
 
-            THIS.RENDER.FROM({
-                props: THIS.RENDER.PROPS.FROM_RENDER_PROPS({
+            if (current) {
+                THIS.ROUTE.HISTORY().SET({ name: name })
+
+                if (!route) {
+                    route = current
+                }
+
+
+                THIS.RENDER.FROM({
                     props: {
                         path: String(),
-                        subPath: src,
-                        route: iprops.route
+                        subPath: current.src,
+                        route: route
                     }
                 })
-            })
+            }
+
+
 
         },
 
@@ -1816,24 +1921,22 @@ var HERE = (props) => {
                     try {
 
                         const CURRENT = THIS.ROUTE
-
-                        var PATH = THIS.READY.READY_ROUTE_MAP()
-                        if (!PATH.MAP.PROPERTIES.MAP) {
+                        var MAP = THIS.READY.READY_ROUTE_MAP()
+                        if (!MAP.PROPERTIES.MAP) {
 
                             THIS.ROUTE.GET({
                                 props: CURRENT.PROPS.INNIT_GET({
                                     props: {
                                         path: THIS.OPTIONS().ROUTE.DEFAULT_PATH,
                                         callBack: ({ props }) => {
-                                            PATH.MAP.PROPERTIES.MAP = THIS.OPTIONS().NORMAL.TRUE
-                                            PATH.MAP.ROUTE = { ...PATH.MAP.ROUTE, ...props.map }
+                                            MAP.PROPERTIES.MAP = THIS.OPTIONS().NORMAL.TRUE
+                                            MAP.ROUTE = { ...MAP.ROUTE, ...props.map }
                                             THIS.RENDER.FROM({
-                                                props: THIS.RENDER.PROPS.FROM_RENDER_PROPS({
-                                                    props: {
-                                                        path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: THIS.OPTIONS().ROUTE.DEFAULT_PATH }),
-                                                        subPath: props.map.default.src
-                                                    }
-                                                })
+                                                props: {
+                                                    path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: THIS.OPTIONS().ROUTE.DEFAULT_PATH }),
+                                                    subPath: props.map.default.src,
+                                                    route: props.map.default
+                                                }
                                             })
                                         }
                                     }
@@ -1850,16 +1953,16 @@ var HERE = (props) => {
                     try {
                         const CURRENT = THIS.ROUTE
 
-                        var PATH = THIS.READY.READY_ROUTE_MAP()
-                        if (!PATH.MAP.PROPERTIES.BOUNDER) {
+                        var MAP = THIS.READY.READY_ROUTE_MAP()
+                        if (!MAP.PROPERTIES.BOUNDER) {
 
                             THIS.ROUTE.GET({
                                 props: CURRENT.PROPS.INNIT_GET({
                                     props: {
                                         path: THIS.OPTIONS().ROUTE.BOUNDER_PATH,
                                         callBack: ({ props }) => {
-                                            PATH.MAP.PROPERTIES.BOUNDER = THIS.OPTIONS().NORMAL.TRUE
-                                            PATH.MAP.BOUNDER = { ...PATH.MAP.BOUNDER, ...props.map }
+                                            MAP.PROPERTIES.BOUNDER = THIS.OPTIONS().NORMAL.TRUE
+                                            MAP.BOUNDER = { ...MAP.BOUNDER, ...props.map }
                                         }
                                     }
                                 })
@@ -1874,6 +1977,9 @@ var HERE = (props) => {
                 MODULES: (arr) => {
 
                     try {
+
+                        THIS.READY.READY()
+
                         const MODULE = THIS.OPTIONS().MODULES
 
                         const OH = () => {
