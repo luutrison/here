@@ -989,16 +989,24 @@ var HERE = (props) => {
 
                                         THIS.THIS.GET_TEXT({ path: path }).then(data => {
                                             if (mode.map) {
-                                                const code = eval(data.response)
-                                                const item = mode.map.find(x => x.name == element.name)
-                                                if (!item) {
-                                                    mode.map[element.name] = code
+                                                try {
+                                                    const code = eval(data.response)
+                                                    const item = mode.map.find(x => x.name == element.name)
+                                                    if (!item) {
+                                                        mode.map[element.name] = code
+                                                    }
+                                                    const added = haveObject.find(x => x.name == element.name)
+                                                    added.load = NORMAL.TRUE
+                                                    OH()
+                                                } catch (error) {
+                                                    THIS.EX.ERROR({ err: error })
                                                 }
-                                                const added = haveObject.find(x => x.name == element.name)
-                                                added.load = NORMAL.TRUE
-                                                OH()
+
                                             }
                                         })
+                                    }
+                                    else{
+                                        OH()
                                     }
                                 }
 
@@ -1042,6 +1050,9 @@ var HERE = (props) => {
                                     }
 
                                 }
+                                else{
+                                    OH()
+                                }
 
                             }
 
@@ -1056,7 +1067,7 @@ var HERE = (props) => {
                     iprops.callBack()
                 }
             } catch (error) {
-                console.error(error);
+                THIS.EX.ERROR({ err: error })
             }
         },
 
@@ -1095,13 +1106,19 @@ var HERE = (props) => {
                         if (!element.LOAD_SCRIPT) {
                             const scriptPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.data.SCRIPT })
                             THIS.THIS.GET_TEXT({ path: scriptPath }).then(data => {
-                                const content = data.response
-                                const rinegan = eval(content)
-                                THIS.MODULES[element.name] = rinegan
-                                element.LOAD_SCRIPT = true
+                                try {
 
-                                OH()
+                                    const content = data.response
+                                    const rinegan = eval(content)
+                                    THIS.MODULES[element.name] = rinegan
+                                    element.LOAD_SCRIPT = true
+                                    OH()
+                                } catch (error) {
+                                    THIS.EX.ERROR({ err: error })
+                                }
                             })
+
+
                         }
 
 
@@ -1269,18 +1286,23 @@ var HERE = (props) => {
                         this: props.this
                     }
                     THIS.THIS.GET_TEXT({ path: iprops.path }).then(data => {
+                        try {
+                            const idata = data
+                            const code = THIS.CONVERT.TO_RUNABLE_JAVASCRIPT(idata.response)
+                            const fuc = eval(code)
+                            THIS.REQUIRE.LOAD({
+                                PROPS: {
+                                    PATH: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: iprops.path }),
+                                    DATA: fuc(THIS),
+                                    ROUTE: iprops.this.route,
+                                    THIS: iprops.this
+                                }
+                            })
+                        } catch (error) {
+                            THIS.EX.ERROR({ err: error })
+                        }
 
-                        const idata = data
-                        const code = THIS.CONVERT.TO_RUNABLE_JAVASCRIPT(idata.response)
-                        const fuc = eval(code)
-                        THIS.REQUIRE.LOAD({
-                            PROPS: {
-                                PATH: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: iprops.path }),
-                                DATA: fuc(THIS),
-                                ROUTE: iprops.this.route,
-                                THIS: iprops.this
-                            }
-                        })
+
 
                     }).catch(err => {
                         THIS.EX.ERROR({ err: err })
@@ -1672,12 +1694,12 @@ var HERE = (props) => {
                     try {
                         if (!props.LOAD) {
                             // setTimeout(() => {
-                                const CURRENT = THIS.REQUIRE.THIS.RUN
-                                CURRENT.METHOD.RUN_NORMAL(props)
-                                CURRENT.METHOD.RUN_OH(props)
-                                CURRENT.METHOD.RUN_EFFECT(props)
-                                CURRENT.METHOD.STATUS(props)
-                                THIS.UPDATE.ON()
+                            const CURRENT = THIS.REQUIRE.THIS.RUN
+                            CURRENT.METHOD.RUN_NORMAL(props)
+                            CURRENT.METHOD.RUN_OH(props)
+                            CURRENT.METHOD.RUN_EFFECT(props)
+                            CURRENT.METHOD.STATUS(props)
+                            THIS.UPDATE.ON()
                             // }, 0);
                         }
                     } catch (err) { THIS.EX.ERROR({ err: err }) }

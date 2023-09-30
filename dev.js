@@ -1,6 +1,7 @@
 const express  = require('express');
 
 const mice = express()
+const PORT = 5500
 
 
 mice.use((request, response, next) => {
@@ -9,6 +10,6 @@ mice.use((request, response, next) => {
 }, express.static("./src"))
 
 
-mice.listen(5500, () => {
-    console.log("Running 5500");
+mice.listen(PORT, () => {
+    console.log("Running on http://localhost:" + PORT);
 });

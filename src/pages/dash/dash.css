@@ -33,6 +33,10 @@
   flex-direction: column;
 }
 
+.simplebar-content{
+  height: 100%;
+}
+
 #dash {
   /*margin-top: 60px;*/
 }
@@ -48,7 +52,7 @@
   color: var(--color);
 }
 
-#menu .item-menu {
+.CZE2OTYWNJA1OTQYNZU {
   background: rgba(255,255,255,0.25);
   padding: 10px;
   color: var(--color);
@@ -56,7 +60,7 @@
   user-select: none;
 }
 
-#menu .menu-items {
+.ZDE2OTYWNJA0MZK1MTU {
   min-height: 400px;
   /*padding: 10px;*/
   height: 75vh;
@@ -90,49 +94,20 @@
 }
 
 
-#contenter .content-navigate {
-  /*border-bottom: solid 1px var(--color-blur);*/
-  color: var(--color-blur);
-  position: sticky;
-  top: 0px;
-  width: 100%;
-  max-width: var(--normal-content-width);
-  background: var(--background);
-  padding: 20px;
-}
 
-#contenter .contenter-two {
-  max-width: var(--normal-content-width);
-  width: 100%;
-  min-height: 100vh;
-  background: var(--background);
-  padding: 20px;
-  /*box-shadow: 0px 0px 0px 1px inset #dcdcdc;*/
-}
 
-#contenter .simplebar-content {
+#dash-container {
   display: flex;
   flex-direction: column;
   align-items: center !important;
   justify-content: center;
+  height: 100%;
+  width: 100%;
 }
 
 
 
-#contenter .content-page {
-  margin-top: 20px;
-}
 
 
 
 
-
-#contenter .content-navigate:after {
-  content: "";
-  width: calc(var(--normal-content-width) - var(--normal-padding) * 4);
-  position: absolute;
-  bottom: 10px;
-  left: 20px;
-  height: 1px;
-  background: var(--color-blur);
-}

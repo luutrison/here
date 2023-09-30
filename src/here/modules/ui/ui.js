@@ -14,7 +14,7 @@ const HERE_MODULES_UI = () => {
     const THIS = {}
     THIS.OPTIONS = DTE2OTU3OTKXODC4NTG
 
-    SHIPPER = THIS.SHIPPER = () => {
+    THIS.SHIPPER = () => {
        
         const html = (
             `
@@ -31,7 +31,7 @@ const HERE_MODULES_UI = () => {
 
     }
 
-    INNIT = THIS.INNIT = ({ props }) => {
+    THIS.INNIT = ({ props }) => {
         try {
             const iprops_place = ({ props }) => {
                 if (props) {
@@ -70,7 +70,7 @@ const HERE_MODULES_UI = () => {
         }
     }
 
-    UPDATE = THIS.UPDATE = () => {
+    THIS.UPDATE = () => {
         try {
             const loader = $(THIS.OPTIONS().TAG.LOADER)
             if(loader){

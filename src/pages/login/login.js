@@ -40,8 +40,9 @@
         METHOD: () => {
             $("#pages-login form").submit(function (event) {
                 event.preventDefault()
-                PROPS.ROUTE.LOAD({name: "pages.dash"})
+                PROPS.ROUTE.LOAD({name: "dash"})
             });
+          
         },
     }
 }

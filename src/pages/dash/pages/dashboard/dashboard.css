@@ -1,0 +1,41 @@
+.YJE2OTYWNTM1MDGZMTA:after {
+    content: "";
+    width: calc(var(--normal-content-width) - var(--normal-padding) * 4);
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    height: 1px;
+    background: var(--color-blur);
+}
+
+.YJE2OTYWNTM1MDGZMTA {
+    color: var(--color-blur);
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    max-width: var(--normal-content-width);
+    background: var(--background);
+    padding: 20px;
+}
+
+.DJE2OTYWNTM1OTG0NJI {
+    max-width: var(--normal-content-width);
+    width: 100%;
+    min-height: 100vh;
+    background: var(--background);
+    padding: 20px;
+}
+
+
+.AZE2OTYWNTM2MZGYNDY {
+    margin-top: 20px;
+}
+
+#ZTE2OTYWNTC3NZU5ODU{
+    width: var(--normal-content-width);
+}
+
+#BDE2OTYWNTY5MTYXMZG{
+
+    height: 400px;
+}
