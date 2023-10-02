@@ -39,7 +39,7 @@
         },
         METHOD: () => {
             const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
-            const MENU = COMPONENTS.MENU_COMPONENT()
+            const MENU = COMPONENTS.MENU()
             MENU.GET({elementName: ".ZDE2OTYWNJA0MZK1MTU"})
         },
     }

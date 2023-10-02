@@ -2,8 +2,8 @@
     "INCLUDE": ["./dash/pages/route.json"],
     "COMPONENTS": {
         "default": {
-            "src": "./login/login.js",
-            "to": "#container"
+            "src": "./dash/dash.js",
+            "to": "#normal-container"
         },
         "login": {
             "src": "./login/login.js",

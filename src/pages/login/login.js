@@ -8,13 +8,6 @@
                 {
                     src: "./login.css",
                 }
-            ],
-            COMPONENTS: [
-
-                {
-                    src: "../../components/menu/menu.js",
-                    name: "MENU_COMPONENT"
-                }
             ]
         },
         RENDER: {

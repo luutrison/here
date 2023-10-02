@@ -36,10 +36,10 @@
     gap: 10px;
     justify-content: space-between;
     padding: 10px;
-    background: rgba(203, 203, 203, 0.21);
+    background: var(--content-color);
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
+    border: solid 1px var(--color-blur);
 }
 
 .SEDE2OTYYMZI1MTA4MZU {
@@ -58,9 +58,9 @@
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     padding-left: 20px;
-    border-left: dashed 1px #828282;
+    border-left: dashed 1px var(--color-blur);
 }
 
 .SEDE2OTYYMZM5ODQZMTE {
@@ -69,6 +69,7 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    border: none;
 }
 
 .SDTE2OTYYMZQZMZCYNZG {
@@ -89,7 +90,7 @@
 
 .SDZE2OTYYMZUWNTMYMDC:not(:first-child) {
     padding-left: 20px;
-    border-left: solid 1px #9e9e9e;
+    border-left: solid 1px var(--color-blur);
 }
 
 .SEDE2OTYYMZM5ODQZMTE:hover {

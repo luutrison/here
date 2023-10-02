@@ -155,8 +155,8 @@ var HERE = (props) => {
 
     THIS.EX = {
 
-        ERROR: ({ err }) => {
-            console.error(err);
+        ERROR: ({ err, sub }) => {
+            console.error(err + THIS.OPTIONS().NORMAL.SPACE + sub);
         },
         ARRAY_TO_STRING: (arr) => {
             try {
@@ -882,7 +882,7 @@ var HERE = (props) => {
 
         },
 
-        REQUIRE_THINGS: ({ tagName, levelTag, tagAppend, props, haveObject, methodCreateTag, mode }) => {
+        REQUIRE_THINGS: ({ tagName, levelTag, tagAppend, props, haveObject, mode }) => {
             try {
                 const NORMAL = THIS.OPTIONS().NORMAL
                 const iprops = THIS.METHOD.PROPS.REQUIRE_THINGS_PROPS({ props: props })
@@ -931,25 +931,59 @@ var HERE = (props) => {
                     }
 
                     iprops.ob.forEach(element => {
-                        const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: element.src })
 
-                        if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: element.name })) {
-                            element.name = THIS.CONVERT.PATH_TO_NAME({ path: path })
-                        }
+                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: String(element.src).trim() })) {
+                            const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: element.src })
 
-                        arrName.push(element.name)
+                            if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: element.name })) {
+                                element.name = THIS.CONVERT.PATH_TO_NAME({ path: path })
+                            }
 
-                        const item = haveObject.find(x => x.name == element.name)
+                            arrName.push(element.name)
 
-                        if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: item })) {
+                            const item = haveObject.find(x => x.name == element.name)
+
+                            if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: item })) {
+                                if (mode) {
+                                    if (mode.name == THIS.OPTIONS().MODE.COMPONENTS_NAME) {
+
+                                        const exist = haveObject.find(i => i.name == element.name)
+
+                                        if (!THIS.CHECK.IS_OBJECT({ ob: exist })) {
+                                            haveObject.push({
+                                                src: element.src,
+                                                name: element.name,
+                                                load: NORMAL.FALSE,
+                                            })
 
 
-                            if (mode) {
-                                if (mode.name == THIS.OPTIONS().MODE.COMPONENTS_NAME) {
+                                            THIS.THIS.GET_TEXT({ path: path }).then(data => {
+                                                if (mode.map) {
+                                                    try {
+                                                        const code = eval(data.response)
+                                                        const item = mode.map.find(x => x.name == element.name)
+                                                        if (!item) {
+                                                            mode.map[element.name] = code
+                                                        }
+                                                        const added = haveObject.find(x => x.name == element.name)
+                                                        added.load = NORMAL.TRUE
+                                                        OH()
+                                                    } catch (error) {
+                                                        THIS.EX.ERROR({ err: error })
+                                                    }
 
-                                    const exist = haveObject.find(i => i.name == element.name)
+                                                }
+                                            })
+                                        }
+                                        else {
+                                            OH()
+                                        }
+                                    }
 
-                                    if (!THIS.CHECK.IS_OBJECT({ ob: exist })) {
+                                }
+                                else {
+                                    const exis = haveObject.find(i => i.name == element.name)
+                                    if (!THIS.CHECK.IS_OBJECT({ ob: exis })) {
                                         haveObject.push({
                                             src: element.src,
                                             name: element.name,
@@ -957,87 +991,56 @@ var HERE = (props) => {
                                         })
 
 
-                                        THIS.THIS.GET_TEXT({ path: path }).then(data => {
-                                            if (mode.map) {
-                                                try {
-                                                    const code = eval(data.response)
-                                                    const item = mode.map.find(x => x.name == element.name)
-                                                    if (!item) {
-                                                        mode.map[element.name] = code
-                                                    }
-                                                    const added = haveObject.find(x => x.name == element.name)
-                                                    added.load = NORMAL.TRUE
-                                                    OH()
-                                                } catch (error) {
-                                                    THIS.EX.ERROR({ err: error })
-                                                }
 
-                                            }
+                                        const attribute = THIS.CONVERT.TO_ATTRIBUTE_QUERY({
+                                            name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
+                                            value: element.name
                                         })
+
+                                        const styleQuery = THIS.OPTIONS().TAG.STYLE_NAME + NORMAL.SPACE + attribute
+
+
+                                        const exist = $(tagName).find(styleQuery)
+
+                                        if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
+
+                                            THIS.THIS.GET_TEXT({ path: path }).then(data => {
+                                                const res = data.response
+
+                                                const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
+                                                    name: element.name,
+                                                    css: res
+                                                })
+                                                const item = haveObject.find(x => x.name == element.name)
+                                                item.load = NORMAL.TRUE
+                                                $(tagName).append(tag);
+                                                OH()
+                                            })
+
+                                        }
+
                                     }
                                     else {
                                         OH()
                                     }
+
                                 }
 
                             }
                             else {
-                                const exis = haveObject.find(i => i.name == element.name)
-                                if (!THIS.CHECK.IS_OBJECT({ ob: exis })) {
-                                    haveObject.push({
-                                        src: element.src,
-                                        name: element.name,
-                                        load: NORMAL.FALSE,
-                                    })
-
-
-
-                                    const attribute = THIS.CONVERT.TO_ATTRIBUTE_QUERY({
-                                        name: THIS.OPTIONS().ATTRIBUTE.NAME_NAME,
-                                        value: element.name
-                                    })
-
-                                    const styleQuery = THIS.OPTIONS().TAG.STYLE_NAME + NORMAL.SPACE + attribute
-
-
-                                    const exist = $(tagName).find(styleQuery)
-
-                                    if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: exist })) {
-
-                                        THIS.THIS.GET_TEXT({ path: path }).then(data => {
-                                            const res = data.response
-
-                                            const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
-                                                name: element.name,
-                                                css: res
-                                            })
-                                            const item = haveObject.find(x => x.name == element.name)
-                                            item.load = NORMAL.TRUE
-                                            $(tagName).append(tag);
-                                            OH()
-                                        })
-
-                                    }
-
-                                }
-                                else {
-                                    OH()
-                                }
-
+                                iprops.callBack()
                             }
-
                         }
                         else {
                             iprops.callBack()
                         }
-
                     });
                 }
                 else {
                     iprops.callBack()
                 }
             } catch (error) {
-                THIS.EX.ERROR({ err: error })
+                THIS.EX.ERROR({ err: error, sub: "require things"})
             }
         },
 

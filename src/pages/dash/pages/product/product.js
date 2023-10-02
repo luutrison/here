@@ -19,6 +19,11 @@ const method = () => {
 (PROPS) => {
     return {
         REQUIRE: {
+            COMPONENTS: [
+                {
+                    src: ""
+                },
+            ],
             CSS: [
                 {
                     src: "./product.css"
