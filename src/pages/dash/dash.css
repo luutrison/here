@@ -1,36 +1,25 @@
 
 
 
-#dash .content {
-  min-width: 992px;
-  min-height: 100vh;
-  background: var(--content-color);
-  /*background: white;*/
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  padding: var(--content-padding);
-  overflow: hidden;
-}
 
 #menu {
   width: 330px;
   min-height: 500px;
-  height: calc(100vh - (var(--header-height) + var(--content-padding) * 2));
+  height: calc(100vh - (var(--header-height) + var(--content-padding) * 5));
   padding: 10px;
   position: relative;
-  border-radius: 10px;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 #contenter {
-  width: calc(100vw - 330px);
-  height: calc(100vh - (var(--header-height) + var(--content-padding) * 2));
+  width: calc(var(--max-width) - var(--menu-width));
+  height: calc(100vh - (var(--header-height) + var(--content-padding) * 5));
   display: flex;
   align-items: start;
   justify-content: center;
-  border-radius: 10px;
   flex-direction: column;
+  background: var(--background);
 }
 
 .simplebar-content{
@@ -52,8 +41,11 @@
   color: var(--color);
 }
 
-.CZE2OTYWNJA1OTQYNZU {
+.CZE2OTYWNJA1OTQYNZU[active="true"] {
   background: rgba(255,255,255,0.25);
+}
+
+.CZE2OTYWNJA1OTQYNZU {
   padding: 10px;
   color: var(--color);
   cursor: pointer;
@@ -86,7 +78,7 @@
   top: 0;
 }
 
-#menu .item-menu-name {
+.YZE2OTYWNJIYMZI4MJA {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -106,8 +98,42 @@
 }
 
 
+.DJE2OTYWNJG3NZM0MJY{
+  border-radius: 10px;
+}
 
+.YJE2OTYWNTM1MDGZMTA:after {
+  content: "";
+  width: calc(var(--normal-content-width) - var(--normal-padding) * 4);
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  height: 1px;
+  background: var(--color-blur);
+}
 
+.YJE2OTYWNTM1MDGZMTA {
+  color: var(--color-blur);
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  max-width: var(--normal-content-width);
+  background: var(--background);
+  height: var(--title-page-height);
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
+}
 
+.YJE2OTYWNTM1MDGZMTA #SDTE2OTYYMZAYMTK1MZA{
+  border: none;
+  outline: none;
+  background: var(--background);
+  font-size: 18px;
+}
 
-
+.SEDE2OTYYMZUZMTMZNZU{
+  margin-top: 50px;
+  padding: 20px;
+}

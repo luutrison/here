@@ -21,14 +21,11 @@
         RENDER: {
             FROM: (
                 <section id="dash">
-                    <div class="content">
+                    <div id="content">
                         <div id="menu">
                             <div class="menu-background"><img src="/designs/images/10112023.webp" /></div>
                             <div class="name"><span>Danh sách</span></div>
-                            <div class="ZDE2OTYWNJA0MZK1MTU">
-                               
-                               
-                            </div>
+                            <div class="ZDE2OTYWNJA0MZK1MTU"></div>
                         </div>
                         <div id="contenter">
                             <div id="dash-container">
@@ -41,21 +38,9 @@
             TRANSITION: "SLIDE_VERTICAL"
         },
         METHOD: () => {
-
-            PROPS.ROUTE.LOAD({name: "dash.dashboard"})
-
             const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
-
             const MENU = COMPONENTS.MENU_COMPONENT()
-            const menus = MENU.GET()
-
-            menus.forEach((element) => {
-                $(".ZDE2OTYWNJA0MZK1MTU").append(element)
-            })
-            console.log(menus);
-            console.log(MENU);
-
-          
+            MENU.GET({elementName: ".ZDE2OTYWNJA0MZK1MTU"})
         },
     }
 }

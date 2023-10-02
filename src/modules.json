@@ -1,0 +1,9 @@
+{
+    "COMPONENTS": {
+        "CSS": ["./components/components.css", "./here/here.css", "./designs/fonts/cuprum/cuprum.css"]
+    },
+    "UI": {
+        "SCRIPT": "./here/modules/ui/ui.js",
+        "CSS": "./here/modules/ui/ui.css"
+    }
+}

@@ -20,7 +20,7 @@
         RENDER: {
             FROM: (
                 <div id="pages-login">
-                    <img class="background-login" alt="" src="/designs/images/b-login.jpg" />
+                    <img class="background-login" loading="lazy" src="/designs/images/b-login.jpg" />
                     <form class="card-login">
                         <div class="title-card-login"><span>Đăng nhập</span></div>
                         <div class="input-login">

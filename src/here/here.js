@@ -85,7 +85,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         OPTIONS: {
         },
         MODULES: {
-            MODULE_PATH: "/here/modules/modules.json",
+            MODULE_PATH: "/modules.json",
             USE: ["UI"]
         },
         ROUTE: {
@@ -99,37 +99,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             INVALID_DATA: "DATA is invalid !\n",
         },
         PAGE: {
-            DEFAULT_PAGE_CSS_LIB: () => [
-                {
-                    load: true,
-                    src: "./here/here.css",
-                    name: "here.here.css"
-                },
-
-                {
-                    load: true,
-                    src: "./designs/fonts/cuprum/cuprum.css",
-                    name: "designs.fonts.cuprum.cuprum.css"
-                }
-            ],
-
-            DEFAULT_PAGE_SCRIPT_LIB: () => [
-                {
-                    load: true,
-                    src: "./libs/jquery/jquery.min.js"
-                },
-                {
-                    load: true,
-                    src: "./libs/axios/axios.min.js"
-                },
-                {
-                    load: true,
-                    src: "./here/js"
-                }
-            ],
-
             INCLUDE: ["components", "designs", "extends", "functions", "here", "libs", "ob", "pages"]
-
         },
         LIB: {
 
@@ -871,9 +841,9 @@ var HERE = (props) => {
                 }
             })
         },
-        SET_EVENT_BY_NAME: ({ element, name, callback }) => {
+        SET_EVENT_BY_NAME: ({ element, name, callBack }) => {
             $(element).on(name, function (e) {
-                callback(e)
+                callBack(e)
             });
         }
 
@@ -1005,7 +975,7 @@ var HERE = (props) => {
                                             }
                                         })
                                     }
-                                    else{
+                                    else {
                                         OH()
                                     }
                                 }
@@ -1050,7 +1020,7 @@ var HERE = (props) => {
                                     }
 
                                 }
-                                else{
+                                else {
                                     OH()
                                 }
 
@@ -1092,8 +1062,21 @@ var HERE = (props) => {
                     }
                     const currentPath = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: OPTIONS.MODULES.MODULE_PATH })
                     const OH = () => {
-                        const sc = arrModule.find(i => i.LOAD_SCRIPT == false)
-                        const scs = arrModule.find(i => i.LOAD_CSS == false)
+                        var arrScript = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+                        var arrCss = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+
+                        arrModule.forEach(elements => {
+                            if (elements.LOAD_SCRIPT) {
+                                arrScript.push(elements)
+                            }
+
+                            if (elements.LOAD_CSS) {
+                                arrCss.push(elements)
+                            }
+                        })
+
+                        const sc = arrScript.find(i => i.LOAD_SCRIPT == false)
+                        const scs = arrCss.find(i => i.LOAD_CSS == false)
 
                         if (!sc && !scs) {
                             callBack()
@@ -1103,8 +1086,8 @@ var HERE = (props) => {
 
                     arrModule.forEach(element => {
 
-                        if (!element.LOAD_SCRIPT) {
-                            const scriptPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.data.SCRIPT })
+                        if (element.SCRIPT && !element.LOAD_SCRIPT) {
+                            const scriptPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.SCRIPT })
                             THIS.THIS.GET_TEXT({ path: scriptPath }).then(data => {
                                 try {
 
@@ -1122,15 +1105,16 @@ var HERE = (props) => {
                         }
 
 
-                        if (!element.LOAD_CSS) {
-                            const cssPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.data.CSS })
+                        if (element.CSS && !element.LOAD_CSS) {
+                            const cssPath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.CSS })
                             var haveObject = THIS.IS.HAVE.CSS_LIB
                             const NORMAL = THIS.OPTIONS().NORMAL
-                            const exis = haveObject.find(i => i.name == element.name)
+                            const name = THIS.CONVERT.PATH_TO_NAME({ path: cssPath })
+                            const exis = haveObject.find(i => i.name == name)
                             if (!THIS.CHECK.IS_OBJECT({ ob: exis })) {
                                 haveObject.push({
-                                    src: element.data.CSS,
-                                    name: element.name,
+                                    src: element.CSS,
+                                    name: name,
                                     load: NORMAL.FALSE,
                                 })
 
@@ -1150,11 +1134,13 @@ var HERE = (props) => {
                                         const res = data.response
 
                                         const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
-                                            name: element.name,
+                                            name: name,
                                             css: res
                                         })
-                                        const item = haveObject.find(x => x.name == element.name)
-                                        item.load = NORMAL.TRUE
+                                        var item = haveObject.find(x => x.name == name)
+                                        if (item) {
+                                            item.load = NORMAL.TRUE
+                                        }
                                         $(tagsName).append(tag);
                                         OH()
                                     })
@@ -2019,15 +2005,48 @@ var HERE = (props) => {
 
                                 if (THIS.CHECK.IS_OBJECT({ ob: modules })) {
                                     Object.keys(modules).forEach(element => {
-                                        arrLoading.push({
-                                            name: element,
-                                            data: {
-                                                SCRIPT: modules[element].SCRIPT,
-                                                CSS: modules[element].CSS,
-                                                LOAD_SCRIPT: false,
-                                                LOAD_CSS: false
+
+
+                                        if (modules[element].SCRIPT) {
+                                            if (Array.isArray(modules[element].SCRIPT)) {
+                                                modules[element].SCRIPT.forEach(arrItem => {
+                                                    arrLoading.push({
+                                                        NAME: element,
+                                                        SCRIPT: arrItem,
+                                                        LOAD_SCRIPT: false,
+                                                    })
+                                                })
+
                                             }
-                                        })
+                                            else {
+                                                arrLoading.push({
+                                                    NAME: element,
+                                                    SCRIPT: modules[element].SCRIPT,
+                                                    LOAD_SCRIPT: false
+                                                })
+                                            }
+                                        }
+
+                                        if (modules[element].CSS) {
+                                            if (Array.isArray(modules[element].CSS)) {
+                                                modules[element].CSS.forEach(arrItem => {
+                                                    arrLoading.push({
+                                                        NAME: element,
+                                                        CSS: arrItem,
+                                                        LOAD_CSS: false,
+                                                    })
+                                                })
+
+                                            }
+                                            else {
+                                                arrLoading.push({
+                                                    NAME: element,
+                                                    CSS: modules[element].CSS,
+                                                    LOAD_CSS: false
+                                                })
+                                            }
+                                        }
+
                                     })
 
                                     THIS.METHOD.LOAD_MODULES({
@@ -2040,9 +2059,6 @@ var HERE = (props) => {
                         else {
                             OH()
                         }
-
-
-
                     } catch (err) {
                         THIS.EX.ERROR({ err: err })
                     }
