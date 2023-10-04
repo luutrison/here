@@ -68,7 +68,6 @@
                 const menu = new SIMPLE_BAR(document.querySelector("#menu"))
             }
 
-            console.log(contenter);
 
             var data = {
                 labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9",],

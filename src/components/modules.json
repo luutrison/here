@@ -1,0 +1,10 @@
+{
+    "MODULES": {
+        "COMPONENTS": {
+            "CSS": ["./components.css"]
+        },
+        "UI_SELECT": {
+            "SCRIPT": "./ui/items/select.js"
+        }
+    }
+}

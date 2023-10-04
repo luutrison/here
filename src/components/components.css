@@ -45,8 +45,14 @@
     padding-right: 10px;
 }
 
+.S11696252745831[active="true"] {
+   background: #5f63ff70;
+}
+
 .S81696252818575 {
     font-size: 22px;
+    transform: rotate(-90deg);
+    transition: .3s ease;
 }
 
 @keyframes dropDown{
@@ -75,6 +81,16 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+.S21696253072135[active="true"]::after{
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+    background: white;
+    position: absolute;
+    right: 10px;
 }
 
 .S71696252911655 .S21696253072135:not(:last-child) {

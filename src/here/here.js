@@ -85,8 +85,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         OPTIONS: {
         },
         MODULES: {
-            MODULE_PATH: "/modules.json",
-            USE: ["UI"]
+            MODULE_PATH: "/modules.json"
         },
         ROUTE: {
             DEFAULT_PATH: "/route.json",
@@ -1040,7 +1039,7 @@ var HERE = (props) => {
                     iprops.callBack()
                 }
             } catch (error) {
-                THIS.EX.ERROR({ err: error, sub: "require things"})
+                THIS.EX.ERROR({ err: error, sub: "require things" })
             }
         },
 
@@ -1096,7 +1095,7 @@ var HERE = (props) => {
 
                                     const content = data.response
                                     const rinegan = eval(content)
-                                    THIS.MODULES[element.name] = rinegan
+                                    THIS.MODULES.INNIT[element.NAME] = rinegan
                                     element.LOAD_SCRIPT = true
                                     OH()
                                 } catch (error) {
@@ -1161,6 +1160,128 @@ var HERE = (props) => {
 
     }
 
+    THIS.MODULES = {
+        GET: ({path, callBack}) => {
+            try {
+                var arrLoading = []
+                var require = []
+
+                const GET = (path) => {
+
+
+
+                    THIS.THIS.GET_JSON({ path: path }).then((data) => {
+                        const modules = data.response
+                        const exi = require.find(i => i.url == path)
+                        const pathToThis = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({path: path})
+
+                        if (exi) {
+                            exi.load = true
+                        }
+
+                        if (modules.INCLUDE && Array.isArray(modules.INCLUDE)) {
+                            modules.INCLUDE.forEach(element => {
+                                const item = require.find(i => i.url == element)
+                                if (!item) {
+                                    const elementPath = THIS.EX.MAP_PATH({
+                                        path: pathToThis,
+                                        subPath: element
+                                    })
+                                    require.push({
+                                        url: elementPath,
+                                        load: false
+                                    })
+                                    GET(elementPath)
+                                }
+
+                            })
+                        }
+                       
+
+                        if (THIS.CHECK.IS_OBJECT({ ob: modules.MODULES })) {
+                            Object.keys(modules.MODULES).forEach(element => {
+
+                                var MODULES = modules.MODULES[element]
+
+
+                                if (MODULES.SCRIPT) {
+                                    if (Array.isArray(MODULES.SCRIPT)) {
+                                        MODULES.SCRIPT.forEach(arrItem => {
+                                            arrLoading.push({
+                                                NAME: element,
+                                                SCRIPT: THIS.EX.MAP_PATH({
+                                                    path: pathToThis,
+                                                    subPath: arrItem
+                                                }),
+                                                LOAD_SCRIPT: false,
+                                            })
+                                        })
+
+                                    }
+                                    else {
+                                        arrLoading.push({
+                                            NAME: element,
+                                            SCRIPT: THIS.EX.MAP_PATH({
+                                                path: pathToThis,
+                                                subPath: MODULES.SCRIPT
+                                            }),
+                                            LOAD_SCRIPT: false,
+                                        })
+                                    }
+                                }
+
+                                if (MODULES.CSS) {
+                                    if (Array.isArray(MODULES.CSS)) {
+                                        MODULES.CSS.forEach(arrItem => {
+                                            arrLoading.push({
+                                                NAME: element,
+                                                CSS: THIS.EX.MAP_PATH({
+                                                    path: pathToThis,
+                                                    subPath: arrItem
+                                                }),
+                                                LOAD_CSS: false,
+                                            })
+                                        })
+
+                                    }
+                                    else {
+                                        arrLoading.push({
+                                            NAME: element,
+                                            CSS: THIS.EX.MAP_PATH({
+                                                path: pathToThis,
+                                                subPath: MODULES.CSS
+                                            }),
+                                            LOAD_CSS: false,
+                                        })
+                                    }
+                                }
+
+                            })
+
+                            
+                        }
+
+                        const loaded = require.find(i => i.load == false)
+
+                        if(!loaded){
+                            THIS.METHOD.LOAD_MODULES({
+                                arrModule: arrLoading,
+                                callBack: callBack
+                            })
+                        }
+                    })
+                }
+
+                GET(path)
+
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+
+        }
+
+    }
+
     THIS.UI = {
         THIS: {
 
@@ -1174,8 +1295,8 @@ var HERE = (props) => {
 
                             if (iprops.route && iprops.route.to) {
                                 const render = iprops.route.to
-                                if (THIS.MODULES && THIS.MODULES.UI) {
-                                    const MODULES_UI = THIS.MODULES.UI()
+                                if (THIS.MODULES && THIS.MODULES.INNIT.UI) {
+                                    const MODULES_UI = THIS.MODULES.INNIT.UI()
 
                                     if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
                                         const element = $(render)
@@ -1223,7 +1344,7 @@ var HERE = (props) => {
 
         UPDATE: () => {
             try {
-                const MODULES = THIS.MODULES
+                const MODULES = THIS.MODULES.INNIT
                 if (THIS.CHECK.IS_OBJECT({ ob: MODULES })) {
                     Object.keys(MODULES).forEach(key => {
                         const element = MODULES[key]
@@ -1377,10 +1498,9 @@ var HERE = (props) => {
         },
 
         READY_MODULES: () => {
-
             try {
-                if (!THIS.MODULES) {
-                    THIS.MODULES = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                if (!THIS.MODULES.INNIT) {
+                    THIS.MODULES.INNIT = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
                 }
                 return THIS.MODULES
             } catch (err) {
@@ -1991,8 +2111,6 @@ var HERE = (props) => {
 
                         THIS.READY.READY()
 
-                        const MODULE = THIS.OPTIONS().MODULES
-
                         const OH = () => {
                             if (THIS.CHECK.IS_OBJECT({ ob: arr })) {
                                 arr.forEach(element => {
@@ -2001,67 +2119,12 @@ var HERE = (props) => {
                             }
                         }
 
-                        if (MODULE.USE && THIS.CHECK.IS_OBJECT({ ob: MODULE.USE })) {
-                            THIS.THIS.GET_JSON({ path: THIS.OPTIONS().MODULES.MODULE_PATH }).then((data) => {
-                                const modules = data.response
-                                var arrLoading = []
-
-                                if (THIS.CHECK.IS_OBJECT({ ob: modules })) {
-                                    Object.keys(modules).forEach(element => {
+                        THIS.MODULES.GET({
+                            path: THIS.OPTIONS().MODULES.MODULE_PATH,
+                            callBack: OH
+                        })
 
 
-                                        if (modules[element].SCRIPT) {
-                                            if (Array.isArray(modules[element].SCRIPT)) {
-                                                modules[element].SCRIPT.forEach(arrItem => {
-                                                    arrLoading.push({
-                                                        NAME: element,
-                                                        SCRIPT: arrItem,
-                                                        LOAD_SCRIPT: false,
-                                                    })
-                                                })
-
-                                            }
-                                            else {
-                                                arrLoading.push({
-                                                    NAME: element,
-                                                    SCRIPT: modules[element].SCRIPT,
-                                                    LOAD_SCRIPT: false
-                                                })
-                                            }
-                                        }
-
-                                        if (modules[element].CSS) {
-                                            if (Array.isArray(modules[element].CSS)) {
-                                                modules[element].CSS.forEach(arrItem => {
-                                                    arrLoading.push({
-                                                        NAME: element,
-                                                        CSS: arrItem,
-                                                        LOAD_CSS: false,
-                                                    })
-                                                })
-
-                                            }
-                                            else {
-                                                arrLoading.push({
-                                                    NAME: element,
-                                                    CSS: modules[element].CSS,
-                                                    LOAD_CSS: false
-                                                })
-                                            }
-                                        }
-
-                                    })
-
-                                    THIS.METHOD.LOAD_MODULES({
-                                        arrModule: arrLoading,
-                                        callBack: OH
-                                    })
-                                }
-                            })
-                        }
-                        else {
-                            OH()
-                        }
                     } catch (err) {
                         THIS.EX.ERROR({ err: err })
                     }

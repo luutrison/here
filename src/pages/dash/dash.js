@@ -8,7 +8,7 @@
             },
             COMPONENTS: [
                 {
-                    src: "../../components/menu/menu.js",
+                    src: "../../components/ui/menu/menu.js",
                     name: "MENU"
                 },
             ],
