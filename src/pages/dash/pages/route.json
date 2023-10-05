@@ -1,4 +1,5 @@
 {
+    "INCLUDE": ["./product/route.json"],
     "COMPONENTS": {
         "dash.dashboard": {
             "src": "./dashboard/dashboard.js",

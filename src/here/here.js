@@ -1349,13 +1349,13 @@ var HERE = (props) => {
                     Object.keys(MODULES).forEach(key => {
                         const element = MODULES[key]
                         if (THIS.CHECK.IS_OBJECT({ ob: element })) {
-                            if (element.UPDATE) {
+                            if (element && element.UPDATE) {
                                 element.UPDATE()
                             }
                         }
                         else {
                             const func = element()
-                            if (func.UPDATE) {
+                            if (func && func.UPDATE) {
                                 func.UPDATE()
                             }
                         }
@@ -1474,6 +1474,21 @@ var HERE = (props) => {
             }
         },
 
+        READY_ROUTE_PARAM: () => {
+            try {
+                if (!THIS.ROUTE.PARAM) {
+                    THIS.ROUTE.PARAM = {
+                        DATA: THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                    }
+                }
+
+                return THIS.ROUTE.PARAM;
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        
+        },
+
         READY_HAVE: () => {
             try {
                 if (!THIS.IS.HAVE) {
@@ -1497,6 +1512,21 @@ var HERE = (props) => {
             }
         },
 
+        READY_EVENT: () => {
+            try {
+                if (!THIS.EVENT) {
+                    THIS.EVENT = {
+                        READY: {
+                            document: false
+                        }
+                    }
+                }
+                return THIS.EVENT
+            } catch (err) {
+                THIS.EX.ERROR({ err: error })
+            }
+        },
+
         READY_MODULES: () => {
             try {
                 if (!THIS.MODULES.INNIT) {
@@ -1513,6 +1543,8 @@ var HERE = (props) => {
                 const READY = THIS.READY
                 READY.READY_ROUTE_MAP()
                 READY.READY_HAVE()
+                READY.READY_EVENT()
+                READY.READY_ROUTE_PARAM()
                 READY.READY_MODULES()
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
@@ -1904,7 +1936,7 @@ var HERE = (props) => {
 
         },
 
-        LOAD: ({ name, route }) => {
+        LOAD: ({ name, route, param}) => {
 
             const current = THIS.IS.MAP.ROUTE[name]
 
@@ -1914,6 +1946,10 @@ var HERE = (props) => {
 
                 if (!route) {
                     route = current
+                }
+
+                if (param) {
+                    THIS.ROUTE.PARAM.DATA = param
                 }
 
 

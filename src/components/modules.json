@@ -5,6 +5,9 @@
         },
         "UI_SELECT": {
             "SCRIPT": "./ui/items/select.js"
+        },
+        "UI_REGISTER": {
+            "SCRIPT": "./register.js"
         }
     }
 }
