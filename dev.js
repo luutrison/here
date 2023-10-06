@@ -5,9 +5,8 @@ const PORT = 5500
 
 
 mice.use((request, response, next) => {
-    // response.appendHeader("Cache-Control", "max-age=86400")
     next()
-}, express.static("./src"))
+}, express.static("./container"))
 
 
 mice.listen(PORT, () => {

@@ -1,4 +1,4 @@
 {
     "exec": "node  dev.js",
-    "watch": "./src"
+    "watch": "./container"
   }
