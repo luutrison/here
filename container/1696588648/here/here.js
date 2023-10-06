@@ -72,7 +72,9 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             SRC_NAME: "src",
             HREF_NAME: "href",
             NAME_NAME: "name",
-            NAME_REL: "rel"
+            NAME_REL: "rel",
+            STATUS: "status",
+            DATA: "data"
         },
         ATTRIBUTE_VALUE: {
             REL_STYLESHEET: "stylesheet",
@@ -82,7 +84,8 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         EVENT: {
             LOAD: "load"
         },
-        OPTIONS: {
+        CURRENT: {
+            PAGE_CONFIG_ELEMENT: $('meta[name="status"]')
         },
         MODULES: {
             MODULE_PATH: "/modules.json"
@@ -222,8 +225,6 @@ var HERE = (props) => {
 
 
 
-
-
                 if (arrPathStart[THIS.EX.TRUE_ARRAY_LENGTH({ arr: arrPathStart })] != NORMAL.RIGHT_SLASH_SYMBOL) {
                     arrPathStart.push(NORMAL.RIGHT_SLASH_SYMBOL)
                 }
@@ -248,18 +249,18 @@ var HERE = (props) => {
                     PATH_RETURN = arrPathStart.join(NORMAL.STRING_EMPTY) + THIS.CONVERT.PATH_HEAD_EMPTY({ pathArr: arrSubPath }).join(NORMAL.STRING_EMPTY)
                 }
                 else {
+
+
                     const arrSubPathe = arrSubPath.join(NORMAL.STRING_EMPTY)
                     PATH_RETURN = THIS.CONVERT.PATH_HEAD_EMPTY({
                         pathArr: THIS.CONVERT.LOGIC_PATH({
                             path: arrPathStart.join(NORMAL.STRING_EMPTY),
-                            subPath: arrSubPathe
+                            subPath: arrSubPathe,
                         }).split(NORMAL.RIGHT_SLASH_SYMBOL)
                     }).join(NORMAL.RIGHT_SLASH_SYMBOL)
                 }
 
                 return PATH_RETURN
-
-
             } catch (error) {
                 THIS.EX.ERROR(THIS.OPTIONS().MESSAGE.PATH_INVALID);
             }
@@ -352,6 +353,15 @@ var HERE = (props) => {
             } catch (error) {
                 THIS.EX.ERROR({ err: err });
             }
+        },
+
+        PATH_RELEASE: ({path}) => {
+            const RELEASE = THIS.CURRENT.PROPERTIES.STATUS.release
+            var RELEASE_PATH = String()
+            if (RELEASE) {
+                RELEASE_PATH = RELEASE
+            }
+            return THIS.EX.MAP_PATH({path: RELEASE_PATH, subPath: path})
         },
 
 
@@ -450,11 +460,14 @@ var HERE = (props) => {
                         origin = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: haveOriginUrl }).join(THIS.OPTIONS().NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL) + THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL
                     }
 
+                   
+
                     var pathReturn = origin + THIS.CONVERT.PATH_ASS_EMPTY({ pathArr: pathArr }).join(THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL) +
                         THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL +
                         THIS.CONVERT.PATH_HEAD_EMPTY({ pathArr: subPathArr }).join(THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL)
 
-                    return THIS.CONVERT.REMOVE_DUPLICATE.SYMBOL({
+
+                    const pathThis = THIS.CONVERT.REMOVE_DUPLICATE.SYMBOL({
                         props: THIS.CONVERT.REMOVE_DUPLICATE.PROPS.SYMBOL({
                             props: {
                                 symbol: THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL,
@@ -465,6 +478,8 @@ var HERE = (props) => {
                             }
                         })
                     })
+
+                    return pathThis
                 }
                 else {
                     return String()
@@ -723,7 +738,8 @@ var HERE = (props) => {
         GET: ({ path }) => {
             try {
                 return new Promise((resolve, reject) => {
-                    const ipath = THIS.CONVERT.PATH_ORIGIN({ path: path })
+                    const rpath = THIS.CONVERT.PATH_RELEASE({path})
+                    const ipath = THIS.CONVERT.PATH_ORIGIN({ path: rpath })
                     fetch(ipath).then((response) => {
                         resolve({ url: response.url, response: response })
                     }).catch(err => reject(err))
@@ -929,7 +945,7 @@ var HERE = (props) => {
                     iprops.ob.forEach(element => {
 
                         if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: String(element.src).trim() })) {
-                            const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: element.src })
+                            const path = THIS.EX.MAP_PATH({ path: iprops.path, subPath: element.src, release: true })
 
                             if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: element.name })) {
                                 element.name = THIS.CONVERT.PATH_TO_NAME({ path: path })
@@ -1158,7 +1174,7 @@ var HERE = (props) => {
     }
 
     THIS.MODULES = {
-        GET: ({path, callBack}) => {
+        GET: ({ path, callBack }) => {
             try {
                 var arrLoading = []
                 var require = []
@@ -1170,7 +1186,7 @@ var HERE = (props) => {
                     THIS.THIS.GET_JSON({ path: path }).then((data) => {
                         const modules = data.response
                         const exi = require.find(i => i.url == path)
-                        const pathToThis = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({path: path})
+                        const pathToThis = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: path })
 
                         if (exi) {
                             exi.load = true
@@ -1193,7 +1209,7 @@ var HERE = (props) => {
 
                             })
                         }
-                       
+
 
                         if (THIS.CHECK.IS_OBJECT({ ob: modules.MODULES })) {
                             Object.keys(modules.MODULES).forEach(element => {
@@ -1255,12 +1271,12 @@ var HERE = (props) => {
 
                             })
 
-                            
+
                         }
 
                         const loaded = require.find(i => i.load == false)
 
-                        if(!loaded){
+                        if (!loaded) {
                             THIS.METHOD.LOAD_MODULES({
                                 arrModule: arrLoading,
                                 callBack: callBack
@@ -1471,6 +1487,18 @@ var HERE = (props) => {
             }
         },
 
+        READY_CURRENT_PROPERTIES: () => {
+            try {
+                if (!THIS.CURRENT.PROPERTIES) {
+                    THIS.CURRENT.PROPERTIES = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                }
+
+                return THIS.CURRENT.PROPERTIES;
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
+        },
+
         READY_ROUTE_PARAM: () => {
             try {
                 if (!THIS.ROUTE.PARAM) {
@@ -1483,7 +1511,7 @@ var HERE = (props) => {
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
-        
+
         },
 
         READY_HAVE: () => {
@@ -1542,12 +1570,33 @@ var HERE = (props) => {
                 READY.READY_HAVE()
                 READY.READY_EVENT()
                 READY.READY_ROUTE_PARAM()
+                READY.READY_CURRENT_PROPERTIES()
                 READY.READY_MODULES()
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
 
         },
+    }
+
+
+    THIS.CURRENT = {
+        THIS: {
+            GET: () => {
+                try {
+                    const element = $(THIS.OPTIONS().CURRENT.PAGE_CONFIG_ELEMENT)
+                    if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
+                        const data = $(element).attr(THIS.OPTIONS().ATTRIBUTE.DATA)
+                        const dataParse = JSON.parse(atob(data))
+                        THIS.CURRENT.PROPERTIES.STATUS = dataParse
+                    }
+                } catch (err) { THIS.EX.ERROR({ err: err }) }
+            }
+        },
+
+        UPDATE: () => {
+            THIS.CURRENT.THIS.GET()
+        }
     }
 
 
@@ -1933,7 +1982,7 @@ var HERE = (props) => {
 
         },
 
-        LOAD: ({ name, route, param}) => {
+        LOAD: ({ name, route, param }) => {
 
             const current = THIS.IS.MAP.ROUTE[name]
 
@@ -2141,9 +2190,6 @@ var HERE = (props) => {
                 MODULES: (arr) => {
 
                     try {
-
-                        THIS.READY.READY()
-
                         const OH = () => {
                             if (THIS.CHECK.IS_OBJECT({ ob: arr })) {
                                 arr.forEach(element => {
@@ -2185,8 +2231,8 @@ var HERE = (props) => {
         RUN: () => {
             try {
 
-                THIS.READY.READY_ROUTE_MAP()
-
+                THIS.READY.READY()
+                THIS.CURRENT.UPDATE()
                 THIS.ROUTE.INNIT.IN()
 
             } catch (error) {

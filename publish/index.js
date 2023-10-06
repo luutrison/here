@@ -1,8 +1,8 @@
-const siteConfig = require('./config');
+const siteConfig = require('../config.json');
 
 const index = ({ css, script, config }) => {
 
-    const currentConfig = siteConfig.config
+    const currentConfig = siteConfig
 
     var themeName = String()
 
@@ -10,9 +10,11 @@ const index = ({ css, script, config }) => {
 
     const container = (`<section id="${currentConfig.container}"></section>`)
 
-    const bodyTag = (`<body ${themeName}>${container}${script}${config}</body>`)
+    const configer = `<meta name="status" data="${config}" />`
 
-    const headTag = (`<head>${css}</head>`)
+    const bodyTag = (`<body ${themeName}>${container}${script}</body>`)
+
+    const headTag = (`<head>${css}${configer}</head>`)
 
     const html = (`<html>${headTag}${bodyTag}</html>`)
 

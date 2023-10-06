@@ -1,1 +1,1 @@
-{"buildPath":"./build","minify":"minify","containerPath":"./container","product":"product","container":"container","theme":"one","basePath":"./container","release":"1696579177","publishConfigFile":"./publish/config.js"}
+{"buildPath":"./build","buildContainer":"./build/container","minify":"minify","containerPath":"./container","product":"product","container":"container","theme":"one","basePath":"./container","release":"1696588648","publishConfigFile":"./publish/config.js"}

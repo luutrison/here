@@ -1,0 +1,13 @@
+{
+    "INCLUDE": ["./product/route.json"],
+    "COMPONENTS": {
+        "dash.dashboard": {
+            "src": "./dashboard/dashboard.js",
+            "to": "#dash-container"
+        },
+        "dash.product": {
+            "src": "./product/product.js",
+            "to": "#dash-container"
+        }
+    }
+}
