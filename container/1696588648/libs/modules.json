@@ -1,0 +1,8 @@
+{
+    "MODULES": {
+      
+        "CKEDITOR_BZE2OTY2ODCWNZE3MTG": {
+            "SCRIPT": "./ckeditor/ckeditor.js"
+        }
+    }
+}

@@ -1384,15 +1384,17 @@ var HERE = (props) => {
                 if (THIS.CHECK.IS_OBJECT({ ob: MODULES })) {
                     Object.keys(MODULES).forEach(key => {
                         const element = MODULES[key]
-                        if (THIS.CHECK.IS_OBJECT({ ob: element })) {
-                            if (element && element.UPDATE) {
-                                element.UPDATE()
+                        if (element) {
+                            if (THIS.CHECK.IS_OBJECT({ ob: element })) {
+                                if (element && element.UPDATE) {
+                                    element.UPDATE()
+                                }
                             }
-                        }
-                        else {
-                            const func = element()
-                            if (func && func.UPDATE) {
-                                func.UPDATE()
+                            else {
+                                const func = element()
+                                if (func && func.UPDATE) {
+                                    func.UPDATE()
+                                }
                             }
                         }
                     })

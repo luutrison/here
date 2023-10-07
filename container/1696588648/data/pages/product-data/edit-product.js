@@ -45,16 +45,26 @@ const EDIT_PRODUCT_ZTE2OTY2NJI4MDAYOTE = (PROPS) => {
                                 <input placeholder="Nhập tên sản phẩm"></input>
                             </div>
 
-                           
+                            <div id="bje2oty2odczntk4mta"></div>
+
+
+
+
                         </div>
+
+
                     </div>
-    
+
+                    <div>
+                        <textarea name="editor" id="bde2oty2otewnjg4nza" rows="10" cols="80"></textarea>
+                    </div>
+
                 </div>
                 `
             )
 
             const ele = $(IS.CONVERT.SPECIAL_CONTENT({ content: html }))
-            
+
             $(eprops.container).append(ele)
 
             MODULES.UI_SWITCH_BTE2OTY2NJY4MZE5MZU({
@@ -63,6 +73,8 @@ const EDIT_PRODUCT_ZTE2OTY2NJI4MDAYOTE = (PROPS) => {
                     on: true
                 }
             }).CREATE()
+
+            const editor = CKEDITOR.replace('bde2oty2otewnjg4nza')
 
         } catch (err) { console.error(err) }
 
