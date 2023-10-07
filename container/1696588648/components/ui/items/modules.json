@@ -1,0 +1,11 @@
+{
+    "MODULES": {
+        "UI_SELECT_DJE2OTY2NJY4MDIZOTI": {
+            "SCRIPT": "./select.js"
+        },
+
+        "UI_SWITCH_BTE2OTY2NJY4MZE5MZU": {
+            "SCRIPT": "./switch.js"
+        }
+    }
+}

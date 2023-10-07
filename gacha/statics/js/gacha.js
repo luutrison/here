@@ -124,7 +124,6 @@ var gacha = () => {
             const allowUpper = $(name_set.uppercase_true)[varible.num_zero].checked
             const allowCopy = $(name_set.copy_true)[varible.num_zero].checked
 
-            console.log(allowCharacter, $(name_set.text_true))
 
             var selectPeep = set_this.allow_list_text
 

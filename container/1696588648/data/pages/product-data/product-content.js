@@ -7,7 +7,7 @@ const productContent = (PROPS) => {
             nsx: "20/09/2023",
             cslc: "20/09/2023",
             id: "CDE2OTYZNZC1NTA1OTM",
-            image: "/designs/images/10112023.webp",
+            image: "/@{release}/designs/images/10112023.webp",
             ht: true
         },
         {
@@ -16,7 +16,7 @@ const productContent = (PROPS) => {
             nsx: "20/09/2023",
             cslc: "20/09/2023",
             id: "CDE2OTYZNZC1NTA1OTM",
-            image: "/designs/images/10112023.webp",
+            image: "/@{release}/designs/images/10112023.webp",
             ht: true
         },
         {
@@ -25,7 +25,7 @@ const productContent = (PROPS) => {
             nsx: "20/09/2023",
             cslc: "20/09/2023",
             id: "CDE2OTYZNZC1NTA1OTM",
-            image: "/designs/images/10112023.webp",
+            image: "/@{release}/designs/images/10112023.webp",
             ht: true
         }
     ]
@@ -54,12 +54,15 @@ const productContent = (PROPS) => {
             ht: props.ht
 
         }
+
+        const imageLink = IS.CONVERT.SPECIAL_CONTENT({content: iprops.image})
+
         return $(
             `
             <div class="S81696235564446">
                 <div class="SZTE2OTYYMZE5MTC4MZU">
                     <div class="SEDE2OTYYMZI1MTA4MZU">
-                        <div class="SCJE2OTYYMZE5ODA2MJY"><img src="${iprops.image}" /></div>
+                        <div class="SCJE2OTYYMZE5ODA2MJY"><img src="${imageLink}" /></div>
                         <div class="SATE2OTYYMZQ2NJC4NZE">
                             <div class="SDZE2OTYYMZUWNTMYMDC"><span class="SDJE2OTYYMZI1NJUYODM">${iprops.name}</span>
                                 <div class="SADE2OTYYMZQZNTQZNTG">
@@ -113,7 +116,7 @@ const productContent = (PROPS) => {
 
            
 
-            HERE.IS.MODULES.INNIT.UI_SELECT({
+            HERE.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#cde2oty0otm0ntc3mtc"),
                 options: [
                     {
@@ -126,9 +129,9 @@ const productContent = (PROPS) => {
                         value: 2
                     }
                 ]
-            }).Create()
+            }).CREATE()
 
-            HERE.IS.MODULES.INNIT.UI_SELECT({
+            HERE.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#zde2oty0otu3mzqxnzk"),
                 id: "ade2oty0otk1mduzmja",
                 options: [
@@ -150,7 +153,7 @@ const productContent = (PROPS) => {
                         value: 4
                     },
                 ]
-            }).Create()
+            }).CREATE()
 
             $(IPROPS.scanContainer).append(html)
         } catch (error) { }

@@ -38,6 +38,7 @@ const UI_SELECT = (props) => {
                 var tag = $(
                     `
                     <div class="sete2otyzotu2odewota ${className}" ${id}>
+                        <input hidden class="yje2oty2nju3ndeymdk"/>
                         <div class="syze2oty0ntm3nte3otm">
                             <span class="syje2oty0nty3mzkymdg"></span>
                             <div>
@@ -52,8 +53,6 @@ const UI_SELECT = (props) => {
 
                             </div>
                         </div>
-
-
                     </div>
 
                     `
@@ -94,7 +93,7 @@ const UI_SELECT = (props) => {
                         element: select,
                         name: "click",
                         callBack: (current) => {
-                            $(tag).attr("current", element.value)
+                            $(tag).find("yje2oty2nju3ndeymdk").attr("value", element.value)
                             $(tag).find(".syje2oty0nty3mzkymdg").html(element.name)
                             $(tag).find(".sade2oty0ntc1odg1mdi").attr("show", false)
                         }
@@ -105,7 +104,7 @@ const UI_SELECT = (props) => {
 
                     if (element.selected) {
                         $(tag).find(".syje2oty0nty3mzkymdg").html(element.name)
-                        $(tag).attr("current", element.value)
+                        $(tag).find("yje2oty2nju3ndeymdk").attr("value", element.value)
                     }
 
                 })
@@ -118,9 +117,8 @@ const UI_SELECT = (props) => {
         } catch (err) { console.error(err) }
 
     }
-
-    THIS.Create = () => {
-        return element()
+    THIS.CREATE = () => {
+        element()
     }
 
     return THIS

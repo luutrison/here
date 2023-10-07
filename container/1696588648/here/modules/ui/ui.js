@@ -14,20 +14,23 @@ const HERE_MODULES_UI = () => {
     const THIS = {}
     THIS.OPTIONS = DTE2OTU3OTKXODC4NTG
 
+    const IS = HERE.IS;
+
     THIS.SHIPPER = () => {
+        
        
         const html = (
             `
             <div id="yje2otu0nty2mzaznju">
                 <div id="cte2otu0nty2ndu1njy"><span id="ete2otu0nty4nze1otc">Rừm rừm...</span>
-                <img src="/here/modules/ui/images/21695457730118.gif"/>
+                <img src="/@{release}/here/modules/ui/images/21695457730118.gif"/>
                 <span id="zze2otu0ntc4otizmja">...</span>
                 </div>
             </div>
             `
         )
 
-        return html
+        return IS.CONVERT.SPECIAL_CONTENT({content: html})
 
     }
 

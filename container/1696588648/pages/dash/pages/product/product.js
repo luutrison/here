@@ -6,7 +6,7 @@
             COMPONENTS: [
                 {
                     src: "../../../../data/pages/product-data/product-content.js",
-                    name: "PRODUCT_VIEW"
+                    name: "PRODUCT_CZE2OTY2NJI3NDYXMDI"
                 },
             ],
             CSS: [
@@ -42,7 +42,7 @@
         METHOD: () => {
             document.title = "Sản phẩm"
             const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
-            COMPONENTS.PRODUCT_VIEW({ container: ".BZE2OTYZODIYMJG5MTY",  scanContainer: "#DDE2OTYZODQ1OTYWMTA"}).Create()
+            COMPONENTS.PRODUCT_CZE2OTY2NJI3NDYXMDI({ container: ".BZE2OTYZODIYMJG5MTY",  scanContainer: "#DDE2OTYZODQ1OTYWMTA"}).Create()
         }
     }
 

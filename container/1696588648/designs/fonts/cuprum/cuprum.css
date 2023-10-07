@@ -4,7 +4,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-Regular.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-Regular.ttf) ;
   }
 
   @font-face {
@@ -12,7 +12,7 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-Medium.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-Medium.ttf) ;
   }
 
   @font-face {
@@ -20,7 +20,7 @@
     font-style: italic;
     font-weight: 500;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-MediumItalic.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-MediumItalic.ttf) ;
   }
 
   @font-face {
@@ -28,7 +28,7 @@
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-Bold.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-Bold.ttf) ;
   }
 
   @font-face {
@@ -36,7 +36,7 @@
     font-style: italic;
     font-weight: 600;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-SemiBoldItalic.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-SemiBoldItalic.ttf) ;
   }
 
   @font-face {
@@ -44,7 +44,7 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-SemiBold.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-SemiBold.ttf) ;
   }
 
   @font-face {
@@ -52,5 +52,5 @@
     font-style: italic;
     font-weight: 700;
     font-display: swap;
-    src: url(/designs/fonts/cuprum/font/Cuprum-SemiBoldItalic.ttf) ;
+    src: url(/@{release}/designs/fonts/cuprum/font/Cuprum-SemiBoldItalic.ttf) ;
   }

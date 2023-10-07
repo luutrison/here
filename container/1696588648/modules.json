@@ -1,5 +1,5 @@
 {
-    "INCLUDE": ["./components/modules.json"],
+    "INCLUDE": ["./components/modules.json", "./components/ui/items/modules.json"],
     "MODULES": {
         "COMPONENTS": {
             "CSS": [

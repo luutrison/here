@@ -76,6 +76,9 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             STATUS: "status",
             DATA: "data"
         },
+        REPLACE: {
+            RELEASE_RPLACE: "@{release}"
+        },
         ATTRIBUTE_VALUE: {
             REL_STYLESHEET: "stylesheet",
             CSS_LEVEL_ONE_NAME: "one",
@@ -294,6 +297,22 @@ var HERE = (props) => {
                 THIS.EX.ERROR({ err: error })
             }
 
+        },
+
+        SPECIAL_CONTENT: ({content}) => {
+            try{
+                if(THIS.CURRENT.PROPERTIES.STATUS){
+                    const release = THIS.CURRENT.PROPERTIES.STATUS.release
+                    if (release) {
+                        content = String(content).replaceAll(THIS.OPTIONS().REPLACE.RELEASE_RPLACE, release)
+                    }
+                }
+
+                return content
+            }catch(err){
+                THIS.EX.ERROR({ err: err })
+            
+            }
         },
 
         TO_ATTRIBUTE_QUERY: ({ name, value }) => {
@@ -1019,9 +1038,11 @@ var HERE = (props) => {
                                             THIS.THIS.GET_TEXT({ path: path }).then(data => {
                                                 const res = data.response
 
+                                                const resData = THIS.CONVERT.SPECIAL_CONTENT({content: res})
+
                                                 const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
                                                     name: element.name,
-                                                    css: res
+                                                    css: resData
                                                 })
                                                 const item = haveObject.find(x => x.name == element.name)
                                                 item.load = NORMAL.TRUE
@@ -1147,10 +1168,11 @@ var HERE = (props) => {
 
                                     THIS.THIS.GET_TEXT({ path: cssPath }).then(data => {
                                         const res = data.response
+                                        const resData = THIS.CONVERT.SPECIAL_CONTENT({content: res})
 
                                         const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
                                             name: name,
-                                            css: res
+                                            css: resData
                                         })
                                         var item = haveObject.find(x => x.name == name)
                                         if (item) {
@@ -1315,6 +1337,7 @@ var HERE = (props) => {
                                         const element = $(render)
                                         if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
                                             $(element).html(String())
+
                                             $(element).append(MODULES_UI.SHIPPER())
                                         }
 
@@ -1808,15 +1831,16 @@ var HERE = (props) => {
 
                                 if (RENDER.FROM && render) {
 
+                                    const fromContent = THIS.CONVERT.SPECIAL_CONTENT({content: RENDER.FROM})
 
                                     if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render.to })) {
                                         const element = $(render.to)
                                         $(element).html(String())
-                                        $(element).append(RENDER.FROM)
+                                        $(element).append(fromContent)
                                     }
                                     else {
                                         $(THIS.OPTIONS().THIS[render.to]).html(String())
-                                        $(THIS.OPTIONS().THIS[render.to]).append(RENDER.FROM)
+                                        $(THIS.OPTIONS().THIS[render.to]).append(fromContent)
                                     }
                                 }
                             }
@@ -1880,14 +1904,12 @@ var HERE = (props) => {
                 RUN: ({ props }) => {
                     try {
                         if (!props.LOAD) {
-                            // setTimeout(() => {
                             const CURRENT = THIS.REQUIRE.THIS.RUN
                             CURRENT.METHOD.RUN_NORMAL(props)
                             CURRENT.METHOD.RUN_OH(props)
                             CURRENT.METHOD.RUN_EFFECT(props)
                             CURRENT.METHOD.STATUS(props)
                             THIS.UPDATE.ON()
-                            // }, 0);
                         }
                     } catch (err) { THIS.EX.ERROR({ err: err }) }
 
