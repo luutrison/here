@@ -299,9 +299,9 @@ var HERE = (props) => {
 
         },
 
-        SPECIAL_CONTENT: ({content}) => {
-            try{
-                if(THIS.CURRENT.PROPERTIES.STATUS){
+        SPECIAL_CONTENT: ({ content }) => {
+            try {
+                if (THIS.CURRENT.PROPERTIES.STATUS) {
                     const release = THIS.CURRENT.PROPERTIES.STATUS.release
                     if (release) {
                         content = String(content).replaceAll(THIS.OPTIONS().REPLACE.RELEASE_RPLACE, release)
@@ -309,9 +309,9 @@ var HERE = (props) => {
                 }
 
                 return content
-            }catch(err){
+            } catch (err) {
                 THIS.EX.ERROR({ err: err })
-            
+
             }
         },
 
@@ -374,13 +374,13 @@ var HERE = (props) => {
             }
         },
 
-        PATH_RELEASE: ({path}) => {
+        PATH_RELEASE: ({ path }) => {
             const RELEASE = THIS.CURRENT.PROPERTIES.STATUS.release
             var RELEASE_PATH = String()
             if (RELEASE) {
                 RELEASE_PATH = RELEASE
             }
-            return THIS.EX.MAP_PATH({path: RELEASE_PATH, subPath: path})
+            return THIS.EX.MAP_PATH({ path: RELEASE_PATH, subPath: path })
         },
 
 
@@ -479,7 +479,7 @@ var HERE = (props) => {
                         origin = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: haveOriginUrl }).join(THIS.OPTIONS().NORMAL.DOUBLE_RIGHT_SLASH_SYMBOL) + THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL
                     }
 
-                   
+
 
                     var pathReturn = origin + THIS.CONVERT.PATH_ASS_EMPTY({ pathArr: pathArr }).join(THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL) +
                         THIS.OPTIONS().NORMAL.RIGHT_SLASH_SYMBOL +
@@ -757,7 +757,7 @@ var HERE = (props) => {
         GET: ({ path }) => {
             try {
                 return new Promise((resolve, reject) => {
-                    const rpath = THIS.CONVERT.PATH_RELEASE({path})
+                    const rpath = THIS.CONVERT.PATH_RELEASE({ path })
                     const ipath = THIS.CONVERT.PATH_ORIGIN({ path: rpath })
                     fetch(ipath).then((response) => {
                         resolve({ url: response.url, response: response })
@@ -1038,7 +1038,7 @@ var HERE = (props) => {
                                             THIS.THIS.GET_TEXT({ path: path }).then(data => {
                                                 const res = data.response
 
-                                                const resData = THIS.CONVERT.SPECIAL_CONTENT({content: res})
+                                                const resData = THIS.CONVERT.SPECIAL_CONTENT({ content: res })
 
                                                 const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
                                                     name: element.name,
@@ -1168,7 +1168,7 @@ var HERE = (props) => {
 
                                     THIS.THIS.GET_TEXT({ path: cssPath }).then(data => {
                                         const res = data.response
-                                        const resData = THIS.CONVERT.SPECIAL_CONTENT({content: res})
+                                        const resData = THIS.CONVERT.SPECIAL_CONTENT({ content: res })
 
                                         const tag = THIS.OPTIONS().TAG.METHOD.CREATE_STYLE_CSS({
                                             name: name,
@@ -1833,7 +1833,7 @@ var HERE = (props) => {
 
                                 if (RENDER.FROM && render) {
 
-                                    const fromContent = THIS.CONVERT.SPECIAL_CONTENT({content: RENDER.FROM})
+                                    const fromContent = THIS.CONVERT.SPECIAL_CONTENT({ content: RENDER.FROM })
 
                                     if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render.to })) {
                                         const element = $(render.to)

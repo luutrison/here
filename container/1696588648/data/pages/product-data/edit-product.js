@@ -74,7 +74,7 @@ const EDIT_PRODUCT_ZTE2OTY2NJI4MDAYOTE = (PROPS) => {
                 }
             }).CREATE()
 
-            const editor = CKEDITOR.replace('bde2oty2otewnjg4nza')
+            const editor = X_EDITOR_DJE2OTY3MDAYNJK4MTA.replace('bde2oty2otewnjg4nza')
 
         } catch (err) { console.error(err) }
 
