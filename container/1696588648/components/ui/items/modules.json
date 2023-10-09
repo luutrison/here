@@ -6,6 +6,9 @@
 
         "UI_SWITCH_BTE2OTY2NJY4MZE5MZU": {
             "SCRIPT": "./switch.js"
+        },
+        "UI_POPUP_BDE2OTY4MJQ1OTG3NJM": {
+            "SCRIPT": "./popup.js"
         }
     }
 }

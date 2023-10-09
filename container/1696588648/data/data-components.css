@@ -11,15 +11,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     align-items: center;
     width: 100%;
 }
 #BDE2OTYZODI2MTIYMDM{
-    height: 36px;
+    height: 32px;
     width: 200px;
     border: solid 1px var(--color-blur);
-    border-radius: 10px;
     padding: 0px 20px;
 }
 
@@ -51,7 +50,7 @@ position: relative;
 
 .bje2oty2njmxnziwnja{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     gap: 20px;
     align-items: start;
@@ -69,7 +68,6 @@ position: relative;
 }
 
 .bte2oty2njm2ntc1otu input{
-    border-radius: 4px;
     border: none;
     height: 32px;
     background: var(--white-color);
@@ -82,22 +80,38 @@ position: relative;
     width: 200px;
     height: 200px;
     object-fit: cover;
-    border-radius: 10px 10px 0px 0px;
-
 }
    
 .yze2oty2njmxode0ntk{
     display: flex;
     flex-direction: column;
     min-width: 200px;
-    background: var(--menu-linear-one);
-    border-radius: 10px;
+    background: var(--primary);
     align-items: center;
-    box-shadow: 0px 2px 5px var(--shadow-color);
+}
+.bze2oty4mtm0otexmdu{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    border: solid 1px var(--outline-color);
+}
+
+.cje2oty4mtm5njq5otu{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.yte2oty4mtqynjuznjy{
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .ate2oty2njm5mze5mze{
-    height: 45px;
+    height: 38px;
     color: var(--white-color);
     width: 100%;
     font-size: 15px;
@@ -106,14 +120,16 @@ position: relative;
 }
 
 .cze2oty2njq4mdm5nze{
-    min-width: calc(100% - 220px);
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 10px;
-    padding: 20px;
-    outline: solid 1px var(--color-blur-ii);
-    box-shadow: 0px 2px 5px var(--color-blur);
+    padding: 10px;
+    outline: solid 1px var(--outline-color);
+}
+
+.zte2oty4mtu0otg5odm{
+    font-weight: 500;
 }
 
 .yze2oty2njuzndmwmjy{

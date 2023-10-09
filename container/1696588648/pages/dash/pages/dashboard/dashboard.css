@@ -5,7 +5,7 @@
     width: 100%;
     min-height: 100vh;
     background: var(--background);
-    padding: 20px;
+    padding: 10px;
 }
 
 
@@ -26,5 +26,5 @@
     font-size: 20px;
     font-weight: bold;
     color: var(--color-text);
-    margin-top: 20px;
+    margin-top: var(--header-height);
 }

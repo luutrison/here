@@ -20,7 +20,6 @@
 .SCJE2OTYYMZE5ODA2MJY {
     width: 80px;
     height: 80px;
-    border-radius: 10px;
     overflow: hidden;
     object-fit: cover;
 }
@@ -35,9 +34,7 @@
     flex-direction: row;
     gap: 10px;
     justify-content: space-between;
-    padding: 10px;
-    background: var(--content-color);
-    border-radius: 10px;
+    padding: 5px;
     width: 100%;
     border: solid 1px var(--color-blur);
 }
@@ -59,7 +56,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 10px;
-    padding-left: 20px;
+    padding: 0px 10px;
     border-left: dashed 1px var(--color-blur);
 }
 
@@ -99,7 +96,7 @@
 
 .BZE2OTYZODIYMJG5MTY {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     flex-direction: column;
 }
 

@@ -1,7 +1,7 @@
 {
     "MODULES": {
       
-        "CKEDITOR_BZE2OTY2ODCWNZE3MTG__": {
+        "CKEDITOR_BZE2OTY2ODCWNZE3MTG": {
             "SCRIPT": "./editor/editor.js"
         }
     }

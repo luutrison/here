@@ -42,6 +42,7 @@ const productContent = (PROPS) => {
 
 
     const IS = HERE.IS
+    const MODULES = IS.MODULES.INNIT
 
     const Item = (props) => {
         const iprops = {
@@ -217,9 +218,22 @@ const productContent = (PROPS) => {
                     element: $(item).find("#cje2oty1mda0mzgxnjc"),
                     name: "click",
                     callBack: (current) => {
-                        IS.ROUTE.LOAD({name: "dash.product.edit", param: {id: element.id}})
+                        IS.ROUTE.LOAD({name: "dash.product.edit", params: {id: element.id}})
                     }
                 })
+
+                IS.DOM.SET_EVENT_BY_NAME({
+                    element: $(item).find("#yte2oty1mda0ndc3ntk"),
+                    name: "click",
+                    callBack: (current) => {
+                        MODULES.UI_POPUP_BDE2OTY4MJQ1OTG3NJM({
+                            title: "Thông báo!",
+                            message: "Bạn có muốn xóa sản phẩm này ?",
+                            container: "#container"
+                        }).CREATE()
+                    }
+                })
+
                 arrElements.push(item)
             })
 

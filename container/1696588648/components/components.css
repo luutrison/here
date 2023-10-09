@@ -9,7 +9,7 @@
 }
 
 .CZE2OTYWNJA1OTQYNZU[active="true"] {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--menu-active);
 }
 
 .S31696256349519 {
@@ -46,7 +46,7 @@
 }
 
 .S11696252745831[active="true"] {
-    background: #5f63ff70;
+    background: var(--menu-active);
 }
 
 .S81696252818575 {
@@ -106,8 +106,7 @@
 .syze2oty0ntm3nte3otm {
     padding: 0px 10px;
     border: solid 1px var(--color-blur);
-    min-height: 36px;
-    border-radius: 10px;
+    min-height: 32px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -137,14 +136,13 @@
     flex-direction: column;
     position: absolute;
     width: 100%;
-    box-shadow: 0px 2px 5px var(--color-blur);
-    border-radius: 10px;
     background: var(--background);
     font-size: 14px;
     top: calc(100% + 5px);
-    border-radius: 10px;
     overflow: hidden;
     animation: slideUp .3s ease;
+    border: solid 1px var(--color-blur);
+    user-select: none;
 }
 
 .bde2oty0ntm3mjqznzc .zde2oty0ntm0nzc5otq:not(:last-child) {
@@ -198,3 +196,63 @@
 
 }
 
+/* POPUP */
+
+.dte2oty4mju2mjcyndc{
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.yze2oty4mju2mjqwmtu{
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.ede2oty4mju0mzgzndu{
+    min-width: 300px;
+    min-height: 150px;
+    max-height: 500px;
+    max-width: 430px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    background: var(--background);
+    position: relative;
+    justify-content: space-between;
+    animation: zoom_in .3s ease;
+}
+.cde2oty4mzy1ntgzntk{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.zje2oty4mju0ntu1odq{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.bde2oty4mju1otayoty{
+    color: var(--color-text);
+}
+
+.zze2oty4mju1otkxote{
+    padding: 6px 12px;
+    background: var(--primary);
+    color: white;
+}
+
+.ade2oty4mju1odiwnzi{
+    display: flex;
+    justify-content: space-between;
+}

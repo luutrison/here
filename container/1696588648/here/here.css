@@ -16,8 +16,9 @@ a {
 }
 
 body {
-    --max-width: 992px;
+    --max-width: 100vw;
     --menu-width: 280px;
+    --min-width: 660px;
 }
 
 
@@ -29,7 +30,7 @@ body {
     --background: white;
     --color-blur: rgb(205, 205, 205);
     --color-blur-ii: rgb(228, 228, 228);
-     --color-blur-iii:rgb(201 201 201 / 20%);
+    --color-blur-iii: rgb(201 201 201 / 20%);
     --item-menu-background: rgba(91, 157, 255, 0.1);
     --menu-linear-one: rgba(74, 146, 255, 0.6);
     --menu-linear-two: rgba(159, 135, 255, 0.56);
@@ -40,6 +41,9 @@ body {
     --primary: #186ded;
     --normal-content-width: calc(var(--max-width) - var(--menu-width));
     --normal-padding: 10px;
-    --title-page-height: 60px;
+    --title-page-height: 40px;
     --gray-color: rgb(99 99 99);
+    --index: 1000;
+    --outline-color: rgb(197 197 197);
+    --menu-active: rgba(255, 255, 255, 0.25);
 }

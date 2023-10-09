@@ -51,18 +51,16 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 15px;
+  padding-right: 10px;
   color: var(--color-text);
 }
 
 .aje2otu2mzmxodcynzu {
-  padding: 0px;
+  padding: 10px;
   font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
   border-radius: 15px;
   border: none;
   cursor: pointer
@@ -76,13 +74,12 @@ header {
   font-size: calc(16px + .2vw);
   font-weight: 500;
   line-height: 26px;
-  /*text-decoration: underline;*/
-  background: var(--primary);
-  padding: 3px 15px 0px 15px;
-  border-radius: 20px;
+  padding: 0px;
   user-select: none;
-  color: var(--content-color);
   height: 30px;
+  display: flex;
+  align-items: center;
+  padding-top: 1px;
 }
 
 .dte2otu2mzi4mjc4mte input {
@@ -114,24 +111,32 @@ header {
 
 #content {
   width: var(--max-width);
-  height: calc(100vh - (var(--header-height) + var(--content-padding)));
+  height: calc(100vh - var(--header-height));
   display: flex;
   flex-direction: row;
   overflow: hidden;
   align-items: start;
   justify-content: space-between;
   position: relative;
-  padding: 10px;
   background: var(--background);
-  border-radius: 10px;
 }
 
-#normal-container .simplebar-scrollbar:before {
+#normal-container .simplebar-horizontal .simplebar-scrollbar:before {
+  top: 6px;
+  bottom: 0px;
+  left: 2px;
+  right: 2px;
+  border-radius: 0px;
+}
+
+#normal-container .simplebar-vertical .simplebar-scrollbar:before {
   top: 2px;
   bottom: 2px;
-  left: 3px;
-  right: 3px;
+  left: 6px;
+  right: 0px;
+  border-radius: 0px;
 }
+
 
 button{
   cursor: pointer;
@@ -147,4 +152,18 @@ input:focus{
 input{
   min-height: 25px;
   background: var(--white-color);
+}
+
+
+/* KEYFRAME */
+
+@keyframes zoom_in {
+  0%{
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
 }

@@ -1,16 +1,15 @@
 #menu {
   width: 330px;
   min-height: 500px;
-  height: calc(100vh - (var(--header-height) + var(--content-padding) * 5));
+  height: calc(100vh - var(--header-height));
   padding: 10px;
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
 }
 
 #contenter {
   width: calc(var(--max-width) - var(--menu-width));
-  height: calc(100vh - (var(--header-height) + var(--content-padding) * 5));
+  height: calc(100vh - var(--header-height));
   display: flex;
   align-items: start;
   justify-content: center;
@@ -20,10 +19,6 @@
 
 .simplebar-content {
   height: 100%;
-}
-
-#dash {
-  /*margin-top: 60px;*/
 }
 
 
@@ -41,9 +36,7 @@
 
 .ZDE2OTYWNJA0MZK1MTU {
   min-height: 400px;
-  /*padding: 10px;*/
-  height: 75vh;
-  border-radius: 10px;
+  height: calc(100vh - (var(--header-height) + 100px));
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -77,6 +70,7 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  min-width: var(--min-width);
 }
 
 
@@ -86,10 +80,10 @@
 
 .YJE2OTYWNTM1MDGZMTA:after {
   content: "";
-  width: calc(var(--normal-content-width) - var(--normal-padding) * 4);
+  width: calc(var(--normal-content-width) - var(--normal-padding) * 2);
   position: absolute;
-  bottom: 10px;
-  left: 20px;
+  bottom: 0px;
+  left: 10px;
   height: 1px;
   background: var(--color-blur);
 }
@@ -97,15 +91,17 @@
 .YJE2OTYWNTM1MDGZMTA {
   color: var(--color-blur);
   position: fixed;
-  top: 50px;
+  top: var(--header-height);
   width: 100%;
   max-width: var(--normal-content-width);
   background: var(--background);
   height: var(--title-page-height);
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between
+  justify-content: space-between;
+  z-index: var(--index);
+  min-width: var(--min-width);
 }
 
 .YJE2OTYWNTM1MDGZMTA #SDTE2OTYYMZAYMTK1MZA {
@@ -116,10 +112,6 @@
 }
 
 .SEDE2OTYYMZUZMTMZNZU {
-  margin-top: 50px;
-  padding: 20px;
-}
-
-#contenter .simplebar-horizontal{
-  display: none
+  margin-top: calc(var(--header-height) * 1.1);
+  padding: 10px;
 }

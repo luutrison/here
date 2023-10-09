@@ -1,8 +1,10 @@
 
-
+/**
+ * WRITTEN BY LƯU TRÍ SƠN - A WRITER JOB-LOVER
+ **/
 
 const DZE2OTU2OTE3OTI4OTI = () => {
-    const SETTING = {
+    const OPTIONS = {
         NORMAL: {
             NUMBER_ZERO: 0,
             NUMBER_ONE: 1,
@@ -42,7 +44,13 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         },
         DEFAULT: {
             HAVE_ENTRIE: []
-
+        },
+        NUMBER: {
+            ONE_HUNDRED: 100,
+            TWO_HUNDRED: 200,
+            THREE_HUNDRED: 300,
+            FOUR_HUNDRED: 400,
+            FIVE_HUNDRED: 500,
         },
         NAME: {
             LOCAL_STORAGE_HISTORY: "_LSH_"
@@ -74,7 +82,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             NAME_NAME: "name",
             NAME_REL: "rel",
             STATUS: "status",
-            DATA: "data"
+            DATA: "data",
         },
         REPLACE: {
             RELEASE_RPLACE: "@{release}"
@@ -85,7 +93,8 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             CSS_LEVEL_TWO_NAME: "two",
         },
         EVENT: {
-            LOAD: "load"
+            LOAD: "load",
+            CLICK: "click"
         },
         CURRENT: {
             PAGE_CONFIG_ELEMENT: $('meta[name="status"]')
@@ -95,7 +104,12 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         },
         ROUTE: {
             DEFAULT_PATH: "/route.json",
-            BOUNDER_PATH: "/bounder/bounder.json"
+            BOUNDER_PATH: "/bounder/bounder.json",
+            HISTORY: {
+                MAX_SAVE: 20,
+                CONTAINER_NAME: "html"
+            },
+            DEFAULT_ROUTE_NAME: "default"
         },
         MESSAGE: {
             PATH_INVALID: "PATH is invalid (Path containt an invalid character)\n",
@@ -103,8 +117,11 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             PATH_LOCATION: "PATH location is not exist\n",
             INVALID_DATA: "DATA is invalid !\n",
         },
-        LIB: {
-
+        HERE: {
+            BASE_PATH: "./here"
+        },
+        SETTING: {
+            SETTING_PATH: "../setting.json"
         },
         TAG: {
             CSS_NAME: "css",
@@ -117,21 +134,21 @@ const DZE2OTU2OTE3OTI4OTI = () => {
 
             METHOD: {
                 CREATE_LINK_CSS: ({ name, src }) => {
-                    var tag = document.createElement(SETTING.TAG.LINK_NAME)
-                    tag.setAttribute(SETTING.ATTRIBUTE.NAME_REL, SETTING.ATTRIBUTE_VALUE.REL_STYLESHEET)
-                    tag.setAttribute(SETTING.ATTRIBUTE.HREF_NAME, src)
-                    tag.setAttribute(SETTING.ATTRIBUTE.NAME_NAME, name)
+                    var tag = document.createElement(OPTIONS.TAG.LINK_NAME)
+                    tag.setAttribute(OPTIONS.ATTRIBUTE.NAME_REL, OPTIONS.ATTRIBUTE_VALUE.REL_STYLESHEET)
+                    tag.setAttribute(OPTIONS.ATTRIBUTE.HREF_NAME, src)
+                    tag.setAttribute(OPTIONS.ATTRIBUTE.NAME_NAME, name)
                     return tag
                 },
                 CREATE_STYLE_CSS: ({ name, css }) => {
                     if (name && css) {
-                        const NORMAL = SETTING.NORMAL
+                        const NORMAL = OPTIONS.NORMAL
 
-                        const startTag = NORMAL.LEFT_SARO_SYMBOL + SETTING.TAG.STYLE_NAME + NORMAL.SPACE
-                            + SETTING.ATTRIBUTE.NAME_NAME + NORMAL.EQUAL_SYMBOL + NORMAL.SINGLE_NHAY_SYMBOL
+                        const startTag = NORMAL.LEFT_SARO_SYMBOL + OPTIONS.TAG.STYLE_NAME + NORMAL.SPACE
+                            + OPTIONS.ATTRIBUTE.NAME_NAME + NORMAL.EQUAL_SYMBOL + NORMAL.SINGLE_NHAY_SYMBOL
                             + name + NORMAL.SINGLE_NHAY_SYMBOL + NORMAL.RIGHT_SARO_SYMBOL
 
-                        const endTag = NORMAL.LEFT_SARO_SYMBOL + SETTING.TAG.STYLE_NAME + NORMAL.RIGHT_SARO_SYMBOL
+                        const endTag = NORMAL.LEFT_SARO_SYMBOL + OPTIONS.TAG.STYLE_NAME + NORMAL.RIGHT_SARO_SYMBOL
 
                         var tag = startTag + css + endTag
 
@@ -142,7 +159,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
         },
     }
 
-    return SETTING
+    return OPTIONS
 
 
 }
@@ -159,6 +176,35 @@ var HERE = (props) => {
 
         ERROR: ({ err, sub }) => {
             console.error(err + THIS.OPTIONS().NORMAL.SPACE + sub);
+        },
+        LOOPER_CHECKER: ({ arrName, timeLoop, callBack }) => {
+            try {
+                const looper = () => {
+                    setTimeout(() => {
+                        if (Array.isArray(arrName)) {
+                            var load = true
+                            arrName.forEach((element, num) => {
+                                const enc = $(element)
+                                if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: enc })) {
+                                    load == false
+                                }
+                                if (num == THIS.EX.TRUE_ARRAY_LENGTH({ arr: arrName })) {
+                                    if (load) {
+                                        callBack()
+                                    }
+                                    else {
+                                        looper()
+                                    }
+                                }
+                            })
+                        }
+                    }, timeLoop);
+
+                }
+                looper()
+            } catch (error) {
+                THIS.EX.ERROR({ err: error })
+            }
         },
         ARRAY_TO_STRING: (arr) => {
             try {
@@ -271,6 +317,42 @@ var HERE = (props) => {
         }
 
 
+
+    }
+
+    THIS.STEP = {
+        THIS: {
+            STEP: ({ callBack }) => {
+                return {
+                    INNIT: () => {
+                        THIS.STEP.THIS.STEP({ callBack: callBack }).SETTING()
+                    },
+                    SETTING: () => {
+                        THIS.SETTING.INNIT({
+                            callBack: callBack.SETTING
+                        })
+                    }
+                }
+            }
+        },
+
+        INNIT: () => {
+            try {
+                const callBack = {
+                    SETTING: () => {
+                        THIS.ROUTE.INNIT.THIS.MODULES(
+                            [
+                                THIS.ROUTE.INNIT.THIS.BOUNDER,
+                                THIS.ROUTE.INNIT.THIS.ROUTE,
+                                THIS.ROUTE.HISTORY.INNIT
+                            ]
+                        )
+                    }
+                }
+                THIS.STEP.THIS.STEP({ callBack: callBack }).INNIT()
+            } catch (err) { }
+
+        }
 
     }
 
@@ -1129,7 +1211,9 @@ var HERE = (props) => {
 
                                     const content = data.response
                                     const rinegan = eval(content)
-                                    THIS.MODULES.INNIT[element.NAME] = rinegan
+                                    if (rinegan) {
+                                        THIS.MODULES.INNIT[element.NAME] = rinegan
+                                    }
                                     element.LOAD_SCRIPT = true
                                     OH()
                                 } catch (error) {
@@ -1490,111 +1574,137 @@ var HERE = (props) => {
 
 
     THIS.READY = {
+        THIS: {
+            READY_ROUTE_MAP: () => {
+                try {
+                    var PATH = THIS.IS
 
+                    if (!PATH.MAP) {
+                        PATH.MAP = {
+                            PROPERTIES: {
+                                MAP: false,
+                                BOUNDER: false
+                            },
+                            HISTORY: THIS.OPTIONS().NORMAL.ARRAY_EMPTY
 
-        READY_ROUTE_MAP: () => {
-
-            try {
-                var PATH = THIS.IS
-
-                if (!PATH.MAP) {
-                    PATH.MAP = {
-                        PROPERTIES: {
-                            MAP: false,
-                            BOUNDER: false
                         }
                     }
+
+                    return PATH.MAP;
+                } catch (error) {
+                    THIS.EX.ERROR({ err: error })
                 }
+            },
 
-                return PATH.MAP;
-            } catch (error) {
-                THIS.EX.ERROR({ err: error })
-            }
-        },
-
-        READY_CURRENT_PROPERTIES: () => {
-            try {
-                if (!THIS.CURRENT.PROPERTIES) {
-                    THIS.CURRENT.PROPERTIES = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
-                }
-
-                return THIS.CURRENT.PROPERTIES;
-            } catch (error) {
-                THIS.EX.ERROR({ err: error })
-            }
-        },
-
-        READY_ROUTE_PARAM: () => {
-            try {
-                if (!THIS.ROUTE.PARAM) {
-                    THIS.ROUTE.PARAM = {
-                        DATA: THIS.OPTIONS().NORMAL.OBJECT_EMPTY
-                    }
-                }
-
-                return THIS.ROUTE.PARAM;
-            } catch (error) {
-                THIS.EX.ERROR({ err: error })
-            }
-
-        },
-
-        READY_HAVE: () => {
-            try {
-                if (!THIS.IS.HAVE) {
-                    const ARRAY_EMPTY = () => {
-                        return THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+            READY_CURRENT_PROPERTIES: () => {
+                try {
+                    if (!THIS.CURRENT.PROPERTIES) {
+                        THIS.CURRENT.PROPERTIES = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
                     }
 
-                    THIS.IS.HAVE = {
-                        CSS_LIB: ARRAY_EMPTY(),
-                        SCRIPT_LIB: ARRAY_EMPTY(),
-                        CSS: ARRAY_EMPTY(),
-                        SCRIPT: ARRAY_EMPTY(),
-                        COMPONENTS: ARRAY_EMPTY(),
-                    }
-
-                    return THIS.IS.HAVE
+                    return THIS.CURRENT.PROPERTIES;
+                } catch (error) {
+                    THIS.EX.ERROR({ err: error })
                 }
+            },
 
-            } catch (error) {
-                THIS.EX.ERROR({ err: error })
-            }
-        },
-
-        READY_EVENT: () => {
-            try {
-                if (!THIS.EVENT) {
-                    THIS.EVENT = {
-                        READY: {
-                            document: false
+            READY_ROUTE_PARAMS: () => {
+                try {
+                    if (!THIS.ROUTE.PARAMS) {
+                        THIS.ROUTE.PARAMS = {
+                            DATA: THIS.OPTIONS().NORMAL.OBJECT_EMPTY
                         }
                     }
-                }
-                return THIS.EVENT
-            } catch (err) {
-                THIS.EX.ERROR({ err: error })
-            }
-        },
 
-        READY_MODULES: () => {
-            try {
-                if (!THIS.MODULES.INNIT) {
-                    THIS.MODULES.INNIT = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                    return THIS.ROUTE.PARAMS;
+                } catch (error) {
+                    THIS.EX.ERROR({ err: error })
                 }
-                return THIS.MODULES
-            } catch (err) {
-                THIS.EX.ERROR({ err: error })
+
+            },
+
+            READY_HAVE: () => {
+                try {
+                    if (!THIS.IS.HAVE) {
+                        const ARRAY_EMPTY = () => {
+                            return THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+                        }
+
+                        THIS.IS.HAVE = {
+                            CSS_LIB: ARRAY_EMPTY(),
+                            SCRIPT_LIB: ARRAY_EMPTY(),
+                            CSS: ARRAY_EMPTY(),
+                            SCRIPT: ARRAY_EMPTY(),
+                            COMPONENTS: ARRAY_EMPTY(),
+                        }
+
+                        return THIS.IS.HAVE
+                    }
+
+                } catch (error) {
+                    THIS.EX.ERROR({ err: error })
+                }
+            },
+
+            READY_EVENT: () => {
+                try {
+                    if (!THIS.EVENT) {
+                        THIS.EVENT = {
+                            READY: {
+                                document: false
+                            }
+                        }
+                    }
+                    return THIS.EVENT
+                } catch (err) {
+                    THIS.EX.ERROR({ err: error })
+                }
+            },
+
+            READY_SETTING: () => {
+                try {
+                    if (!THIS.IS.SETTING) {
+                        THIS.IS.SETTING = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                    }
+                    return THIS.IS.SETTING
+                } catch (err) {
+                    THIS.EX.ERROR({ err: error })
+                }
+
+            },
+
+            READY_MODULES: () => {
+                try {
+                    if (!THIS.MODULES.INNIT) {
+                        THIS.MODULES.INNIT = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                    }
+                    return THIS.MODULES
+                } catch (err) {
+                    THIS.EX.ERROR({ err: error })
+                }
+            },
+
+            READY_HISTORY: () => {
+                try {
+                    if (!THIS.ROUTE.HISTORY.PROPERTIES) {
+                        THIS.ROUTE.HISTORY.PROPERTIES = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                    }
+                    return THIS.ROUTE.HISTORY.PROPERTIES
+                } catch (err) {
+                    THIS.EX.ERROR({ err: error })
+                }
             }
         },
 
         READY: () => {
             try {
-                const READY = THIS.READY
+                const READY = THIS.READY.THIS
                 READY.READY_ROUTE_MAP()
                 READY.READY_HAVE()
+                READY.READY_HISTORY()
                 READY.READY_EVENT()
-                READY.READY_ROUTE_PARAM()
+                READY.READY_ROUTE_PARAMS()
+                READY.READY_SETTING()
                 READY.READY_CURRENT_PROPERTIES()
                 READY.READY_MODULES()
             } catch (error) {
@@ -1950,284 +2060,329 @@ var HERE = (props) => {
         }
 
 
-    }
+    },
 
+        THIS.SETTING = {
 
-    THIS.ROUTE = {
+            INNIT: ({ callBack }) => {
 
-        PROPS: {
-            ADD: ({ props }) => {
-                return {
-                    path: props.path
-                }
-
-            },
-            ROUTE: ({ props }) => {
                 try {
-                    return {
-                        INCLUDE: props.INCLUDE,
-                        COMPONENTS: props.COMPONENTS
-                    }
-                } catch (error) {
-                    THIS.EX.ERROR({ err: error })
-                }
-
-            },
-            RESPONSE_ROUTE: ({ props }) => {
-                try {
-                    return {
-                        url: props.url,
-                        response: THIS.ROUTE.PROPS.ROUTE({ props: props.response })
-                    }
-                } catch (error) {
-                    THIS.EX.ERROR({ err: error })
-                }
-
-            },
-
-            INNIT_GET: ({ props }) => {
-                try {
-                    return {
-                        path: props.path,
-                        map: props.map,
-                        register: props.register,
-                        callBack: props.callBack
-                    }
-                } catch (error) {
-                    THIS.EX.ERROR({ err: error })
-                }
-
-            }
-
-        },
-
-        ADD: ({ props }) => {
-            var iprops = THIS.ROUTE.PROPS.ADD({ props: props })
-
-        },
-
-        LOAD: ({ name, route, param }) => {
-
-            const current = THIS.IS.MAP.ROUTE[name]
+                    const basePath = THIS.OPTIONS().HERE.BASE_PATH
+                    const path = THIS.EX.MAP_PATH({ path: basePath, subPath: THIS.OPTIONS().SETTING.SETTING_PATH })
 
 
-            if (current) {
-                THIS.ROUTE.HISTORY().SET({ name: name })
+                    THIS.ROUTE.THIS.GET({
 
-                if (!route) {
-                    route = current
-                }
-
-                if (param) {
-                    THIS.ROUTE.PARAM.DATA = param
-                }
-
-
-                THIS.RENDER.FROM({
-                    props: {
-                        path: String(),
-                        subPath: current.src,
-                        route: route
-                    }
-                })
-            }
-
-
-
-        },
-
-        GET: ({ props }) => {
-            var register = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
-            var map = {}
-            const NORMAL = THIS.OPTIONS().NORMAL
-            const GET = ({ props }) => {
-                var iprops = THIS.ROUTE.PROPS.INNIT_GET({ props: props })
-
-                return new Promise((resolve, reject) => {
-
-                    const success = ({ path }) => {
-                        if (THIS.CHECK.IS_OBJECT({ ob: register })) {
-                            var load = register.find(x => x.src == path)
-
-                            if (load && !load.load) {
-                                load.load = NORMAL.TRUE
-                                var loaded = NORMAL.NUMBER_ZERO
-                                register.forEach(element => {
-                                    if (element.load) {
-                                        loaded += NORMAL.NUMBER_ONE
-                                    }
-                                });
-
-                                if (loaded == THIS.EX.ARRAY_LENGTH({ arr: register })) {
-                                    iprops.callBack({
-                                        props: THIS.ROUTE.PROPS.INNIT_GET({
-                                            props: {
-                                                path: path,
-                                                map: map,
-                                                register: register,
-                                                callBack: iprops.callBack
-                                            }
-                                        })
-                                    })
-                                }
+                        path: path,
+                        callBack: ({ props }) => {
+                            THIS.IS.SETTING = { ...THIS.IS.SETTING, ...props.map }
+                            if (callBack) {
+                                callBack()
                             }
                         }
-                        else {
-                            iprops.callBack({
-                                props: THIS.ROUTE.PROPS.INNIT_GET({
-                                    props: {
-                                        path: path,
-                                        map: map,
-                                        register: register,
-                                        callBack: iprops.callBack
-                                    }
-                                })
-                            })
-                        }
-
-
-
                     }
-                    THIS.THIS.GET_JSON({ path: iprops.path }).then(data => {
-                        var idata = THIS.ROUTE.PROPS.RESPONSE_ROUTE({ props: data })
-                        var pathToThis = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: iprops.path })
+                    )
+
+                } catch (err) {
+                    THIS.EX.ERROR({ err: err })
+                }
 
 
-                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: idata.response.INCLUDE })) {
-
-                            if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: data.response.INCLUDE })) {
-
-                                for (let index = NORMAL.NUMBER_ZERO; index < data.response.INCLUDE.length; index++) {
-                                    var element = data.response.INCLUDE[index];
-                                    var itemPath = THIS.EX.MAP_PATH({ path: pathToThis, subPath: element })
-
-                                    register.push({
-                                        src: itemPath,
-                                        load: false,
-                                        run: false
-                                    })
-                                }
-                            }
-
-                            for (let index = NORMAL.NUMBER_ZERO; index < register.length; index++) {
-                                var element = register[index];
-                                if (!element.load && !element.run) {
-                                    element.run = NORMAL.TRUE
-                                    GET({
-                                        props: THIS.ROUTE.PROPS.INNIT_GET({
-                                            props: {
-                                                path: element.src,
-                                                map: map, register: register, callBack: iprops.callBack
-                                            }
-                                        })
-                                    })
-                                }
-
-
-                            }
-
-                        }
-
-                        if (THIS.CHECK.IS_OBJECT({ ob: idata.response.COMPONENTS })) {
-                            var items = {}
-                            Object.keys(idata.response.COMPONENTS).forEach(element => {
-                                var item = idata.response.COMPONENTS[element]
-                                item.src = THIS.EX.MAP_PATH({ path: pathToThis, subPath: item.src })
-                                items[element] = item
-
-                            })
-                            map = { ...items, ...map }
-                        }
-
-                        success({ path: iprops.path })
-                        resolve(data)
-
-                    })
-                });
             }
-            GET({ props: props })
         },
 
-        INNIT: {
-            THIS: {
 
+        THIS.ROUTE = {
 
+            PROPS: {
+                ADD: ({ props }) => {
+                    return {
+                        path: props.path
+                    }
 
-
-                ROUTE: () => {
+                },
+                ROUTE: ({ props }) => {
                     try {
+                        return {
+                            INCLUDE: props.INCLUDE,
+                            COMPONENTS: props.COMPONENTS
+                        }
+                    } catch (error) {
+                        THIS.EX.ERROR({ err: error })
+                    }
 
-                        const CURRENT = THIS.ROUTE
-                        var MAP = THIS.READY.READY_ROUTE_MAP()
-                        if (!MAP.PROPERTIES.MAP) {
+                },
+                RESPONSE_ROUTE: ({ props }) => {
+                    try {
+                        return {
+                            url: props.url,
+                            response: THIS.ROUTE.PROPS.ROUTE({ props: props.response })
+                        }
+                    } catch (error) {
+                        THIS.EX.ERROR({ err: error })
+                    }
 
-                            THIS.ROUTE.GET({
-                                props: CURRENT.PROPS.INNIT_GET({
-                                    props: {
-                                        path: THIS.OPTIONS().ROUTE.DEFAULT_PATH,
-                                        callBack: ({ props }) => {
-                                            MAP.PROPERTIES.MAP = THIS.OPTIONS().NORMAL.TRUE
-                                            MAP.ROUTE = { ...MAP.ROUTE, ...props.map }
-                                            THIS.RENDER.FROM({
-                                                props: {
-                                                    path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: THIS.OPTIONS().ROUTE.DEFAULT_PATH }),
-                                                    subPath: props.map.default.src,
-                                                    route: props.map.default
+                },
+
+                INNIT_GET: ({ props }) => {
+                    try {
+                        return {
+                            path: props.path,
+                            map: props.map,
+                            register: props.register,
+                            callBack: props.callBack
+                        }
+                    } catch (error) {
+                        THIS.EX.ERROR({ err: error })
+                    }
+
+                }
+
+            },
+
+            ADD: ({ props }) => {
+                var iprops = THIS.ROUTE.PROPS.ADD({ props: props })
+
+            },
+
+            LOAD: ({ name, route, params }) => {
+
+                const current = THIS.IS.MAP.ROUTE[name]
+
+
+                if (current) {
+                    THIS.ROUTE.HISTORY.THIS.HISTORY().ADD({ name: name })
+
+                    if (!route) {
+                        route = current
+                    }
+
+                    if (params) {
+                        THIS.ROUTE.PARAMS.DATA = params
+                    }
+
+
+                    THIS.RENDER.FROM({
+                        props: {
+                            path: String(),
+                            subPath: current.src,
+                            route: route
+                        }
+                    })
+                }
+
+
+
+            },
+
+            THIS: {
+                GET: (props) => {
+                    var register = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+                    var map = {}
+                    const NORMAL = THIS.OPTIONS().NORMAL
+                    var HISTORY = THIS.IS.MAP.HISTORY
+
+
+                    const GET = (props) => {
+                        return new Promise((resolve, reject) => {
+
+                            if (props && props.path) {
+                                var meper = HISTORY.find(z => z == props.path)
+                                if (!meper) {
+                                    HISTORY.push(props.path)
+
+                                    const success = ({ path }) => {
+                                        if (THIS.CHECK.IS_OBJECT({ ob: register })) {
+                                            var load = register.find(x => x.src == path)
+
+                                            if (load && !load.load) {
+                                                load.load = NORMAL.TRUE
+                                                var loaded = NORMAL.NUMBER_ZERO
+                                                register.forEach(element => {
+                                                    if (element.load) {
+                                                        loaded += NORMAL.NUMBER_ONE
+                                                    }
+                                                });
+
+                                                if (loaded == THIS.EX.ARRAY_LENGTH({ arr: register })) {
+                                                    props.callBack({
+                                                        props: THIS.ROUTE.PROPS.INNIT_GET({
+                                                            props: {
+                                                                path: path,
+                                                                map: map,
+                                                                register: register,
+                                                                callBack: props.callBack
+                                                            }
+                                                        })
+                                                    })
                                                 }
+                                            }
+                                        }
+                                        else {
+                                            props.callBack({
+                                                props: THIS.ROUTE.PROPS.INNIT_GET({
+                                                    props: {
+                                                        path: path,
+                                                        map: map,
+                                                        register: register,
+                                                        callBack: props.callBack
+                                                    }
+                                                })
                                             })
                                         }
+
+
+
                                     }
-                                })
-                            })
-                        }
-                    } catch (error) {
-                        THIS.EX.ERROR({ err: error })
-                    }
 
-                },
+                                    THIS.THIS.GET_JSON({ path: props.path }).then(data => {
+                                        var pathToThis = THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: props.path })
 
-                BOUNDER: () => {
-                    try {
-                        const CURRENT = THIS.ROUTE
 
-                        var MAP = THIS.READY.READY_ROUTE_MAP()
-                        if (!MAP.PROPERTIES.BOUNDER) {
+                                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: data.response.INCLUDE })) {
 
-                            THIS.ROUTE.GET({
-                                props: CURRENT.PROPS.INNIT_GET({
-                                    props: {
-                                        path: THIS.OPTIONS().ROUTE.BOUNDER_PATH,
-                                        callBack: ({ props }) => {
-                                            MAP.PROPERTIES.BOUNDER = THIS.OPTIONS().NORMAL.TRUE
-                                            MAP.BOUNDER = { ...MAP.BOUNDER, ...props.map }
+
+                                            for (let index = NORMAL.NUMBER_ZERO; index < data.response.INCLUDE.length; index++) {
+                                                var element = data.response.INCLUDE[index];
+                                                var itemPath = THIS.EX.MAP_PATH({ path: pathToThis, subPath: element })
+
+                                                register.push({
+                                                    src: itemPath,
+                                                    load: false,
+                                                    run: false
+                                                })
+                                            }
+
+                                            for (let index = NORMAL.NUMBER_ZERO; index < register.length; index++) {
+                                                var element = register[index];
+                                                if (!element.load && !element.run) {
+                                                    element.run = THIS.OPTIONS().NORMAL.TRUE
+                                                    GET({ path: element.src, callBack: props.callBack })
+                                                }
+
+
+                                            }
+
                                         }
-                                    }
-                                })
-                            })
-                        }
-                    } catch (error) {
-                        THIS.EX.ERROR({ err: error })
+
+                                        if (THIS.CHECK.IS_OBJECT({ ob: data.response.COMPONENTS })) {
+                                            var items = {}
+                                            Object.keys(data.response.COMPONENTS).forEach(element => {
+                                                var item = data.response.COMPONENTS[element]
+                                                item.src = THIS.EX.MAP_PATH({ path: pathToThis, subPath: item.src })
+                                                items[element] = item
+
+                                            })
+                                            map = { ...items, ...map }
+                                        }
+
+                                        if (THIS.CHECK.IS_OBJECT({ ob: data.response.SETTING })) {
+                                            map = { ...map, ...data.response.SETTING }
+                                        }
+
+                                        success({ path: props.path })
+                                        resolve(data)
+
+                                    })
+                                }
+                            }
+
+                        });
+
+
                     }
+                    GET(props)
+                },
+
+            },
+
+
+
+            INNIT: {
+                THIS: {
+                    ROUTE: () => {
+                        try {
+
+                            const CURRENT = THIS.ROUTE
+                            var MAP = THIS.IS.MAP
+                            if (!MAP.PROPERTIES.MAP) {
+
+                                THIS.ROUTE.THIS.GET(
+                                    CURRENT.PROPS.INNIT_GET({
+                                        props: {
+                                            path: THIS.OPTIONS().ROUTE.DEFAULT_PATH,
+                                            callBack: ({ props }) => {
+                                                MAP.PROPERTIES.MAP = THIS.OPTIONS().NORMAL.TRUE
+                                                MAP.ROUTE = { ...MAP.ROUTE, ...props.map }
+                                                THIS.RENDER.FROM({
+                                                    props: {
+                                                        path: THIS.CONVERT.PATH_TO_FILE_GET_FOLDER_PATH({ path: THIS.OPTIONS().ROUTE.DEFAULT_PATH }),
+                                                        subPath: props.map.default.src,
+                                                        route: props.map.default
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    })
+                                )
+                            }
+                        } catch (error) {
+                            THIS.EX.ERROR({ err: error })
+                        }
+
+                    },
+
+                    BOUNDER: () => {
+                        try {
+                            var MAP = THIS.IS.MAP
+                            if (!MAP.PROPERTIES.BOUNDER) {
+
+                                THIS.ROUTE.THIS.GET({
+
+                                    path: THIS.OPTIONS().ROUTE.BOUNDER_PATH,
+                                    callBack: ({ props }) => {
+                                        MAP.PROPERTIES.BOUNDER = THIS.OPTIONS().NORMAL.TRUE
+                                        MAP.BOUNDER = { ...MAP.BOUNDER, ...props.map }
+                                    }
+                                }
+                                )
+                            }
+                        } catch (error) {
+                            THIS.EX.ERROR({ err: error })
+                        }
+
+                    },
+
+                    MODULES: (arr) => {
+
+                        try {
+                            const OH = () => {
+                                if (THIS.CHECK.IS_OBJECT({ ob: arr })) {
+                                    arr.forEach(element => {
+                                        element()
+                                    })
+                                }
+                            }
+
+                            THIS.MODULES.GET({
+                                path: THIS.OPTIONS().MODULES.MODULE_PATH,
+                                callBack: OH
+                            })
+
+
+                        } catch (err) {
+                            THIS.EX.ERROR({ err: err })
+                        }
+                    },
+
+
 
                 },
 
-                MODULES: (arr) => {
 
+                IN: () => {
                     try {
-                        const OH = () => {
-                            if (THIS.CHECK.IS_OBJECT({ ob: arr })) {
-                                arr.forEach(element => {
-                                    element()
-                                })
-                            }
-                        }
-
-                        THIS.MODULES.GET({
-                            path: THIS.OPTIONS().MODULES.MODULE_PATH,
-                            callBack: OH
-                        })
-
-
+                        THIS.STEP.INNIT()
                     } catch (err) {
                         THIS.EX.ERROR({ err: err })
                     }
@@ -2236,104 +2391,157 @@ var HERE = (props) => {
             },
 
 
-            IN: () => {
+            RUN: () => {
                 try {
-                    THIS.ROUTE.INNIT.THIS.MODULES(
-                        [
-                            THIS.ROUTE.INNIT.THIS.BOUNDER,
-                            THIS.ROUTE.INNIT.THIS.ROUTE
-                        ]
-                    )
-                } catch (err) {
-                    THIS.EX.ERROR({ err: err })
-                }
-            }
 
-        },
+                    THIS.READY.READY()
+                    THIS.CURRENT.UPDATE()
+                    THIS.ROUTE.INNIT.IN()
 
+                } catch (error) {
 
-        RUN: () => {
-            try {
-
-                THIS.READY.READY()
-                THIS.CURRENT.UPDATE()
-                THIS.ROUTE.INNIT.IN()
-
-            } catch (error) {
-
-            }
-
-        },
-
-        HISTORY: () => {
-            try {
-
-
-
-
-                const history = () => {
-                    var data = window.localStorage.getItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY)
-                    var iprops = {
-                        current: String(),
-                        stepsBack: THIS.OPTIONS().NORMAL.ARRAY_EMPTY,
-                        stepNext: THIS.OPTIONS().NORMAL.ARRAY_EMPTY
-                    }
-
-                    if (data) {
-                        const b64 = window.atob(data)
-                        var dataParse = JSON.parse(b64)
-                        if (THIS.CHECK.IS_OBJECT({ ob: dataParse }) && THIS.CHECK.IS_OBJECT({ ob: dataParse.current })) {
-                            iprops = {
-                                current: dataParse.current,
-                                stepsBack: dataParse.stepsBack,
-                                stepsNext: dataParse.stepsNext
-                            }
-                        }
-                    }
-
-
-                    else {
-                        window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
-                    }
-
-                    return iprops
                 }
 
-                return {
-                    GET: () => {
-                        return history()
-                    },
-                    SET: ({ name }) => {
+            },
+
+
+
+
+            HISTORY: {
+                THIS: {
+                    HISTORY: () => {
                         try {
-                            var hito = history()
+                            const history = () => {
+                                var data = window.localStorage.getItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY)
+                                var iprops = {
+                                    current: String(),
+                                    history: THIS.OPTIONS().NORMAL.ARRAY_EMPTY,
+                                }
 
-                            hito.current = name
-                            const item = hito.stepsBack.find(x => x == name)
-                            if (!THIS.CHECK.IS_OBJECT({ ob: item })) {
-                                hito.stepsBack.push(name)
+                                if (data) {
+                                    const b64 = window.atob(data)
+                                    var dataParse = JSON.parse(b64)
+                                    if (THIS.CHECK.IS_OBJECT({ ob: dataParse }) && THIS.CHECK.IS_OBJECT({ ob: dataParse.current })) {
+                                        iprops = {
+                                            current: dataParse.current ? dataParse.current : String(),
+                                            history: dataParse.history ? dataParse.history : iprops.history,
+                                        }
+                                    }
+                                }
+
+                                else {
+                                    window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(iprops)))
+                                }
+
+                                return iprops
                             }
-                            window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+
+                            return {
+                                GET: () => {
+                                    return history()
+                                },
+                                ADD: ({ name }) => {
+                                    try {
+                                        var hito = history()
+
+                                        if (hito.current != name) {
+
+                                            hito.current = name
+                                            const item = hito.history.find(x => x == name)
+                                            if (!item) {
+
+                                                var params = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+
+                                                if (THIS.ROUTE.PARAMS && THIS.ROUTE.PARAMS.DATA) {
+
+                                                    params = THIS.ROUTE.PARAMS.DATA
+                                                }
+
+                                                hito.history.push({
+                                                    name: name,
+                                                    params: params
+                                                })
+                                            }
+
+                                            window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+
+                                        }
+
+                                    } catch (err) {
+                                        THIS.EX.ERROR({ err: err })
+                                    }
+
+                                },
+
+                                BACK: () => {
+                                    try {
+                                        const NORMAL = THIS.OPTIONS().NORMAL
+                                        var hito = history();
+                                        if (hito) {
+                                            if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: hito.history })) {
+                                                if (THIS.EX.ARRAY_LENGTH({ arr: hito.history }) > NORMAL.NUMBER_ONE) {
+                                                    const last = hito.history[THIS.EX.TRUE_ARRAY_LENGTH({ arr: hito.history })]
+                                                    if (last.name == hito.current) {
+                                                        hito.history.pop()
+                                                        const current = hito.history[THIS.EX.TRUE_ARRAY_LENGTH({ arr: hito.history })]
+                                                        hito.current = current.name
+                                                        THIS.ROUTE.LOAD({ name: current.name, param: current.params })
+                                                    }
+                                                    else {
+                                                        hito.current = last.name
+                                                        THIS.ROUTE.LOAD({ name: last.name, param: last.params })
+                                                    }
+                                                }
+                                            }
+
+                                            window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+                                        }
+
+                                    } catch (err) {
+                                        THIS.ROUTE.LOAD({ name: THIS.OPTIONS().ROUTE.DEFAULT_ROUTE_NAME, param: last.params })
+                                        THIS.EX.ERROR({ err: err })
+                                    }
+
+                                }
+                            }
+
                         } catch (err) {
                             THIS.EX.ERROR({ err: err })
                         }
 
                     }
-                    ,
-                    NEXT: () => { },
-                    BACK: () => { }
+                },
+
+                INNIT: () => {
+                    try {
+                        var historyProperties = THIS.ROUTE.HISTORY.PROPERTIES
+                        if (historyProperties && !historyProperties.READY) {
+
+                            THIS.EX.LOOPER_CHECKER({
+                                arrName: [THIS.IS.SETTING.BACK_BUTTON_NAME],
+                                timeLoop: THIS.OPTIONS().NUMBER.FIVE_HUNDRED,
+                                callBack: () => {
+                                    THIS.DOM.SET_EVENT_BY_NAME({
+                                        element: $(THIS.IS.SETTING.BACK_BUTTON_NAME),
+                                        name: THIS.OPTIONS().EVENT.CLICK,
+                                        callBack: (current) => {
+                                            THIS.ROUTE.HISTORY.THIS.HISTORY().BACK()
+                                        }
+                                    })
+                                }
+                            })
+                            historyProperties.READY = THIS.OPTIONS().NORMAL.TRUE
+                        }
+
+                    } catch (error) {
+                        THIS.EX.ERROR({ err: error })
+                    }
                 }
 
-
-
-
-            } catch (err) {
-                THIS.EX.ERROR({ err: err })
             }
 
+
         }
-
-
-    }
 
     THIS.INNIT = (PROPS) => {
         THIS.IS = (PROPS)
