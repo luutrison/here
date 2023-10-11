@@ -3,8 +3,11 @@
         "COMPONENTS": {
             "CSS": ["./components.css"]
         },
-        "UI_REGISTER": {
+        "UI_REGISTER_EJE2OTY5MJI2NJIWODU": {
             "SCRIPT": "./register.js"
+        },
+        "MENU_EJE2OTY5MJMWODM4NJA": {
+            "SCRIPT": "./ui/menu/menu.js"
         }
     }
 }

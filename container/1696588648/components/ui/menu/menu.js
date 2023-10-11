@@ -1,18 +1,13 @@
-const CTE2OTYWNTK5ODQ0MTG = {
-    USE: HERE.IS
-}
-
 
 const MENU = () => {
 
     try {
         const THIS = {}
-
-        THIS.SETTING = CTE2OTYWNTK5ODQ0MTG
-
-        const IS = THIS.SETTING.USE
+        const IS = HERE.IS
+        const NAME_ITEM_MENU = "ZDE2OTY5MJE5NDUWODC"
 
         THIS.GET = ({ elementName }) => {
+
 
             const sampleData = [
                 {
@@ -40,7 +35,7 @@ const MENU = () => {
                     ]
                 },
 
-              
+
             ]
 
 
@@ -59,7 +54,7 @@ const MENU = () => {
                         var tagtem = document.createElement("div")
                         tagtem.innerHTML = (
                             `
-                            <div class="S21696253072135">
+                            <div class="S21696253072135 ${NAME_ITEM_MENU}" come="${element.url}">
                                 <div class="S31696256349519">
                                     ${element.icon}
                                 </div>
@@ -134,7 +129,7 @@ const MENU = () => {
                 else {
                     tag.innerHTML = (
                         `
-                            <div class="CZE2OTYWNJA1OTQYNZU" to="${props.url}">
+                            <div class="CZE2OTYWNJA1OTQYNZU ${NAME_ITEM_MENU}" come="${props.url}">
                                     <div class="S31696256349519">
                                     ${props.icon}
                                     </div>
@@ -182,10 +177,36 @@ const MENU = () => {
                 var def = sampleData.find(i => i.default == true)
                 IS.ROUTE.LOAD({ name: def.url })
                 $(elementName).attr("ship", "true")
-                $(`.CZE2OTYWNJA1OTQYNZU[to='${def.url}']`).attr("active", true)
+                $(`.${NAME_ITEM_MENU}[come='${def.url}']`).attr("active", true)
             }
 
         }
+
+        THIS.CHECK = (props) => {
+            try {
+
+                if(props){
+                    const propse = {
+                        name: props.name,
+                        params: props.params
+                    }
+    
+                    const arritems = $("." + NAME_ITEM_MENU)
+                    $(arritems).attr("active", false)
+
+                    $(arritems).each((num, element) => {
+                        const item = $(element).attr("come")
+                        if(item == propse.name){
+                            $(element).attr("active", true)
+                        }
+                    })
+                }
+                
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
         return THIS
     } catch (error) {
         console.error(error);

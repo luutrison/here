@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="SEDE2OTYYMZUZMTMZNZU">
-                        
+
                     </div>
 
                 </div>
@@ -35,12 +35,15 @@
         },
 
         METHOD: () => {
-            document.title = "Chỉnh sửa sản phẩm"
-            const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
+            try {
+                document.title = "Chỉnh sửa sản phẩm"
+                const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
 
-            COMPONENTS.EDIT_PRODUCT_ETE2OTY2NJMZODG2NDM({
-                container: ".SEDE2OTYYMZUZMTMZNZU"
-            }).CREATE()
+                COMPONENTS.EDIT_PRODUCT_ETE2OTY2NJMZODG2NDM({
+                    container: ".SEDE2OTYYMZUZMTMZNZU"
+                }).CREATE()
+            } catch (err) { console.error(err); }
+
         }
 
     }

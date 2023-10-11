@@ -30,7 +30,7 @@
 
                     <div class="SEDE2OTYYMZUZMTMZNZU">
                         <div id="DDE2OTYZODQ1OTYWMTA">
-                            
+
                         </div>
 
                         <div class="BZE2OTYZODIYMJG5MTY"></div>
@@ -40,9 +40,15 @@
             )
         },
         METHOD: () => {
-            document.title = "Sản phẩm"
-            const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
-            COMPONENTS.PRODUCT_CZE2OTY2NJI3NDYXMDI({ container: ".BZE2OTYZODIYMJG5MTY",  scanContainer: "#DDE2OTYZODQ1OTYWMTA"}).Create()
+            try {
+                document.title = "Sản phẩm"
+                const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
+                COMPONENTS.PRODUCT_CZE2OTY2NJI3NDYXMDI({ container: ".BZE2OTYZODIYMJG5MTY", scanContainer: "#DDE2OTYZODQ1OTYWMTA" }).Create()
+
+            } catch (error) {
+                console.error(error);
+            }
+
         }
     }
 

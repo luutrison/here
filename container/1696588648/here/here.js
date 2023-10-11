@@ -186,7 +186,7 @@ var HERE = (props) => {
                             arrName.forEach((element, num) => {
                                 const enc = $(element)
                                 if (THIS.CHECK.IS_ARRAY_EMPTY({ ob: enc })) {
-                                    load == false
+                                    load = false
                                 }
                                 if (num == THIS.EX.TRUE_ARRAY_LENGTH({ arr: arrName })) {
                                     if (load) {
@@ -205,6 +205,26 @@ var HERE = (props) => {
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
+        },
+        GET_OBJECT_FROM_ARRAY_NAME: ({ arr, object }) => {
+            try {
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: arr }) && object) {
+                    var parse = false
+                    var current = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
+                    const sortArr = THIS.EX.ARRAY_REMOVE_EMPTY({ arr: arr })
+                    sortArr.forEach(element => {
+                        if (!parse && object[element]) {
+                            current = object[element]
+                            parse = THIS.OPTIONS().NORMAL.TRUE
+                        }
+                        else if (current[element]) {
+                            current = current[element]
+                        }
+                    })
+
+                    return current
+                }
+            } catch (err) { THIS.EX.ERROR({ err: err }) }
         },
         ARRAY_TO_STRING: (arr) => {
             try {
@@ -613,7 +633,7 @@ var HERE = (props) => {
 
         },
 
-        EMPTY_ARRAY: (arr) => {
+        EMPTY_ARRAY: () => {
             try {
                 return arr = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
             } catch (error) {
@@ -1284,11 +1304,7 @@ var HERE = (props) => {
             try {
                 var arrLoading = []
                 var require = []
-
                 const GET = (path) => {
-
-
-
                     THIS.THIS.GET_JSON({ path: path }).then((data) => {
                         const modules = data.response
                         const exi = require.find(i => i.url == path)
@@ -1414,14 +1430,13 @@ var HERE = (props) => {
 
                             if (iprops.route && iprops.route.to) {
                                 const render = iprops.route.to
-                                if (THIS.MODULES && THIS.MODULES.INNIT.UI) {
-                                    const MODULES_UI = THIS.MODULES.INNIT.UI()
+                                if (THIS.MODULES && THIS.MODULES.INNIT.UI_ZJE2OTY5MJI3MDU5NZI) {
+                                    const MODULES_UI = THIS.MODULES.INNIT.UI_ZJE2OTY5MJI3MDU5NZI()
 
                                     if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
                                         const element = $(render)
                                         if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
                                             $(element).html(String())
-
                                             $(element).append(MODULES_UI.SHIPPER())
                                         }
 
@@ -2444,9 +2459,15 @@ var HERE = (props) => {
                                     try {
                                         var hito = history()
 
+                                        if(name == THIS.OPTIONS().ROUTE.DEFAULT_ROUTE_NAME){
+                                            hito.history = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
+                                            hito.current = THIS.OPTIONS().NORMAL.STRING_EMPTY
+                                        }
+
                                         if (hito.current != name) {
 
                                             hito.current = name
+
                                             const item = hito.history.find(x => x == name)
                                             if (!item) {
 
@@ -2455,6 +2476,10 @@ var HERE = (props) => {
                                                 if (THIS.ROUTE.PARAMS && THIS.ROUTE.PARAMS.DATA) {
 
                                                     params = THIS.ROUTE.PARAMS.DATA
+                                                }
+
+                                                if (THIS.EX.TRUE_ARRAY_LENGTH({ arr: hito.history }) > THIS.OPTIONS().ROUTE.HISTORY.MAX_SAVE) {
+                                                    hito.history.shift()
                                                 }
 
                                                 hito.history.push({
@@ -2477,24 +2502,30 @@ var HERE = (props) => {
                                     try {
                                         const NORMAL = THIS.OPTIONS().NORMAL
                                         var hito = history();
+                                        var currentBack = THIS.OPTIONS().NORMAL.OBJECT_EMPTY
                                         if (hito) {
                                             if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: hito.history })) {
                                                 if (THIS.EX.ARRAY_LENGTH({ arr: hito.history }) > NORMAL.NUMBER_ONE) {
                                                     const last = hito.history[THIS.EX.TRUE_ARRAY_LENGTH({ arr: hito.history })]
+                                                   
+
                                                     if (last.name == hito.current) {
                                                         hito.history.pop()
                                                         const current = hito.history[THIS.EX.TRUE_ARRAY_LENGTH({ arr: hito.history })]
                                                         hito.current = current.name
+                                                        currentBack = current
                                                         THIS.ROUTE.LOAD({ name: current.name, param: current.params })
                                                     }
                                                     else {
                                                         hito.current = last.name
+                                                        currentBack = last
                                                         THIS.ROUTE.LOAD({ name: last.name, param: last.params })
                                                     }
+                                                   
                                                 }
+                                                window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
+                                                return currentBack
                                             }
-
-                                            window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
                                         }
 
                                     } catch (err) {
@@ -2525,7 +2556,29 @@ var HERE = (props) => {
                                         element: $(THIS.IS.SETTING.BACK_BUTTON_NAME),
                                         name: THIS.OPTIONS().EVENT.CLICK,
                                         callBack: (current) => {
-                                            THIS.ROUTE.HISTORY.THIS.HISTORY().BACK()
+                                            const currentBack = THIS.ROUTE.HISTORY.THIS.HISTORY().BACK()
+
+                                            if (currentBack && THIS.CHECK.IS_OBJECT({ ob: currentBack }))
+
+                                                if (THIS.IS.SETTING && THIS.IS.SETTING.ON_BACK_CLICK_FUNCTION) {
+                                                    const arrStep = String(THIS.IS.SETTING.ON_BACK_CLICK_FUNCTION)
+                                                        .split(THIS.OPTIONS().NORMAL.DOT_SYMBOL)
+                                                    const name = THIS.CONVERT.TRIM_STRING({ str: THIS.IS.SETTING.ON_BACK_CLICK_FUNCTION_NAME })
+
+                                                    var fn = THIS.EX.GET_OBJECT_FROM_ARRAY_NAME({ arr: arrStep, object: THIS })
+
+                                                    if (fn) {
+                                                        if (name) {
+                                                            const fnr = fn()
+                                                            const fne = fnr[name]
+                                                            fne(currentBack)
+                                                        }
+                                                        else {
+                                                            fn(currentBack)
+                                                        }
+                                                    }
+
+                                                }
                                         }
                                     })
                                 }
@@ -2546,7 +2599,6 @@ var HERE = (props) => {
     THIS.INNIT = (PROPS) => {
         THIS.IS = (PROPS)
         PROPS.IS = (THIS)
-
 
         THIS.ROUTE.RUN();
     }

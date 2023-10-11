@@ -3,6 +3,13 @@
       
         "CKEDITOR_BZE2OTY2ODCWNZE3MTG": {
             "SCRIPT": "./editor/editor.js"
+        },
+        "CHART_YTE2OTY5MJI3NTG5MTU": {
+            "SCRIPT": "./chart/chart.min.js"
+        },
+        "SIMPLEBAR_BZE2OTY5MJI4MTEWNDQ": {
+            "SCRIPT": "./simplebar/simplebar.min.js",
+            "CSS": "./simplebar/simplebar.min.css"
         }
     }
 }
