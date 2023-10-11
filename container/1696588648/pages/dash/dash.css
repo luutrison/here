@@ -73,6 +73,13 @@
   min-width: var(--min-width);
 }
 
+.SEDE2OTYYMJG4OTCXMZG {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  min-width: 100%;
+  min-height: 100%;
+}
 
 .DJE2OTYWNJG3NZM0MJY {
   border-radius: 10px;
@@ -102,6 +109,7 @@
   justify-content: space-between;
   z-index: var(--index);
   min-width: var(--min-width);
+  left: var(--menu-width)
 }
 
 .YJE2OTYWNTM1MDGZMTA #SDTE2OTYYMZAYMTK1MZA {

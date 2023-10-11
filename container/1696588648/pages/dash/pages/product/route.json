@@ -3,6 +3,10 @@
         "dash.product.edit": {
             "src": "./pages/edit/edit.js",
             "to": "#dash-container"
+        },
+        "dash.product.store": {
+            "src": "./pages/store/store.js",
+            "to": "#dash-container"
         }
     }
 }

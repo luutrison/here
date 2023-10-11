@@ -1,4 +1,8 @@
-const productContent = (PROPS) => {
+/**
+* WRITTEN BY LƯU TRÍ SƠN - A HANDSOME WRITTER
+**/
+
+const PRODUCT_CONTENT = (PROPS) => {
 
     const sampleData = [
         {
@@ -8,7 +12,7 @@ const productContent = (PROPS) => {
             cslc: "20/09/2023",
             id: "CDE2OTYZNZC1NTA1OTM",
             image: "/@{release}/designs/images/10112023.webp",
-            ht: true
+            show: true
         },
         {
             name: "Sản phẩm search",
@@ -17,7 +21,7 @@ const productContent = (PROPS) => {
             cslc: "20/09/2023",
             id: "CDE2OTYZNZC1NTA1OTM",
             image: "/@{release}/designs/images/10112023.webp",
-            ht: true
+            show: true
         },
         {
             name: "Tên sản phẩm",
@@ -26,17 +30,17 @@ const productContent = (PROPS) => {
             cslc: "20/09/2023",
             id: "CDE2OTYZNZC1NTA1OTM",
             image: "/@{release}/designs/images/10112023.webp",
-            ht: true
+            show: true
         }
     ]
 
     var THIS = {}
 
-    const Contructor = () => {
+
+
+    const contructor = () => {
         return {
-            scanContainer: PROPS.scanContainer,
             container: PROPS.container,
-            maxitem: PROPS.maxitem
         }
     }
 
@@ -44,7 +48,34 @@ const productContent = (PROPS) => {
     const IS = HERE.IS
     const MODULES = IS.MODULES.INNIT
 
-    const Item = (props) => {
+
+    const MAIN_CONTAINER = () => {
+        try {
+            const html = $(
+                `
+                <div>
+                    <div class="DDE2OTYZODQ1OTYWMTA"></div>
+                    <div class="BZE2OTYZODIYMJG5MTY"></div>
+                    <div class="ADE2OTCWMZCZNTA5NTE"></div>
+                </div>
+                `
+            )
+
+            const container = ".BZE2OTYZODIYMJG5MTY"
+            const scanContainer = ".DDE2OTYZODQ1OTYWMTA"
+            const pagerContainer = ".ADE2OTCWMZCZNTA5NTE"
+
+            return {
+                html, container, scanContainer, pagerContainer
+            }
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+
+
+    const items = (props) => {
         const iprops = {
             name: props.name,
             msp: props.msp,
@@ -52,11 +83,11 @@ const productContent = (PROPS) => {
             cslc: props.cslc,
             id: props.id,
             image: props.image,
-            ht: props.ht
+            show: props.show
 
         }
 
-        const imageLink = IS.CONVERT.SPECIAL_CONTENT({content: iprops.image})
+        const imageLink = IS.CONVERT.SPECIAL_CONTENT({ content: iprops.image })
 
         return $(
             `
@@ -95,9 +126,9 @@ const productContent = (PROPS) => {
 
     }
 
-    THIS.ScanContainerElement = () => {
+    THIS.SCAN_CONTAINER_ELEMENT = () => {
         try {
-            const IPROPS = Contructor()
+            const IPROPS = contructor()
 
             const html = $(
                 `
@@ -114,8 +145,6 @@ const productContent = (PROPS) => {
                 </div>
                 `
             )
-
-           
 
             HERE.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#cde2oty0otm0ntc3mtc"),
@@ -156,19 +185,37 @@ const productContent = (PROPS) => {
                 ]
             }).CREATE()
 
-            $(IPROPS.scanContainer).append(html)
+
+            const PAGER = MODULES.UI_PAGER_ZJE2OTCWMZC0MDCWNDY
+            const CONTAINER = MAIN_CONTAINER()
+
+            PAGER({
+                unit: 8,
+                number: 42,
+                current: 1,
+                onClick: (props) => {
+                    console.log(props)
+                },
+                container: $(IPROPS.container).find(CONTAINER.pagerContainer)
+            }).CREATE()
+
+            $($(IPROPS.container).find(CONTAINER.scanContainer)).append(html)
         } catch (error) { }
 
     }
 
 
-    THIS.ScanContainer = () => {
+    THIS.SCAN_CONTAINER = () => {
         try {
-            THIS.ScanContainerElement()
+            THIS.SCAN_CONTAINER_ELEMENT()
 
-            const IPROPS = Contructor()
+            const IPROPS = contructor()
 
-            const items = $(IPROPS.container).find(".S81696235564446")
+            const CONTAINER = MAIN_CONTAINER()
+
+            const INSIDE_CONTAINER = $(IPROPS.container).find(CONTAINER.container)
+
+            const items = $(INSIDE_CONTAINER).find(".S81696235564446")
 
             IS.DOM.SET_EVENT_BY_NAME({
                 element: "#BDE2OTYZODI2MTIYMDM",
@@ -179,9 +226,9 @@ const productContent = (PROPS) => {
                     const content = $(current).val()
 
                     if (String(content).trim() == String()) {
-                        $(IPROPS.container).html(String())
+                        $(INSIDE_CONTAINER).html(String())
                         items.each((num, element) => {
-                            $(IPROPS.container).append(element)
+                            $(INSIDE_CONTAINER).append(element)
                         })
                     }
                     else {
@@ -193,9 +240,9 @@ const productContent = (PROPS) => {
                             }
                         })
 
-                        $(IPROPS.container).html(String())
+                        $(INSIDE_CONTAINER).html(String())
                         arrSearch.forEach(element => {
-                            $(IPROPS.container).append(element)
+                            $(INSIDE_CONTAINER).append(element)
                         })
 
                     }
@@ -207,18 +254,22 @@ const productContent = (PROPS) => {
 
     }
 
-    THIS.Create = () => {
+    THIS.CREATE = () => {
         try {
-            const IPROPS = Contructor()
+            const IPROPS = contructor()
+
+            const CONTAINER = MAIN_CONTAINER()
+            $(IPROPS.container).append(CONTAINER.html)
+            const INSIDE_CONTAINER = $(IPROPS.container).find(CONTAINER.container)
 
             var arrElements = []
             sampleData.forEach(element => {
-                const item = Item(element)
+                const item = items(element)
                 IS.DOM.SET_EVENT_BY_NAME({
                     element: $(item).find("#cje2oty1mda0mzgxnjc"),
                     name: "click",
                     callBack: (current) => {
-                        IS.ROUTE.LOAD({name: "dash.product.edit", params: {id: element.id}})
+                        IS.ROUTE.LOAD({ name: "dash.product.edit", params: { id: element.id } })
                     }
                 })
 
@@ -238,10 +289,10 @@ const productContent = (PROPS) => {
             })
 
             arrElements.forEach(element => {
-                $(IPROPS.container).append(element)
+                $(INSIDE_CONTAINER).append(element)
             })
 
-            THIS.ScanContainer()
+            THIS.SCAN_CONTAINER()
 
         } catch (error) { console.error(error) }
 
@@ -253,4 +304,4 @@ const productContent = (PROPS) => {
 
 
 
-productContent
+PRODUCT_CONTENT

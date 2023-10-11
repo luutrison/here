@@ -256,3 +256,29 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* PAGER */
+
+.BTE2OTCWMZYWOTU2ODE{
+    width: 30px;
+    height: 30px;
+    background: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.YTE2OTCWMZQ4ODMYNTE{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.EJE2OTCWMZQ1NJYXMDC{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}

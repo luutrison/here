@@ -29,7 +29,7 @@ const MENU = () => {
                         },
                         {
                             name: "Kho hàng",
-                            url: "dash.product_store",
+                            url: "dash.product.store",
                             icon: ""
                         }
                     ]
