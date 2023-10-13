@@ -1,0 +1,13 @@
+{
+    "MODULES": {
+        "UI_AJE2OTCXODEXMJC2ODG": {
+            "CSS": ["./ui/ui.css"]
+        },
+        "UI_SHIPPER_DZE2OTCXODEWNZE0NZA": {
+            "SCRIPT": "./ui/shipper.js"
+        },
+        "UI_SHIPPER_MESSAGE_EJE2OTCXODEYMJU2MJC": {
+            "SCRIPT": "./ui/shipper_message.js"
+        }
+    }
+}

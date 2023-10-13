@@ -17,9 +17,9 @@
 	// }
 	"DOM EVENT CLICK": {
 		"scope": "javascript,typescript",
-		"prefix": "HERE_DOM_EVENT",
+		"prefix": "HERE_DTE2OTCXODIWOTY4MJY_DOM_EVENT",
 		"body": [
-			"HERE.IS.DOM.SET_EVENT_BY_NAME({",
+			"HERE_DTE2OTCXODIWOTY4MJY.IS.DOM.SET_EVENT_BY_NAME({",
 				"\telement: $(${1:element}),",
 				"\tname: \"${2:name}\",",
 				"\tcallBack: () => {",
@@ -32,7 +32,7 @@
 
 	"INTRO LUUTRISON": {
 		"scope": "javascript,typescript",
-		"prefix": "HERE_LUUTRISON",
+		"prefix": "HERE_DTE2OTCXODIWOTY4MJY_LUUTRISON",
 		"body": [
 			"/**",
 			"* WRITTEN BY LƯU TRÍ SƠN - A HANDSOME WRITTER",

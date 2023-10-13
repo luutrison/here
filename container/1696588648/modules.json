@@ -2,20 +2,17 @@
     "INCLUDE": [
         "./components/modules.json", 
         "./components/ui/items/modules.json",
-        "./libs/modules.json"
+        "./libs/modules.json",
+        "./here/modules/modules.json"
     ],
     "MODULES": {
-        "COMPONENTS": {
+        "CSS_COMPONENTS_CZE2OTCXODE2NDU2MJC": {
             "CSS": [
                 "./components/components.css",
                 "./here/here.css",
                 "./designs/fonts/cuprum/cuprum.css",
                 "./data/data-components.css"
             ]
-        },
-        "UI_ZJE2OTY5MJI3MDU5NZI": {
-            "SCRIPT": "./here/modules/ui/ui.js",
-            "CSS": "./here/modules/ui/ui.css"
         }
     }
 }

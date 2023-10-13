@@ -262,12 +262,18 @@
 .BTE2OTCWMZYWOTU2ODE{
     width: 30px;
     height: 30px;
-    background: green;
-    color: white;
+    color: var(--color-text);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    border: solid 1px var(--color-blur)
+}
 
+.BTE2OTCWMZYWOTU2ODE:hover, .BTE2OTCWMZYWOTU2ODE[kichhoat="dung"]{
+    background: var(--primary);
+    color: white
 }
 
 .YTE2OTCWMZQ4ODMYNTE{
@@ -281,4 +287,28 @@
     flex-direction: row;
     gap: 5px;
     align-items: center;
+}
+
+.ADE2OTCWMZCZNTA5NTE{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+}
+
+.ETE2OTCWMZQ2NTA5MJI, .EJE2OTCWMZQ5MTIWNDE{
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+    border: solid 1px var(--color-blur);
+}
+
+.ETE2OTCWMZQ2NTA5MJI:hover, .EJE2OTCWMZQ5MTIWNDE:hover{
+    background: var(--primary);
+    color: white
 }

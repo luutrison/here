@@ -1,0 +1,6 @@
+{
+    "SETTING": {
+        "MAX_ITEM_PAGER": 8,
+        "AROUND_ITEM": 2
+    }
+}

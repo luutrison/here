@@ -37,7 +37,7 @@
             try {
                 document.title = "Sản phẩm"
                 const COMPONENTS = PROPS.REQUIRE.IS.COMPONENTS.INNIT
-                COMPONENTS.PRODUCT_CZE2OTY2NJI3NDYXMDI({container: ".SEDE2OTYYMZUZMTMZNZU",}).CREATE()
+                COMPONENTS.PRODUCT_CZE2OTY2NJI3NDYXMDI({container: ".SEDE2OTYYMZUZMTMZNZU"}).CREATE()
 
 
             } catch (error) {

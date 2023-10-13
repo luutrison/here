@@ -3,7 +3,7 @@ const MENU = () => {
 
     try {
         const THIS = {}
-        const IS = HERE.IS
+        const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
         const NAME_ITEM_MENU = "ZDE2OTY5MJE5NDUWODC"
 
         THIS.GET = ({ elementName }) => {

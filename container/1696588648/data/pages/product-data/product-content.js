@@ -45,7 +45,7 @@ const PRODUCT_CONTENT = (PROPS) => {
     }
 
 
-    const IS = HERE.IS
+    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
     const MODULES = IS.MODULES.INNIT
 
 
@@ -146,7 +146,7 @@ const PRODUCT_CONTENT = (PROPS) => {
                 `
             )
 
-            HERE.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
+            HERE_DTE2OTCXODIWOTY4MJY.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#cde2oty0otm0ntc3mtc"),
                 options: [
                     {
@@ -161,7 +161,7 @@ const PRODUCT_CONTENT = (PROPS) => {
                 ]
             }).CREATE()
 
-            HERE.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
+            HERE_DTE2OTCXODIWOTY4MJY.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#zde2oty0otu3mzqxnzk"),
                 id: "ade2oty0otk1mduzmja",
                 options: [
@@ -189,17 +189,22 @@ const PRODUCT_CONTENT = (PROPS) => {
             const PAGER = MODULES.UI_PAGER_ZJE2OTCWMZC0MDCWNDY
             const CONTAINER = MAIN_CONTAINER()
 
+            const params = IS.ROUTE.PARAMS.DATA
+
             PAGER({
                 unit: 8,
-                number: 42,
-                current: 1,
+                number: 182,
+                current: params.pages,
                 onClick: (props) => {
                     console.log(props)
+                    IS.ROUTE.LOAD({name: "dash.product", params: {pages: props.current}})
                 },
                 container: $(IPROPS.container).find(CONTAINER.pagerContainer)
             }).CREATE()
 
-            $($(IPROPS.container).find(CONTAINER.scanContainer)).append(html)
+            const SCAN_CONTAINER = $(IPROPS.container).find(CONTAINER.scanContainer)
+
+            $(SCAN_CONTAINER).append(html)
         } catch (error) { }
 
     }

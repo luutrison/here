@@ -1,6 +1,7 @@
 {
     "INCLUDE": [
-        "./here/setting.json"
+        "./here/setting.json",
+        "./components/ui/setting.json"
     ],
     "SETTING": {
         "BACK_BUTTON_NAME": ".aje2otu2mzmxodcynzu",

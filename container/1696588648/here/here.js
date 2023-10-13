@@ -117,7 +117,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             PATH_LOCATION: "PATH location is not exist\n",
             INVALID_DATA: "DATA is invalid !\n",
         },
-        HERE: {
+        HERE_DTE2OTCXODIWOTY4MJY: {
             BASE_PATH: "./here"
         },
         SETTING: {
@@ -166,7 +166,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
 
 
 
-var HERE = (props) => {
+var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
 
     const THIS = {}
 
@@ -1430,8 +1430,8 @@ var HERE = (props) => {
 
                             if (iprops.route && iprops.route.to) {
                                 const render = iprops.route.to
-                                if (THIS.MODULES && THIS.MODULES.INNIT.UI_ZJE2OTY5MJI3MDU5NZI) {
-                                    const MODULES_UI = THIS.MODULES.INNIT.UI_ZJE2OTY5MJI3MDU5NZI()
+                                if (THIS.MODULES && THIS.MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA) {
+                                    const MODULES_UI = THIS.MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA()
 
                                     if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
                                         const element = $(render)
@@ -1479,26 +1479,24 @@ var HERE = (props) => {
 
         UPDATE: () => {
             try {
-                const MODULES = THIS.MODULES.INNIT
-                if (THIS.CHECK.IS_OBJECT({ ob: MODULES })) {
-                    Object.keys(MODULES).forEach(key => {
-                        const element = MODULES[key]
-                        if (element) {
-                            if (THIS.CHECK.IS_OBJECT({ ob: element })) {
-                                if (element && element.UPDATE) {
-                                    element.UPDATE()
-                                }
+                const UPDATER = THIS.IS.SETTING.HERE_UI_UPDATE_BTE2OTCXODM3OTC4NZE
+
+                if(!THIS.CHECK.IS_ARRAY_EMPTY({ob: UPDATER})){
+                    UPDATER.forEach(element => {
+
+                        if (THIS.CHECK.IS_OBJECT({ ob: element })) {
+                            if (element && element.UPDATE) {
+                                element.UPDATE()
                             }
-                            else {
-                                const func = element()
-                                if (func && func.UPDATE) {
-                                    func.UPDATE()
-                                }
+                        }
+                        else {
+                            const func = element()
+                            if (func && func.UPDATE) {
+                                func.UPDATE()
                             }
                         }
                     })
                 }
-
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
             }
@@ -2082,7 +2080,7 @@ var HERE = (props) => {
             INNIT: ({ callBack }) => {
 
                 try {
-                    const basePath = THIS.OPTIONS().HERE.BASE_PATH
+                    const basePath = THIS.OPTIONS().HERE_DTE2OTCXODIWOTY4MJY.BASE_PATH
                     const path = THIS.EX.MAP_PATH({ path: basePath, subPath: THIS.OPTIONS().SETTING.SETTING_PATH })
 
 
@@ -2611,6 +2609,6 @@ var HERE = (props) => {
 
 }
 
-HERE().INNIT(HERE)
+HERE_DTE2OTCXODIWOTY4MJY().INNIT(HERE_DTE2OTCXODIWOTY4MJY)
 
 

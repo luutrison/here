@@ -1,6 +1,6 @@
 const UI_POPUP = (props) => {
     var THIS = {}
-    const DOM = HERE.IS.DOM
+    const DOM = HERE_DTE2OTCXODIWOTY4MJY.IS.DOM
 
     const contructor = (props) => {
 

@@ -1,7 +1,12 @@
+/**
+* WRITTEN BY LƯU TRÍ SƠN - A HANDSOME WRITTER
+**/
+
 const UI_PAGER = (props) => {
     var THIS = {}
 
-    const IS = HERE.IS
+    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const SETTING = HERE_DTE2OTCXODIWOTY4MJY.SETTING
 
     const contructor = (props) => {
         return {
@@ -17,9 +22,15 @@ const UI_PAGER = (props) => {
         try {
             const propse = contructor(props)
 
-            var arrContent = []
+            var arrContentPrev = []
 
+            var arrContentNext = []
 
+            /**
+             * Số lượng tờ giấy trọng một tệp nhỏ sẽ được tính bằng 
+             * Tổng số lượng của cái gì đáy / Số lượng hiển thị của một cái gì đấy trong một tờ giấy
+             * Nếu như có dư một số lượng nhỏ và không phải số nguyên thì cho sang <trang giấy> tiếp theo
+             */
 
             const numcalc = propse.number / propse.unit
             var prow = Math.round(numcalc)
@@ -30,29 +41,99 @@ const UI_PAGER = (props) => {
             }
 
 
-            for (var num = 1; num <= prow; num++) {
+            /**
+             * Phần này sẽ cài đặt số lượng tối đa mà một thứ gì đấy được hiển thị trong một <tờ giấy>
+             * bao gồm những phím để chuyển sang <trang giấy> trước đó hoặc kế tiếp
+             */
+
+            const MAX_ITEM_PAGER = SETTING.MAX_ITEM_PAGER ? SETTING.MAX_ITEM_PAGER : 6
+
+            const AROUND_ITEM = SETTING.AROUND_ITEM ? SETTING.AROUND_ITEM : 2
+
+
+            const elementPager = ({ num, special }) => {
+
+                var kichhoat = String()
+                /**
+                 * Nếu như mà cái hiện tại mà được kích hoạt thì giá trị là đúng, lúc đấy hiển thị khác với những 
+                 * thành phần còn lại để phân biệt được bằng mắt
+                 */
+                if (num == propse.current) {
+                    kichhoat = 'kichhoat="dung"'
+                }
+
+                const current = special ? special : num
+
+
                 const element = $(
                     `
-                    <div class="BTE2OTCWMZYWOTU2ODE" num="${num}">
-                        <span>${num}</span>
+                    <div class="BTE2OTCWMZYWOTU2ODE" ${kichhoat}>
+                        <span>${current}</span>
                     </div>
                     `
                 )
-                const current = num
 
-                HERE.IS.DOM.SET_EVENT_BY_NAME({
-                    element: $(element),
-                    name: "click",
-                    callBack: () => {
-                        propse.onClick({element, current})
-                    }
-                })
+                if (!special) {
+                    HERE_DTE2OTCXODIWOTY4MJY.IS.DOM.SET_EVENT_BY_NAME({
+                        element: $(element),
+                        name: "click",
+                        callBack: () => {
+                            propse.onClick({ element, current })
+                        }
+                    })
+                }
 
-                arrContent.push(element)
 
+                return element
             }
 
-            return arrContent
+
+
+            for (var num = 1; num < propse.current; num++) {
+                if (propse.current > AROUND_ITEM + 1) {
+                    if (num == 1) {
+                        const element = elementPager({ num: num })
+                        const special = elementPager({ special: "..." })
+
+                        arrContentPrev.push(element)
+                        arrContentPrev.push(special)
+                    }
+                    else {
+                        if (num >= propse.current - AROUND_ITEM) {
+                            arrContentPrev.push(elementPager({ num: num }))
+                        }
+                    }
+                }
+                else {
+                    arrContentPrev.push(elementPager({ num: num }))
+                }
+            }
+
+            for (var num = propse.current; num <= prow; num++) {
+                if (propse.current + AROUND_ITEM < prow) {
+                    if (num <= propse.current + AROUND_ITEM) {
+                        if (num < propse.current + AROUND_ITEM) {
+                            arrContentNext.push(elementPager({ num: num }))
+                        }
+                        else {
+                            arrContentNext.push(elementPager({ num: num }))
+                            if(propse.current + AROUND_ITEM + 1 < prow){
+                                arrContentNext.push(elementPager({ special: "..." }))
+                            }
+                        }
+                    }
+                    else if(num == prow){
+                        arrContentNext.push(elementPager({ num: num }))
+                    }
+                }
+                else {
+                    arrContentNext.push(elementPager({ num: num }))
+                }
+            }
+
+
+
+            return [...arrContentPrev, ...arrContentNext]
 
         } catch (err) { console.log(err) }
     }
