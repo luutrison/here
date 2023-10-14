@@ -35,4 +35,57 @@
     font-weight: 500;
   }
   
-  
+  /* SHIPPER_NOTIFICATION */
+
+  .DZE2OTCYNDG5OTGWNZM{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: var(--index);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .DZE2OTCYNDG5OTGWNZM{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0
+  }
+
+  .ZZE2OTCYNDKWNTCYMZE{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    background: var(--background);
+    min-width: 300px;
+    max-width: 440px;
+    max-height: 500px;
+    position: relative;
+  }
+
+  .YJE2OTCYNZE3MZMYMZI{
+    width: 80px;
+    height: 80px;
+  }
+
+  .DTE2OTCYNZI3MZA2NZA{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .BZE2OTCYNDKZNZK3NDM{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }

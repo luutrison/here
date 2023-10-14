@@ -278,14 +278,34 @@ const PRODUCT_CONTENT = (PROPS) => {
                     }
                 })
 
+               
                 IS.DOM.SET_EVENT_BY_NAME({
                     element: $(item).find("#yte2oty1mda0ndc3ntk"),
                     name: "click",
                     callBack: (current) => {
                         MODULES.UI_POPUP_BDE2OTY4MJQ1OTG3NJM({
                             title: "Thông báo!",
-                            message: "Bạn có muốn xóa sản phẩm này ?",
-                            container: "#container"
+                            notification: "Bạn có muốn xóa sản phẩm này ?",
+                            container: "#container",
+                            okay: {
+                                onClick: () => {
+                                    const notification = MODULES.UI_SHIPPER_NOTIFICATION_EJE2OTCXODEYMJU2MJC({
+                                        container: "body"
+                                    })
+                                    notification.CREATE({
+                                        notification: "Đang xóa sản phẩm"
+                                    })
+
+                                    setTimeout(() => {
+                                        notification.DONE({
+                                            notification: "Thông báo ví dụ",
+                                            title: "Xóa sản phẩm thành công",
+                                            type: "success"
+                                        })
+                                    }, 2000);
+                                }
+                            }
+
                         }).CREATE()
                     }
                 })

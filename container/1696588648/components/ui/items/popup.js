@@ -1,3 +1,4 @@
+
 const UI_POPUP = (props) => {
     var THIS = {}
     const DOM = HERE_DTE2OTCXODIWOTY4MJY.IS.DOM
@@ -30,9 +31,7 @@ const UI_POPUP = (props) => {
 
         return {
             title: props.title,
-            message: props.message,
-            onSuccess: props.onSuccess,
-            onCancel: props.onCancel,
+            notification: props.notification,
             class: props.class,
             id: props.id,
             container: props.container,
@@ -48,10 +47,6 @@ const UI_POPUP = (props) => {
 
             var id = String()
             var clas = String()
-
-
-
-
 
             if (propse.id) {
                 id = `id="${propse.id}"`
@@ -73,7 +68,7 @@ const UI_POPUP = (props) => {
                                 ${propse.title}
                             </div>
                             <div class="yte2oty4mju1nzm1oti">
-                                ${propse.message}
+                                ${propse.notification}
                             </div>
 
                         </div>
@@ -99,7 +94,6 @@ const UI_POPUP = (props) => {
                 element: $(html).find(".bde2oty4mju1otayoty"),
                 name: "click",
                 callBack: (current) => {
-                    console.log("click")
                     $(html).remove()
                     propse.cancel.onClick()
                 }
@@ -109,6 +103,7 @@ const UI_POPUP = (props) => {
                 element: $(html).find(".zze2oty4mju1otkxote"),
                 name: "click",
                 callBack: (current) => {
+                    $(html).remove()
                     propse.okay.onClick()
                 }
             })
