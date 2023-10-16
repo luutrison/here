@@ -83,6 +83,9 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             NAME_REL: "rel",
             STATUS: "status",
             DATA: "data",
+
+            CLOCK_EFFECT_SLIDE: "SLIDE",
+            CLOCK_EFFECT_ANIMATE: "ANIMATE"
         },
         REPLACE: {
             RELEASE_RPLACE: "@{release}"
@@ -116,6 +119,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             PATH_INVALID_OUT: "PATH was out or invalid\n",
             PATH_LOCATION: "PATH location is not exist\n",
             INVALID_DATA: "DATA is invalid !\n",
+            INVALID_ROUTE: "ROUTE IS INVALID !"
         },
         HERE_DTE2OTCXODIWOTY4MJY: {
             BASE_PATH: "./here"
@@ -1422,7 +1426,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
 
             UI: {
                 TIMER: {
-                    OUT: ({ props }) => {
+                    IN: ({ props }) => {
                         try {
                             var iprops = {
                                 route: props.route
@@ -1430,20 +1434,47 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
 
                             if (iprops.route && iprops.route.to) {
                                 const render = iprops.route.to
-                                if (THIS.MODULES && THIS.MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA) {
-                                    const MODULES_UI = THIS.MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA()
+                                const MODULES = THIS.MODULES
+                                const SETTING = THIS.IS.SETTING
 
+                                const TYPE = SETTING.CLOCK_EFFECT ? SETTING.CLOCK_EFFECT : THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE
+
+                                if (TYPE == THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE) {
                                     if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
                                         const element = $(render)
                                         if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
-                                            $(element).html(String())
-                                            $(element).append(MODULES_UI.SHIPPER())
+                                            var name = THIS.IS.SETTING.NAME_EFFECT_LOAD
+                                            if (name) {
+                                                $(element).addClass(name);
+                                            }
                                         }
-
                                     }
                                     else {
-                                        $(THIS.OPTIONS().THIS[render]).html(String())
-                                        $(THIS.OPTIONS().THIS[render]).html(MODULES_UI.SHIPPER())
+                                        THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.INVALID_ROUTE })
+                                    }
+
+                                    const SLIDE_CLOCK = MODULES.INNIT.UI_SLIDE_CLOCK_ATE2OTC0NTYYNTI3NZM
+
+                                    if (MODULES && SLIDE_CLOCK) {
+                                        const METHOD = SLIDE_CLOCK()
+                                        METHOD.START()
+                                    }
+                                }
+
+                                else if (TYPE == THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_ANIMATE) {
+                                    if (MODULES && MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA) {
+                                        const MODULES_UI = MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA()
+
+                                        if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
+                                            const element = $(render)
+                                            if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
+                                                $(element).html(String())
+                                                $(element).append(MODULES_UI.SHIPPER())
+                                            }
+                                        }
+                                        else {
+                                            THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.INVALID_ROUTE })
+                                        }
                                     }
                                 }
 
@@ -1452,6 +1483,23 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                             THIS.EX.ERROR({ err: error })
                         }
                     },
+                    OUT: () => {
+                        try {
+                            const SETTING = THIS.IS.SETTING
+                            const TYPE = SETTING.CLOCK_EFFECT ? SETTING.CLOCK_EFFECT : THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE
+                            const MODULES = THIS.MODULES
+
+                            if (TYPE == THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE) {
+                                const SLIDE_CLOCK = MODULES.INNIT.UI_SLIDE_CLOCK_ATE2OTC0NTYYNTI3NZM
+
+                                if (MODULES && SLIDE_CLOCK) {
+                                    const METHOD = SLIDE_CLOCK()
+                                    METHOD.DONE()
+                                }
+                            }
+                        } catch (error) { THIS.EX.ERROR({ err: error }) }
+
+                    }
                 },
 
 
@@ -1459,7 +1507,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                 ON: ({ props }) => {
                     try {
                         const CURRENT = THIS.UI.THIS.UI
-                        CURRENT.TIMER.OUT({ props: props })
+                        CURRENT.TIMER.IN({ props: props })
                     } catch (error) {
                         THIS.EX.ERROR({ err: error })
                     }
@@ -1481,7 +1529,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
             try {
                 const UPDATER = THIS.IS.SETTING.HERE_UI_UPDATE_BTE2OTCXODM3OTC4NZE
 
-                if(!THIS.CHECK.IS_ARRAY_EMPTY({ob: UPDATER})){
+                if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: UPDATER })) {
                     UPDATER.forEach(element => {
 
                         if (THIS.CHECK.IS_OBJECT({ ob: element })) {
@@ -1962,10 +2010,10 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                         const element = $(render.to)
                                         $(element).html(String())
                                         $(element).append(fromContent)
+
                                     }
                                     else {
-                                        $(THIS.OPTIONS().THIS[render.to]).html(String())
-                                        $(THIS.OPTIONS().THIS[render.to]).append(fromContent)
+                                        THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.INVALID_ROUTE })
                                     }
                                 }
                             }
@@ -2014,7 +2062,17 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                     },
                     RUN_EFFECT: (props) => {
                         try {
-                            const UI = THIS.UI
+                            THIS.UI.THIS.UI.TIMER.OUT()
+
+                            const render = props.ROUTE
+                            if (render) {
+                                const element = $(render.to)
+
+                                var name = THIS.IS.SETTING.NAME_EFFECT_LOAD
+                                if (name) {
+                                    $(element).removeClass(name);
+                                }
+                            }
 
 
                         } catch (error) {
@@ -2457,7 +2515,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                     try {
                                         var hito = history()
 
-                                        if(name == THIS.OPTIONS().ROUTE.DEFAULT_ROUTE_NAME){
+                                        if (name == THIS.OPTIONS().ROUTE.DEFAULT_ROUTE_NAME) {
                                             hito.history = THIS.OPTIONS().NORMAL.ARRAY_EMPTY
                                             hito.current = THIS.OPTIONS().NORMAL.STRING_EMPTY
                                         }
@@ -2505,7 +2563,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                             if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: hito.history })) {
                                                 if (THIS.EX.ARRAY_LENGTH({ arr: hito.history }) > NORMAL.NUMBER_ONE) {
                                                     const last = hito.history[THIS.EX.TRUE_ARRAY_LENGTH({ arr: hito.history })]
-                                                   
+
 
                                                     if (last.name == hito.current) {
                                                         hito.history.pop()
@@ -2519,7 +2577,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                                         currentBack = last
                                                         THIS.ROUTE.LOAD({ name: last.name, param: last.params })
                                                     }
-                                                   
+
                                                 }
                                                 window.localStorage.setItem(THIS.OPTIONS().NAME.LOCAL_STORAGE_HISTORY, window.btoa(JSON.stringify(hito)))
                                                 return currentBack

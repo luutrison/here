@@ -1,3 +1,7 @@
+
+
+/* STYLE */
+
 header .account-content .icon-avatar {
   width: 30px;
   height: 30px;
@@ -41,7 +45,7 @@ header .comos {
 }
 
 header {
-  height: var(--header-height);
+  height: calc(var(--header-height) + var(--slide-clock-height));
   background: var(--content-color);
   left: 0;
   top: 0;
@@ -53,6 +57,7 @@ header {
   align-items: center;
   padding-right: 10px;
   color: var(--color-text);
+  padding-top: var(--slide-clock-height);
 }
 
 .aje2otu2mzmxodcynzu {
@@ -167,3 +172,6 @@ input{
     transform: scale(1);
   }
 }
+
+
+

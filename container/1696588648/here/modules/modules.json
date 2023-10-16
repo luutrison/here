@@ -8,6 +8,9 @@
         },
         "UI_SHIPPER_NOTIFICATION_EJE2OTCXODEYMJU2MJC": {
             "SCRIPT": "./ui/shipper_notification.js"
+        },
+        "UI_SLIDE_CLOCK_ATE2OTC0NTYYNTI3NZM": {
+            "SCRIPT": "./ui/slide_clock.js"
         }
     }
 }

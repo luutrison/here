@@ -19,7 +19,7 @@ const SHIPPER_MESSAGE = (props) => {
                     <div class="DZE2OTCYNDG5OTGWNZM"></div>
                     <div class="ZZE2OTCYNDKWNTCYMZE">
                         <div class="BZE2OTCYNDKZNZK3NDM">
-                            <span class="EJE2OTCYNDKZODQXNZQ"></span>
+                            <span class="EJE2OTCYNDKZODQXNZQ">Thông báo</span>
                             <div class="AJE2OTCYNDKZODGYNDC"></div>
                         </div>
                     </div>
@@ -68,10 +68,8 @@ const SHIPPER_MESSAGE = (props) => {
                     content: (
                         `
                         <div class="DTE2OTCYNZI3MZA2NZA">
-                            <span class="YJE2OTCYNDKZOTIZOTA">
-                                <img class="YJE2OTCYNZE3MZMYMZI" src="/@{release}/here/modules/ui/images/bde2otcynzizmjk5mdc.webp"></img>
-                                ${propse.notification}
-                            </span>
+                            <img class="YJE2OTCYNZE3MZMYMZI" src="/@{release}/here/modules/ui/images/bde2otcynzizmjk5mdc.webp"></img>
+                            ${propse.notification}
                         </div>
                         `
                     )
@@ -93,18 +91,28 @@ const SHIPPER_MESSAGE = (props) => {
                 return {
                     notification: props.notification,
                     title: props.title,
-                    type: props.type
+                    type: props.type,
+                    buttonName: props.buttonName ? props.buttonName : "Đưọc"
                 }
             }
 
             const propse = contructor()
             const shipper_notification = $(".DZE2OTCYNDG5OTGWNZM")
+
+            $(shipper_notification).find(".ZZE2OTCYNDKWNTCYMZE").css("display", "none")
+
+            const anim = () => {
+                setTimeout(() => {
+                    $(shipper_notification).find(".ZZE2OTCYNDKWNTCYMZE").css("display", "flex")
+                }, 10)
+            }
+
             if (propse.title) {
                 $(shipper_notification).find(".EJE2OTCYNDKZODQXNZQ").html(propse.title)
             }
             if (!IS.CHECK.IS_ARRAY_EMPTY({ ob: shipper_notification })) {
                 const propse = contructor()
-                const notification = $(shipper_notification).find(".YJE2OTCYNDKZOTIZOTA")
+                const notification = $(shipper_notification).find(".AJE2OTCYNDKZODGYNDC")
 
                 var imgUrl = String()
 
@@ -116,7 +124,7 @@ const SHIPPER_MESSAGE = (props) => {
                 }
 
 
-                const html = IS.CONVERT.SPECIAL_CONTENT({
+                const raw = IS.CONVERT.SPECIAL_CONTENT({
                     content: (
                         `
                         <div class="DTE2OTCYNZI3MZA2NZA">
@@ -125,13 +133,26 @@ const SHIPPER_MESSAGE = (props) => {
                                 ${propse.notification}
                             </span>
 
-                            <button>Được</button>
+                            <button class="DJE2OTC0NDCWOTE2NJK">${propse.buttonName}</button>
                         </div>
                     `
                     )
                 })
+
+                const html = $(raw)
+
+                HERE_DTE2OTCXODIWOTY4MJY.IS.DOM.SET_EVENT_BY_NAME({
+                    element: $(html).find(".DJE2OTC0NDCWOTE2NJK"),
+                    name: "click",
+                    callBack: () => {
+                        $(shipper_notification).remove()
+                    }
+                })
+
                 $(notification).html(String())
                 $(notification).append(html)
+                anim()
+
             }
         } catch (error) { console.error(error) }
     }

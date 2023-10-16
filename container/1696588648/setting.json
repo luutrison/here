@@ -6,6 +6,8 @@
     "SETTING": {
         "BACK_BUTTON_NAME": ".aje2otu2mzmxodcynzu",
         "ON_BACK_CLICK_FUNCTION": "MODULES.INNIT.MENU_EJE2OTY5MJMWODM4NJA",
-        "ON_BACK_CLICK_FUNCTION_NAME": "CHECK"
+        "ON_BACK_CLICK_FUNCTION_NAME": "CHECK",
+        "CLOCK_EFFECT": "SLIDE",
+        "DEFAULT_CONTENT_TAG": "body"
     }
 }

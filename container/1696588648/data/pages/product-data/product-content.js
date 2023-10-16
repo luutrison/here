@@ -196,7 +196,6 @@ const PRODUCT_CONTENT = (PROPS) => {
                 number: 182,
                 current: params.pages,
                 onClick: (props) => {
-                    console.log(props)
                     IS.ROUTE.LOAD({name: "dash.product", params: {pages: props.current}})
                 },
                 container: $(IPROPS.container).find(CONTAINER.pagerContainer)
@@ -255,7 +254,7 @@ const PRODUCT_CONTENT = (PROPS) => {
                 }
             })
 
-        } catch (error) { console.log(error) }
+        } catch (error) { console.error(error) }
 
     }
 
@@ -293,14 +292,15 @@ const PRODUCT_CONTENT = (PROPS) => {
                                         container: "body"
                                     })
                                     notification.CREATE({
-                                        notification: "Đang xóa sản phẩm"
+                                        notification: "Vui lòng đợi một chút"
                                     })
 
                                     setTimeout(() => {
                                         notification.DONE({
-                                            notification: "Thông báo ví dụ",
-                                            title: "Xóa sản phẩm thành công",
-                                            type: "success"
+                                            notification: "Sản phẩm đã đưọc xóa",
+                                            title: "Đã xóa thành công",
+                                            type: "success",
+                                            buttonName: "Đóng"
                                         })
                                     }, 2000);
                                 }
