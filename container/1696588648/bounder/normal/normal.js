@@ -12,7 +12,7 @@
         RENDER: {
             FROM: (
                 <section>
-                    <header>
+                    <header class="BTE2OTC1MZU2NDG4OTU">
                         <div class="AJE2OTYWNJK0MZY4MJY">
 
                             <div class="comos ete2otu2mzmymtq4mjc"><button class="btn aje2otu2mzmxodcynzu" type="button"><svg class="bi bi-chevron-left" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16">
@@ -39,10 +39,15 @@
                         </div>
                     </header>
 
+                    <skeleton class="CTE2OTC1MZC2OTY5NZM AZE2OTC1MZYXMZC2MDU"></skeleton>
 
-                    <div id="normal-container">
+
+                    <div id="normal-container" class="BTE2OTC1MZU2NDG4OTU">
                         <shipper></shipper>
                     </div>
+
+                    <skeleton class="EDE2OTC1MZU5MJA5NTK AZE2OTC1MZYXMZC2MDU"></skeleton>
+
 
                 </section>
             )

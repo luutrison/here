@@ -3,16 +3,20 @@
         "./components/modules.json", 
         "./components/ui/items/modules.json",
         "./libs/modules.json",
-        "./here/modules/modules.json"
+        "./here/modules/modules.json",
+        "./designs/modules.json"
     ],
     "MODULES": {
         "CSS_COMPONENTS_CZE2OTCXODE2NDU2MJC": {
             "CSS": [
                 "./components/components.css",
                 "./here/here.css",
-                "./designs/fonts/cuprum/cuprum.css",
-                "./data/data-components.css"
+                "./data/data-components.css",
+                "./designs/fonts/cuprum/cuprum.css"
             ]
         }
-    }
+    },
+    "REQUIRE": [
+
+    ]
 }

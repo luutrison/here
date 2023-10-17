@@ -3,10 +3,10 @@ const SLIDE_CLOCK = () => {
     var THIS = {}
 
     const SETTING = () => {
-        return HERE_DTE2OTCXODIWOTY4MJY.SETTING
+        return HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM.SETTING
     }
 
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
 
     const element = () => {
         try {

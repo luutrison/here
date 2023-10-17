@@ -45,7 +45,7 @@ const PRODUCT_CONTENT = (PROPS) => {
     }
 
 
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
     const MODULES = IS.MODULES.INNIT
 
 
@@ -146,7 +146,7 @@ const PRODUCT_CONTENT = (PROPS) => {
                 `
             )
 
-            HERE_DTE2OTCXODIWOTY4MJY.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
+            HERE_IS_EJE2OTC1NDUYMZM3ODI.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#cde2oty0otm0ntc3mtc"),
                 options: [
                     {
@@ -161,7 +161,7 @@ const PRODUCT_CONTENT = (PROPS) => {
                 ]
             }).CREATE()
 
-            HERE_DTE2OTCXODIWOTY4MJY.IS.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
+            HERE_IS_EJE2OTC1NDUYMZM3ODI.MODULES.INNIT.UI_SELECT_DJE2OTY2NJY4MDIZOTI({
                 container: $(html).find("#zde2oty0otu3mzqxnzk"),
                 id: "ade2oty0otk1mduzmja",
                 options: [

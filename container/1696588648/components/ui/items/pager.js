@@ -5,8 +5,8 @@
 const UI_PAGER = (props) => {
     var THIS = {}
 
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
-    const SETTING = HERE_DTE2OTCXODIWOTY4MJY.SETTING
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
+    const SETTING = HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM.SETTING
 
     const contructor = (props) => {
         return {
@@ -74,7 +74,7 @@ const UI_PAGER = (props) => {
                 )
 
                 if (!special) {
-                    HERE_DTE2OTCXODIWOTY4MJY.IS.DOM.SET_EVENT_BY_NAME({
+                    HERE_IS_EJE2OTC1NDUYMZM3ODI.DOM.SET_EVENT_BY_NAME({
                         element: $(element),
                         name: "click",
                         callBack: () => {

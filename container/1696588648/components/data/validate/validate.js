@@ -1,5 +1,5 @@
 const SETTING = {
-    USE: HERE_DTE2OTCXODIWOTY4MJY.IS,
+    USE: HERE_IS_EJE2OTC1NDUYMZM3ODI,
     ATTRIBUTE: {
         MIN_LENGTH: "min-length",
         MAX_LENGTH: "max-length",

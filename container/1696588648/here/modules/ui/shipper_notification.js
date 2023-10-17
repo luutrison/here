@@ -1,6 +1,6 @@
 const SHIPPER_MESSAGE = (props) => {
     const THIS = {}
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
 
     const contructor = (props) => {
         return {
@@ -141,7 +141,7 @@ const SHIPPER_MESSAGE = (props) => {
 
                 const html = $(raw)
 
-                HERE_DTE2OTCXODIWOTY4MJY.IS.DOM.SET_EVENT_BY_NAME({
+                HERE_IS_EJE2OTC1NDUYMZM3ODI.DOM.SET_EVENT_BY_NAME({
                     element: $(html).find(".DJE2OTC0NDCWOTE2NJK"),
                     name: "click",
                     callBack: () => {

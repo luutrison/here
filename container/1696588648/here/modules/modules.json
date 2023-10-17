@@ -1,7 +1,9 @@
 {
     "MODULES": {
         "UI_AJE2OTCXODEXMJC2ODG": {
-            "CSS": ["./ui/ui.css"],
+            "CSS": [
+                "./ui/ui.css"
+            ],
             "SCRIPT": "./ui/ui.js"
         },
         "UI_SHIPPER_DZE2OTCXODEWNZE0NZA": {
@@ -13,5 +15,9 @@
         "UI_SLIDE_CLOCK_ATE2OTC0NTYYNTI3NZM": {
             "SCRIPT": "./ui/slide_clock.js"
         }
-    }
+    },
+    "REQUIRE": [
+        "./ui/images/bde2otcynzizmjk5mdc.webp",
+        "./ui/images/error_yze2otcyntuxnzaxmzq.webp"
+    ]
 }

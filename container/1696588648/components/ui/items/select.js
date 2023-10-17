@@ -1,9 +1,9 @@
 const UI_SELECT = (props) => {
     var THIS = {}
 
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
 
-    const MODULES = HERE_DTE2OTCXODIWOTY4MJY.IS.MODULES.INNIT
+    const MODULES = HERE_IS_EJE2OTC1NDUYMZM3ODI.MODULES.INNIT
 
     const contructor = () => {
 

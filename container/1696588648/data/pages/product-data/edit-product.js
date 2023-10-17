@@ -1,7 +1,7 @@
 const EDIT_PRODUCT_ZTE2OTY2NJI4MDAYOTE = (PROPS) => {
     var THIS = {}
 
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
     const MODULES = IS.MODULES.INNIT
 
     const contructor = () => {

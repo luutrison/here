@@ -1,5 +1,15 @@
+
+const METHOD = {
+    "sete2otyzotu2odewota": {
+        method: () => {
+            $(".sade2oty0ntc1odg1mdi").attr("show", false)
+        }
+    }
+
+}
+
 const REGISTER = () => {
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS;
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI;
 
 
 
@@ -9,12 +19,14 @@ const REGISTER = () => {
             name: "click",
             callBack: (current) => {
                 const target = current.target
-                const select = $(".sete2otyzotu2odewota")
-                const onSelect = $(select).find(target)
+                const id = $(target).attr("id")
+                const class_arr = String($(target).attr("class")).split(HERE_IS_EJE2OTC1NDUYMZM3ODI.OPTIONS().NORMAL.SPACE)
+
+
                 
-                if (IS.CHECK.IS_ARRAY_EMPTY({ ob: onSelect })) {
-                    $(".sade2oty0ntc1odg1mdi").attr("show", false)
-                }
+                console.log($(target));
+
+
             }
 
         })

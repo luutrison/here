@@ -3,7 +3,7 @@
  * WRITTEN BY LƯU TRÍ SƠN - A HANDSOME WRITTER
  **/
 
-const DZE2OTU2OTE3OTI4OTI = () => {
+const OPTIONS_DZE2OTU2OTE3OTI4OTI = () => {
     const OPTIONS = {
         NORMAL: {
             NUMBER_ZERO: 0,
@@ -121,7 +121,7 @@ const DZE2OTU2OTE3OTI4OTI = () => {
             INVALID_DATA: "DATA is invalid !\n",
             INVALID_ROUTE: "ROUTE IS INVALID !"
         },
-        HERE_DTE2OTCXODIWOTY4MJY: {
+        HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM: {
             BASE_PATH: "./here"
         },
         SETTING: {
@@ -164,17 +164,14 @@ const DZE2OTU2OTE3OTI4OTI = () => {
     }
 
     return OPTIONS
-
-
 }
 
 
-
-var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
+const HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM = (props) => {
 
     const THIS = {}
 
-    THIS.OPTIONS = DZE2OTU2OTE3OTI4OTI
+    THIS.OPTIONS = OPTIONS_DZE2OTU2OTE3OTI4OTI
 
     THIS.EX = {
 
@@ -347,16 +344,28 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
     THIS.STEP = {
         THIS: {
             STEP: ({ callBack }) => {
-                return {
-                    INNIT: () => {
-                        THIS.STEP.THIS.STEP({ callBack: callBack }).SETTING()
-                    },
-                    SETTING: () => {
-                        THIS.SETTING.INNIT({
-                            callBack: callBack.SETTING
-                        })
+                try {
+
+
+                    return {
+                        INNIT: () => {
+                            THIS.STEP.THIS.STEP({ callBack: callBack }).SETTING()
+                        },
+
+                        SETTING: () => {
+                            THIS.SETTING.INNIT({
+                                callBack: callBack.SETTING
+                            })
+                        },
+
+                        REGISTER: () => {
+
+                        }
+
                     }
-                }
+                } catch (error) { THIS.EX.ERROR({ err: error }) }
+
+
             }
         },
 
@@ -371,6 +380,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                 THIS.ROUTE.HISTORY.INNIT
                             ]
                         )
+                       
                     }
                 }
                 THIS.STEP.THIS.STEP({ callBack: callBack }).INNIT()
@@ -1219,8 +1229,9 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
 
                         const sc = arrScript.find(i => i.LOAD_SCRIPT == false)
                         const scs = arrCss.find(i => i.LOAD_CSS == false)
+                        const scr = arrCss.find(i => i.LOAD_REQUIRE == false)
 
-                        if (!sc && !scs) {
+                        if (!sc && !scs && !scr) {
                             callBack()
                         }
                     }
@@ -1246,6 +1257,18 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                             })
 
 
+                        }
+
+                        if (element.REQUIRE && !element.LOAD_REQUIRE) {
+                            const requirePath = THIS.EX.MAP_PATH({ path: currentPath, subPath: element.REQUIRE })
+                            THIS.THIS.GET({ path: requirePath }).then(data => {
+                                try {
+                                    element.LOAD_REQUIRE = true
+                                    OH()
+                                } catch (error) {
+                                    THIS.EX.ERROR({ err: error })
+                                }
+                            })
                         }
 
 
@@ -1398,6 +1421,18 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                             })
 
 
+                        }
+
+                        if(!THIS.CHECK.IS_ARRAY_EMPTY({ob: modules.REQUIRE})){
+                            modules.REQUIRE.forEach(element => {
+                                arrLoading.push({
+                                    REQUIRE: THIS.EX.MAP_PATH({
+                                        path: pathToThis,
+                                        subPath: element
+                                    }),
+                                    LOAD_REQUIRE: false,
+                                })
+                            })
                         }
 
                         const loaded = require.find(i => i.load == false)
@@ -1973,7 +2008,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                 }
                             })
 
-                            
+
 
                         } catch (error) {
                             THIS.EX.ERROR({ err: error })
@@ -2038,7 +2073,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
             INNIT: ({ callBack }) => {
 
                 try {
-                    const basePath = THIS.OPTIONS().HERE_DTE2OTCXODIWOTY4MJY.BASE_PATH
+                    const basePath = THIS.OPTIONS().HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM.BASE_PATH
                     const path = THIS.EX.MAP_PATH({ path: basePath, subPath: THIS.OPTIONS().SETTING.SETTING_PATH })
 
 
@@ -2308,7 +2343,7 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                             var MAP = THIS.IS.MAP
                             if (!MAP.PROPERTIES.BOUNDER) {
                                 const path = THIS.IS.SETTING.BOUNDER_ROUTE_PATH
-                                if(path){
+                                if (path) {
                                     THIS.ROUTE.THIS.GET({
 
                                         path: path,
@@ -2319,11 +2354,11 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                     }
                                     )
                                 }
-                                else{
+                                else {
                                     THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.PATH_INVALID_OUT, sub: 'BOUNDER_ROUTE_PATH' })
                                 }
 
-                               
+
                             }
                         } catch (error) {
                             THIS.EX.ERROR({ err: error })
@@ -2339,6 +2374,10 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                                     arr.forEach(element => {
                                         element()
                                     })
+                                }
+                                const MODULES = THIS.MODULES.INNIT
+                                if (MODULES && MODULES.UI_REGISTER_EJE2OTY5MJI2NJIWODU) {
+                                    MODULES.UI_REGISTER_EJE2OTY5MJI2NJIWODU()
                                 }
                             }
 
@@ -2564,16 +2603,14 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
         PROPS.IS = (THIS)
 
         THIS.ROUTE.RUN();
-    }
 
-    THIS.DATA = () => {
-        return THIS;
+        return THIS
     }
 
     return THIS;
 
 }
 
-HERE_DTE2OTCXODIWOTY4MJY().INNIT(HERE_DTE2OTCXODIWOTY4MJY)
+var HERE_IS_EJE2OTC1NDUYMZM3ODI = HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM().INNIT(HERE_DTE2OTCXODIWOTY4MJY_CDE2OTC1NDYWMDIYNZC_ZTE2OTC1NDYWMJUYMTM)
 
 

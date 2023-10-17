@@ -15,7 +15,7 @@ const sample_data = [
 const STORE_PRODUCT = () => {
     var THIS = {}
 
-    const IS = HERE_DTE2OTCXODIWOTY4MJY.IS
+    const IS = HERE_IS_EJE2OTC1NDUYMZM3ODI
 
     const element = () => {
         try {

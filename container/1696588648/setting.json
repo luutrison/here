@@ -4,6 +4,8 @@
         "./components/ui/setting.json"
     ],
     "SETTING": {
+        "SKELETON_TIMER_NAME_BJE2OTC1MZC1OTKYNJK": ".BTE2OTC1MZU2NDG4OTU",
+        "SKELETON_NAME_ZDE2OTC1MZC2MDG2NJK": ".AZE2OTC1MZYXMZC2MDU",
         "DEFAULT_CONTAINER": "#container",
         "BOUNDER_ROUTE_PATH": "./bounder/route.json",
         "BACK_BUTTON_NAME": ".aje2otu2mzmxodcynzu",
