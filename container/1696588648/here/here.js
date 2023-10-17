@@ -1422,103 +1422,13 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
     }
 
     THIS.UI = {
-        THIS: {
-
-            UI: {
-                TIMER: {
-                    IN: ({ props }) => {
-                        try {
-                            var iprops = {
-                                route: props.route
-                            }
-
-                            if (iprops.route && iprops.route.to) {
-                                const render = iprops.route.to
-                                const MODULES = THIS.MODULES
-                                const SETTING = THIS.IS.SETTING
-
-                                const TYPE = SETTING.CLOCK_EFFECT ? SETTING.CLOCK_EFFECT : THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE
-
-                                if (TYPE == THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE) {
-                                    if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
-                                        const element = $(render)
-                                        if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
-                                            var name = THIS.IS.SETTING.NAME_EFFECT_LOAD
-                                            if (name) {
-                                                $(element).addClass(name);
-                                            }
-                                        }
-                                    }
-                                    else {
-                                        THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.INVALID_ROUTE })
-                                    }
-
-                                    const SLIDE_CLOCK = MODULES.INNIT.UI_SLIDE_CLOCK_ATE2OTC0NTYYNTI3NZM
-
-                                    if (MODULES && SLIDE_CLOCK) {
-                                        const METHOD = SLIDE_CLOCK()
-                                        METHOD.START()
-                                    }
-                                }
-
-                                else if (TYPE == THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_ANIMATE) {
-                                    if (MODULES && MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA) {
-                                        const MODULES_UI = MODULES.INNIT.UI_SHIPPER_DZE2OTCXODEWNZE0NZA()
-
-                                        if (THIS.CHECK.IS_QUERY_ELEMENT({ name: render })) {
-                                            const element = $(render)
-                                            if (!THIS.CHECK.IS_ARRAY_EMPTY({ ob: element })) {
-                                                $(element).html(String())
-                                                $(element).append(MODULES_UI.SHIPPER())
-                                            }
-                                        }
-                                        else {
-                                            THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.INVALID_ROUTE })
-                                        }
-                                    }
-                                }
-
-                            }
-                        } catch (error) {
-                            THIS.EX.ERROR({ err: error })
-                        }
-                    },
-                    OUT: () => {
-                        try {
-                            const SETTING = THIS.IS.SETTING
-                            const TYPE = SETTING.CLOCK_EFFECT ? SETTING.CLOCK_EFFECT : THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE
-                            const MODULES = THIS.MODULES
-
-                            if (TYPE == THIS.OPTIONS().ATTRIBUTE.CLOCK_EFFECT_SLIDE) {
-                                const SLIDE_CLOCK = MODULES.INNIT.UI_SLIDE_CLOCK_ATE2OTC0NTYYNTI3NZM
-
-                                if (MODULES && SLIDE_CLOCK) {
-                                    const METHOD = SLIDE_CLOCK()
-                                    METHOD.DONE()
-                                }
-                            }
-                        } catch (error) { THIS.EX.ERROR({ err: error }) }
-
-                    }
-                },
-
-
-
-                ON: ({ props }) => {
-                    try {
-                        const CURRENT = THIS.UI.THIS.UI
-                        CURRENT.TIMER.IN({ props: props })
-                    } catch (error) {
-                        THIS.EX.ERROR({ err: error })
-                    }
-
-                }
-            }
+        THIS: () => {
+            return THIS.MODULES.INNIT.UI_AJE2OTCXODEXMJC2ODG()
         },
 
         INNIT: ({ props }) => {
             try {
-                const CURRENT = THIS.UI.THIS.UI
+                const CURRENT = THIS.UI.THIS().UI
                 CURRENT.ON({ props: props })
             } catch (error) {
                 THIS.EX.ERROR({ err: error })
@@ -1595,20 +1505,12 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                             THIS.EX.ERROR({ err: error })
                         }
 
-
-
                     }).catch(err => {
                         THIS.EX.ERROR({ err: err })
                     })
                 } catch (err) { THIS.EX.ERROR({ err: err }) }
 
-
-
             },
-
-
-
-
         },
 
         FROM: ({ props }) => {
@@ -2062,18 +1964,16 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                     },
                     RUN_EFFECT: (props) => {
                         try {
-                            THIS.UI.THIS.UI.TIMER.OUT()
+                            const UI = THIS.UI.THIS().UI
 
-                            const render = props.ROUTE
-                            if (render) {
-                                const element = $(render.to)
-
-                                var name = THIS.IS.SETTING.NAME_EFFECT_LOAD
-                                if (name) {
-                                    $(element).removeClass(name);
+                            UI.PERFECT.CONTENT({
+                                render: props.ROUTE,
+                                callBack: () => {
+                                    UI.TIMER.OUT()
                                 }
-                            }
+                            })
 
+                            
 
                         } catch (error) {
                             THIS.EX.ERROR({ err: error })
@@ -2407,16 +2307,23 @@ var HERE_DTE2OTCXODIWOTY4MJY = (props) => {
                         try {
                             var MAP = THIS.IS.MAP
                             if (!MAP.PROPERTIES.BOUNDER) {
+                                const path = THIS.IS.SETTING.BOUNDER_ROUTE_PATH
+                                if(path){
+                                    THIS.ROUTE.THIS.GET({
 
-                                THIS.ROUTE.THIS.GET({
-
-                                    path: THIS.OPTIONS().ROUTE.BOUNDER_PATH,
-                                    callBack: ({ props }) => {
-                                        MAP.PROPERTIES.BOUNDER = THIS.OPTIONS().NORMAL.TRUE
-                                        MAP.BOUNDER = { ...MAP.BOUNDER, ...props.map }
+                                        path: path,
+                                        callBack: ({ props }) => {
+                                            MAP.PROPERTIES.BOUNDER = THIS.OPTIONS().NORMAL.TRUE
+                                            MAP.BOUNDER = { ...MAP.BOUNDER, ...props.map }
+                                        }
                                     }
+                                    )
                                 }
-                                )
+                                else{
+                                    THIS.EX.ERROR({ err: THIS.OPTIONS().MESSAGE.PATH_INVALID_OUT, sub: 'BOUNDER_ROUTE_PATH' })
+                                }
+
+                               
                             }
                         } catch (error) {
                             THIS.EX.ERROR({ err: error })

@@ -1,7 +1,8 @@
 {
     "MODULES": {
         "UI_AJE2OTCXODEXMJC2ODG": {
-            "CSS": ["./ui/ui.css"]
+            "CSS": ["./ui/ui.css"],
+            "SCRIPT": "./ui/ui.js"
         },
         "UI_SHIPPER_DZE2OTCXODEWNZE0NZA": {
             "SCRIPT": "./ui/shipper.js"
